@@ -1,4 +1,4 @@
-# mv-Project
+# mv-Project: Reverse Pendulum
 Progetto di meccanica delle Vibrazioni 2019 Tor-Vergata
 A cura di:
 1. Alfano Emanuele
