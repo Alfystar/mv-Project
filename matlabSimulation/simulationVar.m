@@ -1,4 +1,0 @@
-clc
-close all
-
-% 

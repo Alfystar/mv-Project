@@ -1,0 +1,25 @@
+Motore DC con Encoder
+400RPM 10.83€
+https://www.amazon.it/MagiDeal-Riduttore-Tachimetro-Codifica-Magnetica/dp/B073LHTH57/ref=sr_1_29?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=VGYY0WJY6WOP&keywords=encoder%2Bmagnetico&qid=1570204197&sprefix=encoder%2Bma%2Caps%2C163&sr=8-29&th=1
+
+Connettore Motore
+4pz 4mm 6.75€ 
+https://www.amazon.it/dp/B07Y8PC5TD/ref=sspa_dk_detail_1?psc=1&pd_rd_i=B07Y8PC5TD&pd_rd_w=spEEH&pf_rd_p=c9656c42-f0f9-4c22-9aed-6abe4ff629ca&pd_rd_wg=YbO4t&pf_rd_r=TMJNNYHTQFPTGN2HM2MF&pd_rd_r=20262f7a-f305-419a-b4ea-336a79c9dbb1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzT0oxUU1HQzJIMVNLJmVuY3J5cHRlZElkPUEwNDU2NTUxSzJWMFY2VjJRUVBVJmVuY3J5cHRlZEFkSWQ9QTAzNDU3OTgxQjZJTFBTV082RTBWJndpZGdldE5hbWU9c3BfZGV0YWlsJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==
+
+MPU:
+6050 3pz 7€ prime
+https://www.amazon.it/gy-521-MPU6050-giroscopio-accelerometro-convertitore-confezione/dp/B00LP25V1A/ref=sr_1_fkmr0_2?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=mpu+6000&qid=1570630383&sr=8-2-fkmr0
+
+Connettore rotante
+12Fili 2A x filo 8.8€ + 0.8€
+https://www.ebay.it/itm/2A-12-Circuito-Cavo-240V-AC-DC-Capsula-Collettore-Rotante-Applicare-per/272558835927?_trkparms=aid%3D1110001%26algo%3DSPLICE.SIM%26ao%3D1%26asc%3D20131231084308%26meid%3D6daf918e7371407aa64165b6cccaf868%26pid%3D100010%26rk%3D3%26rkt%3D12%26sd%3D192124003344%26itm%3D272558835927%26pmt%3D0%26noa%3D1%26pg%3D2047675&_trksid=p2047675.c100010.m2109
+
+Giunto Cardanico
+12mm 12€ prime
+https://www.amazon.it/Giunto-cardanico-metallo-Connettore-universale/dp/B07N18SDHP/ref=asc_df_B07N18SDHP/?tag=googshopit-21&linkCode=df0&hvadid=343262396779&hvpos=1o4&hvnetw=g&hvrand=14501265987480220941&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1008736&hvtargid=pla-706606498514&psc=1
+6mm+8mm 7€ + 2€
+https://www.amazon.it/Giunto-cardanico-connettore-lunghezza-universale/dp/B07YBR86QQ/ref=sr_1_6?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=Giunto+cardanico+in+metallo&qid=1570204557&s=industrial&sr=1-6
+14 mm 12€
+https://www.amazon.it/Giunto-universale-60mm-dieci-metallo/dp/B07MZPNVP4/ref=sr_1_19?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=Giunto+cardanico+in+metallo&qid=1570204557&s=industrial&sr=1-19
+
+
