@@ -1,9 +1,9 @@
 # mv-Project: Reverse Pendulum
 Progetto di meccanica delle Vibrazioni 2019 Tor-Vergata
 A cura di:
-1. Alfano Emanuele
-2. Badalamenti Filippo
-3. Soccio Leonardo
+- Alfano Emanuele
+- Badalamenti Filippo
+- Soccio Leonardo
 [foto del team =D]
 ## Abstract
 Il progetto è un pendolo inverso che si mantiene in equilibrio controllando un anello posto all'estremita del braccio e che lavorando sulla velocità angolare applica un momento al braccio e permette di mantenere l'equilibrio.
@@ -28,7 +28,7 @@ Il progetto è stato ottenuto usando Autocad Meccanical 2019 Student Edition, In
 
 ### Elettronica
 L'elettronica si occupa di connettere un motore e un sensore all'arduino alimentando il tutto in sicurezza.
-Lo scema è stato disegnato usando Eagle 2019 Student Edition
+Lo schema è stato disegnato usando Eagle 2019 Student Edition
 
 [Screen dello schema e in caso presente della board]
 
