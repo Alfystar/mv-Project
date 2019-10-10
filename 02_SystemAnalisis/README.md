@@ -1,2 +1,3 @@
 # Studio astratto del problema
-Qui sono presenti i file sviluppati per sviluppare l'idea del sistema a livello astratto
+Da qui è possibile andare sullo sviluppo del controllo realizzato con l'usilio di matlab.
+O alla descrizione teorica del modello e tutto ciò che ne consegue
