@@ -1,11 +1,9 @@
 function [xdot,y] = pendoloNotLinSys(x,u)
 %PENDOLONOTLINSYS Summary of this function goes here
 % x1:= theta dot    [rad/s]
-% x2:= theta        [rad/s]
+% x2:= theta        [rad]
 % x3:= omegaR       [rad/s]
 % u:= Coppia motore [g/s^2 * mm]
-% System Saturation
-thetaMax = deg2rad(60); % Massimo angolo +/-tetha [°]
 
 % System geometry and specification Define (mm,g)
 g = 9.81*1000; %mm/s^2
@@ -24,11 +22,6 @@ It=Ib+ma*Ld^2+Ia;   % Inerzia Totale risp 0 [g*mm^2]
 % Calcoli notevoli:
 Mg = (mCm*g*Lcm/It)*sin(x(2));
 
-if(abs(x(2))>thetaMax)
-    x(1)=-x(1); %rimbalzo
-    x(2)=sign(x2)*thetaMax;
-end
-
 xdot=zeros(3,1);
 % x1dot:= theta 2 dot
 xdot(1) = Mg - 1/It*u;
@@ -36,9 +29,6 @@ xdot(1) = Mg - 1/It*u;
 xdot(2) = x(1);
 % x3dot:= omegaR dot
 xdot(3) = -Mg + (1/It+1/Ia)*u;
-
-
-
 
 %per ora supponiamo di poter osservare tutto il sistema
 y=x;
