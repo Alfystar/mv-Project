@@ -7,8 +7,8 @@ clc;
 % global x0;
 x0 = zeros(3,1);
 x0(1)=0;
-x0(2)=deg2rad(-50);
-x0(3)=0;
+x0(2)=deg2rad(-5);
+x0(3)=5;
 
 
 
@@ -16,7 +16,7 @@ x0(3)=0;
 % global g;
 g = 9.81*1000; %mm/s^2
 % global Lcm;
-Lcm= 50;   % Distanza centro di massa [mm] ( perno --> cm)
+Lcm= 40;   % Distanza centro di massa [mm] ( perno --> cm)
 % global Ld;
 Ld = 200;   % Distanza braccio [mm] (perno --> motore) 
 % global Ra;
@@ -25,7 +25,7 @@ Ra = 100;    % Raggio anello [mm]
 % global ma;
 ma = 300;       % Massa Anello [g]
 % global mb;
-mb = 150;       % Massa Barra [g]
+mb = 200;       % Massa Barra [g]
 % global mCm;
 mCm = ma+mb;    % Massa al centro di massa [g]
 
@@ -39,5 +39,5 @@ It = Ib+ma*Ld^2+Ia;   % Inerzia Totale risp 0 [g*mm^2]
 
 
 % Saturation
-global thetaMax;
-thetaMax = deg2rad(90); % Massimo angolo +/-tetha [°]
+% global thetaMax;
+thetaMax = deg2rad(60); % Massimo angolo +/-tetha [°]
