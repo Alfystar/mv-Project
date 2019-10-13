@@ -4,36 +4,36 @@ clc;
 % x1:= theta dot    [rad/s]
 % x2:= theta        [rad]
 % x3:= omegaR       [rad/s]
-global x0;
+% global x0;
 x0 = zeros(3,1);
 x0(1)=0;
-x0(2)=deg2rad(20);
+x0(2)=deg2rad(-50);
 x0(3)=0;
 
 
 
 % System geometry and specification Define (mm,g)
-global g;
+% global g;
 g = 9.81*1000; %mm/s^2
-global Lcm;
+% global Lcm;
 Lcm= 50;   % Distanza centro di massa [mm] ( perno --> cm)
-global Ld;
+% global Ld;
 Ld = 200;   % Distanza braccio [mm] (perno --> motore) 
-global Ra;
+% global Ra;
 Ra = 100;    % Raggio anello [mm]
 
-global ma;
+% global ma;
 ma = 300;       % Massa Anello [g]
-global mb;
+% global mb;
 mb = 150;       % Massa Barra [g]
-global mCm;
+% global mCm;
 mCm = ma+mb;    % Massa al centro di massa [g]
 
-global Ia;
+% global Ia;
 Ia = ma*Ra^2;         % Inerzia Anello risp D [g*mm^2]
-global Ib;
+% global Ib;
 Ib = 1/3*mb*Ld^2;     % Inerzia Barra risp O [g*mm^2]
-global It;
+% global It;
 It = Ib+ma*Ld^2+Ia;   % Inerzia Totale risp 0 [g*mm^2]
 
 
