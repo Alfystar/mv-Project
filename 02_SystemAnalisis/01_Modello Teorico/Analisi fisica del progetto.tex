@@ -36,10 +36,14 @@
 \graphicspath{{Sorgenti/}}
 \newcommand{\thetap}{\dot{\theta}}
 \newcommand{\thetapp}{\ddot{\theta}}
-\newcommand{\X}{X_1}
-\newcommand{\xuno}{x_1}
-\newcommand{\xdue}{x_2}
-\newcommand{\xdue}{x_3}
+\newcommand{\Xu}{X_1}
+\newcommand{\Xup}{\dot{X_1}}
+\newcommand{\xu}{x_1}
+\newcommand{\xd}{x_2}
+\newcommand{\xt}{x_3}
+\newcommand{\xup}{\dot{x}_1}
+\newcommand{\xdp}{\dot{x}_2}
+\newcommand{\xtp}{\dot{x}_3}
 
 \fancypagestyle{plain}
 {
@@ -87,59 +91,58 @@
 		I_t\thetapp=F_p L_{C_m}\sin(\theta)- \tau_m
 	\end{equation}
 	per chiarezza nell'esposizione pongo $F_p L_{C_m}=K_{mgl}$ in quanto valore costante.
-	Inoltre siamo a conoscenza di due relazioni:
-	\begin{align}
-	 	\tau_m &=I_d \dot{w}_{inerziale} \label{eqn:2} \\
-	 	\tau_m &=kV(t) \label{eqn:3}
-	 \end{align}
+	Inoltre:
+	\begin{equation}
+		\label{eqn:2} 
+	 	\tau_m =I_d \dot{w}_{inerziale}
+	 \end{equation}
 	Dove:
 	\begin{itemize}
 		\item $\dot{w}_{inerziale}$ è la velocità angolare assoluta del disco;
-		\item $k$ è una costante che dipende dal motore usato;
-		\item $V(t)$ è la tensione variabile ai capi del motore-
 	\end{itemize}
 	Infine dai moti relativi vale che:
 	\begin{equation}
 		\label{eqn:4}
 		w_{inerziale}=\thetap+w_R 
 	\end{equation}
-	sostituendo la \ref{eqn:3} nella \ref{eqn:1}:
+	e sostituendo nella \ref{eqn:2}
 	\begin{equation}
 		\label{eqn:5}
-	 	I_t\thetapp=K_{mgl}\sin(\theta)-kV(t)
-	\end{equation}
-	quindi, approssimando per piccoli angoli ($\sin(\theta)\approx \theta$):
-	\begin{equation}
-		\label{eqn:6}
-	 	\thetapp=\frac{K_{mgl}}{I_t}\theta-\frac{k}{I_t}V(t)
-	\end{equation}
- 	Inoltre sostituendo la \ref{eqn:4} nella \ref{eqn:2} si ottiene che :
-	\begin{equation}
-		\label{eqn:7}
-		\tau_m =I_d(\thetapp+\dot w_R) 
-	\end{equation}
-	Si sostituisce poi nella \ref{eqn:3}:
-	\begin{equation}
-		\label{eqn:8}
-		I_d(\thetapp+\dot w_R)=kV(t) 
-	\end{equation}
-	E quindi:
-	\begin{equation}
-		\label{eqn:9}
-		\dot w_R=-\thetapp+\frac{k}{I_d}V(t) 
-	\end{equation}
-	Cioè abbiamo ottenuto due equazioni differenziali la \ref{eqn:6} e \ref{eqn:9}, dipendenti dalla tensione del motore:
-	\begin{equation}
-		\label{sis:1}
-			\begin{cases}
-				\thetapp=\frac{K_{mgl}}{I_t}\theta-\frac{k}{I_t}V(t)\\
-				\dot w_R=-\thetapp+\frac{k}{I_d}V(t) 
-			\end{cases}
-	\end{equation}
-	Inoltre $\theta$ e $w_R$ sono grandezze che possiamo misurare nel tempo e quelle misurate le chiamerò : $w_{R0}$ e $\theta_0$
-\section{Osservazioni e domande}
-	Siamo arrivati a un sistema differenziale che può essere integrato e che quindi ci permette di calcolare la variazione di $\theta$ nel tempo in funzione della tensione. Ora quello che mi chiedo è: 
-	cosa dobbiamo fare quindi per riportare a 0 l'angolo?  prendiamo in input i valori, soprattutto l'angolo. però come calcolare la funzione tensione in modo che quell'angolo vada a 0?
-	perchè integrando il sistema conosciamo cosa fa $\theta$ ma bisogna invece capire come far variare la tensione al variare casuale di $\theta$. Avete idee? 
-	
+		\tau_m =I_d (\dot{w}_{R}+\thetapp)
+	\end {equation}
+	In prima battuta per simulare il sistema si è preferito usare la coppia effettiva sul disco come grandezza di controllo, di conseguenza le equazioni sono state riscritte per l'utilizzo:
+\begin{align}
+	\thetapp&=\frac{K_{mgl}}{I_t}\sin(\theta) -\frac{\tau_m}{I_t} \label{eqn:6}\\
+	\dot{w}_R&=-\thetapp + \frac{\tau_m}{I_d} \label{eqn:7}
+\end{align}
+	Per poter computare il sistema si è attuato un cambio di variabile ponendo:
+\begin{align}
+\xu&=\thetap\qquad	  \xup=\thetapp  \label{eqn:8}\\
+\xd&=\theta 	\qquad	  \xdp=\thetap \label{eqn:9}\\
+u&=\tau_m \qquad \xt=w_R \label{eqn:10}
+\end{align}
+	date le seguenti sostituzioni il sistema diventa:
+\begin{equation}
+	\label{sis:1}
+	\begin{cases}
+		\xup=\frac{K_{mgl}}{I_t}\sin(\xd) -\frac{1}{I_t}u   \\
+		\xdp=\xu\\
+		\xtp=-\frac{K_{mgl}}{I_t}\sin(\xd) +\big(\frac{1}{I_t}+\frac{1}{I_d}\big)u 
+	\end{cases}
+\end{equation}
+	definiamo quindi il vettore $\Xu $ e:$\Xup$
+\begin{equation}
+\Xu =
+\begin{bmatrix}
+\xu \\
+\xd \\
+\xt
+\end{bmatrix}
+\Xup =
+\begin{bmatrix}
+\xup \\
+\xdp \\
+\xtp
+\end{bmatrix}
+\end{equation}
 \end{document}
