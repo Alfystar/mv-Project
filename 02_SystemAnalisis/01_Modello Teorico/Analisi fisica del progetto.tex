@@ -44,6 +44,9 @@
 \newcommand{\xup}{\dot{x}_1}
 \newcommand{\xdp}{\dot{x}_2}
 \newcommand{\xtp}{\dot{x}_3}
+\newcommand{\yu}{y_1}
+\newcommand{\yd}{y_2}
+\newcommand{\yt}{y_3}
 
 \fancypagestyle{plain}
 {
@@ -96,10 +99,8 @@
 		\label{eqn:2} 
 	 	\tau_m =I_d \dot{w}_{inerziale}
 	 \end{equation}
-	Dove:
-	\begin{itemize}
-		\item $\dot{w}_{inerziale}$ è la velocità angolare assoluta del disco;
-	\end{itemize}
+	Dove:\\
+	 $\dot{w}_{inerziale}$ è la velocità angolare assoluta del disco;
 	Infine dai moti relativi vale che:
 	\begin{equation}
 		\label{eqn:4}
@@ -130,19 +131,31 @@ u&=\tau_m \qquad \xt=w_R \label{eqn:10}
 		\xtp=-\frac{K_{mgl}}{I_t}\sin(\xd) +\big(\frac{1}{I_t}+\frac{1}{I_d}\big)u 
 	\end{cases}
 \end{equation}
-	definiamo quindi il vettore $\Xu $ e:$\Xup$
+	definiamo quindi il vettore $\Xup$ :
 \begin{equation}
-\Xu =
-\begin{bmatrix}
-\xu \\
-\xd \\
-\xt
-\end{bmatrix}
-\Xup =
-\begin{bmatrix}
-\xup \\
-\xdp \\
-\xtp
-\end{bmatrix}
+	\label{eqn:11}
+	\Xup =
+	\begin{bmatrix}
+		\xup \\
+		\xdp \\
+		\xtp
+	\end{bmatrix}
 \end{equation}
+Infine definiamo il vettore stato $Y$ come:
+\begin{equation}
+	\label{eqn:12}
+	Y=
+	\begin{bmatrix}
+		\yu \\
+		\yd \\
+		\yt
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\xu \\
+		\xd \\
+		\xt
+	\end{bmatrix}
+\end{equation}	
+
 \end{document}
