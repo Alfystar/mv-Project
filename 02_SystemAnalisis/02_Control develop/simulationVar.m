@@ -7,8 +7,8 @@ clc;
 % global x0;
 x0 = zeros(3,1);
 x0(1)=0;
-x0(2)=deg2rad(-5);
-x0(3)=5;
+x0(2)=deg2rad(-50);
+x0(3)=0;
 
 
 
@@ -41,3 +41,8 @@ It = Ib+ma*Ld^2+Ia;   % Inerzia Totale risp 0 [g*mm^2]
 % Saturation
 % global thetaMax;
 thetaMax = deg2rad(60); % Massimo angolo +/-tetha [°]
+
+
+% Elettronic parameter
+kMot = 1;       % Costante pwm->torcue
+roMot =1;       % Costante di attrito viscoso elettrico
