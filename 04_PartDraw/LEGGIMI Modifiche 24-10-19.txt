@@ -1,0 +1,47 @@
+19-10-23
+Pezzi ad ora completi
+Da discutere con il gruppo
+-11_connettore_mpu --> stampabile
+ 
+	1)Fori modificati ad asola;
+  	2)Modificato il connettore cilindrico in modo tale da poter alloggiare i dadi;
+  	3)Aumentato lo spessore della base;
+  	4)Aggiunto raccordo interno per facilitare l'aggancio
+  
+-2_Connettore_inf_sup --> controllare se punto 1 va bene e discutere punto 2
+
+	1)Aumentati le dimensioni dei fori di 0,4 mm per essere sicuri che passino le viti
+	2)Discutere se aumentare il gioco tra le pareti del connettore ad ora fissato a 1,5 
+	  La barra ha spessore 1 mm quindi il gioco è di 5 mm basterà?
+
+-3_Connettore_inf_inf --> controllare se punto 1 - 2 vanno bene
+ 
+	1)Aumentati le dimensioni dei fori di 0,4 mm per essere sicuri che passino le viti 
+	2)Aumentati la dimensione degli alloggiamenti per i dadi,il diametro del cerchio inscritto passa da 7 mm a 8 mm 
+
+19-10-24
+-19_Base_Pezzo_Unico
+
+	1)Creata un'ulteriore prova di base fatta in un pezzo unico per poterla poi facilmente montare su altri suppporti per movimentarla
+	2)Le dimensioni della base sono : 10 x 8,6 cm (forse da aumentare)
+	3)Ho posto l'altezza pari a 5 cm e la base spessa 1,5 cm 
+	4)Tutti i fori per le viti passanti sono stati aumentati di 0,4 mm rispetto lo standard per la stampa
+	5)I diametri per il blocco dei cuscinetti li ho lasciati con le misure reali per permettere interferenza con il connettore superiore
+	  e quindi un migliore serraggio	
+	6)Per alloggiare i dadi due idee :
+		A-Forare completamente il pezzo con un rettangolo (10 x 7 mm) di dimensioni maggiori del dado (4 x 9 mm circa)
+		B-Forare in parte con un rettangolo delle stesse dimensioni con profondità pari a 19 mm
+		PRO:
+		A) Si è più sicuri che il dado non si blocchi prima del dovuto;
+		   Facilità nella rimozione del dado in caso di sostituzione;
+		   Consumo minore di plastica;
+		B) E' più facile il centraggio dado vite in quanto viene bloccato dalla parete
+	 	   Il pezzo è più robusto non essendo completamente forato
+		CONTRO:
+		A) Difficoltà maggiori (minime) nel centraggio con la vite
+	    	   Minore sezione resistente in quanto il pezzo è completamente forato
+		B) Difficoltà nell'estrazione del dado 
+	 (Io opterei per la B)
+	7)Da definire come unirlo al pezzo movente
+	
+			  	
