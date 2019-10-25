@@ -43,5 +43,13 @@ Da discutere con il gruppo
 		B) Difficoltà nell'estrazione del dado 
 	 (Io opterei per la B)
 	7)Da definire come unirlo al pezzo movente
-	
-			  	
+19-10-25	
+
+-11_connettore_mpu --> stampabile
+ 
+	1)Modificata la lunghezza del cilindro per non andare in interferenza con la base	
+-19_Base_Pezzo_Unico
+
+	Cose da fare
+	-Decidere come muovere la base per poi poter predisporre gli agganci
+	-Decidere come limitare l'angolo percorribile dall'asta in modo regolabile, se possibile	  	
