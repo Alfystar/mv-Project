@@ -43,6 +43,7 @@ Da discutere con il gruppo
 		B) Difficoltà nell'estrazione del dado 
 	 (Io opterei per la B)
 	7)Da definire come unirlo al pezzo movente
+
 19-10-25	
 
 -11_connettore_mpu --> stampabile
@@ -52,4 +53,14 @@ Da discutere con il gruppo
 
 	Cose da fare
 	-Decidere come muovere la base per poi poter predisporre gli agganci
-	-Decidere come limitare l'angolo percorribile dall'asta in modo regolabile, se possibile	  	
+	-Decidere come limitare l'angolo percorribile dall'asta in modo regolabile, se possibile
+
+19-10-29
+
+	Ho fatto uno schizzo per vedere come sarebbe il supporto per limitare l'angolo. Ho supposto che sarà una semplice asta dove poi inseriremo una vite 
+
+19-11-05
+
+-9_Flangia
+	
+	Completato disegno flangia dalle misure prese dal pezzo reale	  	
