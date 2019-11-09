@@ -48,7 +48,8 @@ Da discutere con il gruppo
 
 -11_connettore_mpu --> stampabile
  
-	1)Modificata la lunghezza del cilindro per non andare in interferenza con la base	
+	1)Modificata la lunghezza del cilindro per non andare in interferenza con la base
+	
 -19_Base_Pezzo_Unico
 
 	Cose da fare
@@ -63,4 +64,25 @@ Da discutere con il gruppo
 
 -9_Flangia
 	
-	Completato disegno flangia dalle misure prese dal pezzo reale	  	
+	Completato disegno flangia dalle misure prese dal pezzo reale	 
+
+19-11-09
+
+-2_Connettore_inf_sup 
+
+	1)Ridotto a 17 mm il lato del parallelepipedo interno per dare un gioco minimo per l'inserimento della barra
+
+-8_Connettore_sup
+
+ 	1)Ridotto a 17 mm il lato del parallelepipedo interno per dare un gioco minimo per l'inserimento della barra
+	2)Aumentata la larghezza del pezzo per poter inserire agevolmente le fascette per il fissaggio del motore
+	3)Inserite 2 spalline per il bloccaggio delle fascette
+
+-I connettori possono essere mandati in stampa
+
+-19_Base_Pezzo_Unico
+
+	1)Ho calcolato dagli ingombri massimi che avanzano 8 millimetri per nel supporto per il blocco del braccio
+	2)Ho modificato il pezzo per eventuali blocchi.
+	3)Ho aumentato la dimensione per poter avere più spazio per il blocco
+	4)Con una vite dovrebbe essere possibile regolare l'angolo
