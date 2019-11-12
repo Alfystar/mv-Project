@@ -86,3 +86,31 @@ Da discutere con il gruppo
 	2)Ho modificato il pezzo per eventuali blocchi.
 	3)Ho aumentato la dimensione per poter avere più spazio per il blocco
 	4)Con una vite dovrebbe essere possibile regolare l'angolo
+11-10-19
+
+-2_prova_tolleranze_connettore
+		
+	Disegnato un pezzo ad hoc per vedere se le misure adottate nel disegno sono compatibili
+
+12-11-19
+
+	Dalla stampa del pezzo di prova si è osservato come le misure sono giuste, a parte delle misure per i connettori.
+	Sono stati stampati inoltre i pezzi:
+	1) 11_Connettore_MPU
+	2) 3_Connettore_inf_inf
+	3) 20_Base_Sopra
+	Inoltre dalla stampa si è notato come gli alloggiamenti per i dadi del pezzo 3 possiedono un piccolo gioco e che l'alloggiamento per il 
+	connettore del cuscinetto va in interferenza.
+	Il connettore mpu presenta un piccolissimo gioco con l'asse dei cuscinetti, risolvibile utilizzando un po' di colla in fase di montaggio.
+
+-5_Connettore_sup_inf
+	
+	1)Si modificano le dimensioni dell'interno del connettore perché dalla stampa di prova ci si è accorti che c'è troppo gioco. Da 17 a 18 mm
+	2)Si sostituisce il raccordo sulla parte esterna dell'interno del connettore con un foro da 1 mm di diametro con raccordo con il lato di 1 mm
+   
+-8_Connettore_sup
+		
+	1)Si modificano le dimensioni dell'interno del connettore perché dalla stampa di prova ci si è accorti che c'è troppo gioco. Da 17 a 18 mm
+	2)Si sostituisce il raccordo sulla parte esterna dell'interno del connettore con un foro da 1 mm di diametro con raccordo con il lato di 1 mm
+   
+	
