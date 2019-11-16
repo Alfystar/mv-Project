@@ -112,5 +112,17 @@ Da discutere con il gruppo
 		
 	1)Si modificano le dimensioni dell'interno del connettore perché dalla stampa di prova ci si è accorti che c'è troppo gioco. Da 17 a 18 mm
 	2)Si sostituisce il raccordo sulla parte esterna dell'interno del connettore con un foro da 1 mm di diametro con raccordo con il lato di 1 mm
-   
-	
+
+16-11-19
+
+	Sono state disegnate 2 alternative per limitare l'escursione del braccio.
+	Nota bene per costruzione del pezzo 20 l'angolo di escursione deve essere compreso necessariamente tra -68 e 68 gradi.
+	Quindi di conseguenza si ha poca elasticità nell'aumentare l'angolo di escursione possibile
+	La prima alternativa prevede un incastro con leggero gioco con la base attualmente disegnata, fissata da una vite.
+	La lunghezza minima della vite per la regolazione deve essere di 80 mm 
+	(calcolato con approx in eccesso e considerando il braccio una linea, quindi la lunghezza che serve è leggermente inferiore)
+	La seconda alternativa richiede una modifica leggera della base, prevede di essere ancorata ad essa con due vitiposizionate lungo i bordi 
+	e prevede due spallette di supporto. La lunghezza minima della vite per la regolazione deve essere di 80 mm (stesse considerazioni del punto precedente)
+	Il vantaggio della seconda alternativa è che permette una escursione da -90 a 90 gradi. Con una vite di 30 mm .   
+	NB si parla su di lunghezza minima perchè vogliamo garantire almeno 60 gradi di escursine per far ciò ci serve quella lunghezza minima. 
+	Per aumentare L'angolo basta poi ridurre la lunghezza della vite.	
