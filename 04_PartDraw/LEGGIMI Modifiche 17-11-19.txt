@@ -1,0 +1,139 @@
+19-10-23
+Pezzi ad ora completi
+Da discutere con il gruppo
+-11_connettore_mpu --> stampabile
+ 
+	1)Fori modificati ad asola;
+  	2)Modificato il connettore cilindrico in modo tale da poter alloggiare i dadi;
+  	3)Aumentato lo spessore della base;
+  	4)Aggiunto raccordo interno per facilitare l'aggancio
+  
+-2_Connettore_inf_sup --> controllare se punto 1 va bene e discutere punto 2
+
+	1)Aumentati le dimensioni dei fori di 0,4 mm per essere sicuri che passino le viti
+	2)Discutere se aumentare il gioco tra le pareti del connettore ad ora fissato a 1,5 
+	  La barra ha spessore 1 mm quindi il gioco è di 5 mm basterà?
+
+-3_Connettore_inf_inf --> controllare se punto 1 - 2 vanno bene
+ 
+	1)Aumentati le dimensioni dei fori di 0,4 mm per essere sicuri che passino le viti 
+	2)Aumentati la dimensione degli alloggiamenti per i dadi,il diametro del cerchio inscritto passa da 7 mm a 8 mm 
+
+19-10-24
+-19_Base_Pezzo_Unico
+
+	1)Creata un'ulteriore prova di base fatta in un pezzo unico per poterla poi facilmente montare su altri suppporti per movimentarla
+	2)Le dimensioni della base sono : 10 x 8,6 cm (forse da aumentare)
+	3)Ho posto l'altezza pari a 5 cm e la base spessa 1,5 cm 
+	4)Tutti i fori per le viti passanti sono stati aumentati di 0,4 mm rispetto lo standard per la stampa
+	5)I diametri per il blocco dei cuscinetti li ho lasciati con le misure reali per permettere interferenza con il connettore superiore
+	  e quindi un migliore serraggio	
+	6)Per alloggiare i dadi due idee :
+		A-Forare completamente il pezzo con un rettangolo (10 x 7 mm) di dimensioni maggiori del dado (4 x 9 mm circa)
+		B-Forare in parte con un rettangolo delle stesse dimensioni con profondità pari a 19 mm
+		PRO:
+		A) Si è più sicuri che il dado non si blocchi prima del dovuto;
+		   Facilità nella rimozione del dado in caso di sostituzione;
+		   Consumo minore di plastica;
+		B) E' più facile il centraggio dado vite in quanto viene bloccato dalla parete
+	 	   Il pezzo è più robusto non essendo completamente forato
+		CONTRO:
+		A) Difficoltà maggiori (minime) nel centraggio con la vite
+	    	   Minore sezione resistente in quanto il pezzo è completamente forato
+		B) Difficoltà nell'estrazione del dado 
+	 (Io opterei per la B)
+	7)Da definire come unirlo al pezzo movente
+
+19-10-25	
+
+-11_connettore_mpu --> stampabile
+ 
+	1)Modificata la lunghezza del cilindro per non andare in interferenza con la base
+	
+-19_Base_Pezzo_Unico
+
+	Cose da fare
+	-Decidere come muovere la base per poi poter predisporre gli agganci
+	-Decidere come limitare l'angolo percorribile dall'asta in modo regolabile, se possibile
+
+19-10-29
+
+	Ho fatto uno schizzo per vedere come sarebbe il supporto per limitare l'angolo. Ho supposto che sarà una semplice asta dove poi inseriremo una vite 
+
+19-11-05
+
+-9_Flangia
+	
+	Completato disegno flangia dalle misure prese dal pezzo reale	 
+
+19-11-09
+
+-2_Connettore_inf_sup 
+
+	1)Ridotto a 17 mm il lato del parallelepipedo interno per dare un gioco minimo per l'inserimento della barra
+
+-8_Connettore_sup
+
+ 	1)Ridotto a 17 mm il lato del parallelepipedo interno per dare un gioco minimo per l'inserimento della barra
+	2)Aumentata la larghezza del pezzo per poter inserire agevolmente le fascette per il fissaggio del motore
+	3)Inserite 2 spalline per il bloccaggio delle fascette
+
+-I connettori possono essere mandati in stampa
+
+-19_Base_Pezzo_Unico
+
+	1)Ho calcolato dagli ingombri massimi che avanzano 8 millimetri per nel supporto per il blocco del braccio
+	2)Ho modificato il pezzo per eventuali blocchi.
+	3)Ho aumentato la dimensione per poter avere più spazio per il blocco
+	4)Con una vite dovrebbe essere possibile regolare l'angolo
+11-10-19
+
+-2_prova_tolleranze_connettore
+		
+	Disegnato un pezzo ad hoc per vedere se le misure adottate nel disegno sono compatibili
+
+12-11-19
+
+	Dalla stampa del pezzo di prova si è osservato come le misure sono giuste, a parte delle misure per i connettori.
+	Sono stati stampati inoltre i pezzi:
+	1) 11_Connettore_MPU
+	2) 3_Connettore_inf_inf
+	3) 20_Base_Sopra
+	Inoltre dalla stampa si è notato come gli alloggiamenti per i dadi del pezzo 3 possiedono un piccolo gioco e che l'alloggiamento per il 
+	connettore del cuscinetto va in interferenza.
+	Il connettore mpu presenta un piccolissimo gioco con l'asse dei cuscinetti, risolvibile utilizzando un po' di colla in fase di montaggio.
+
+-5_Connettore_sup_inf
+	
+	1)Si modificano le dimensioni dell'interno del connettore perché dalla stampa di prova ci si è accorti che c'è troppo gioco. Da 17 a 18 mm
+	2)Si sostituisce il raccordo sulla parte esterna dell'interno del connettore con un foro da 1 mm di diametro con raccordo con il lato di 1 mm
+   
+-8_Connettore_sup
+		
+	1)Si modificano le dimensioni dell'interno del connettore perché dalla stampa di prova ci si è accorti che c'è troppo gioco. Da 17 a 18 mm
+	2)Si sostituisce il raccordo sulla parte esterna dell'interno del connettore con un foro da 1 mm di diametro con raccordo con il lato di 1 mm
+
+16-11-19
+
+	Sono state disegnate 2 alternative per limitare l'escursione del braccio.
+	Nota bene per costruzione del pezzo 20 l'angolo di escursione deve essere compreso necessariamente tra -68 e 68 gradi.
+	Quindi di conseguenza si ha poca elasticità nell'aumentare l'angolo di escursione possibile
+	La prima alternativa prevede un incastro con leggero gioco con la base attualmente disegnata, fissata da una vite.
+	La lunghezza minima della vite per la regolazione deve essere di 80 mm 
+	(calcolato con approx in eccesso e considerando il braccio una linea, quindi la lunghezza che serve è leggermente inferiore)
+	La seconda alternativa richiede una modifica leggera della base, prevede di essere ancorata ad essa con due vitiposizionate lungo i bordi 
+	e prevede due spallette di supporto. La lunghezza minima della vite per la regolazione deve essere di 80 mm (stesse considerazioni del punto precedente)
+	Il vantaggio della seconda alternativa è che permette una escursione da -90 a 90 gradi. Con una vite di 30 mm .   
+	NB si parla su di lunghezza minima perchè vogliamo garantire almeno 60 gradi di escursine per far ciò ci serve quella lunghezza minima. 
+	Per aumentare L'angolo basta poi ridurre la lunghezza della vite.	
+
+17-11-19
+	
+	Si è deciso per la scelta numero 1, in quanto dato il motore disponibile dovremmo riuscire a gestire al massimo 60 gradi di escursione dalla verticale 
+	
+-19_Base_Pezzo_Unico
+	
+	Si sono aggiunti 2 fori per collegare meglio il pezzo per il blocco dell'escursione, a ciò si è aggiunto un alloggiamento per il dado sulla base, 
+	che ha portato all'allargare il pezzo di 10 mm. Inoltre suddetti fori possono essere utilizzati per bloccare tutto l'assieme su un piano in movimento.
+
+ 	
