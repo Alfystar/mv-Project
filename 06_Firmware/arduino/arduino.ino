@@ -1,35 +1,11 @@
-#include <avr/sleep.h>  
-#include <Wire.h>
-
-//Analog port 4 (A4) = SDA (serial data)
-//Analog port 5 (A5) = SCL (serial clock)
-
-#define SIGNAL_PATH_RESET   0x68 // reset signal paths (NOT clear sensor registers); bits [2:0] available.
-#define INT_PIN_CFG         0x37 // configures the behavior of the interrupt signals at INT pin. See below in setup() 
-#define ACCEL_CONFIG        0x1C // trigger accelerometer self-test and configure its full scale range
-#define GYRO_CONFIG         0x1B // trigger gyroscope self-test and configure its full scale range.
-#define MOT_THR             0x1F // Motion detection threshold bits [7:0]
-#define MOT_DUR             0x20 // Duration counter threshold for motion interrupt generation, 1 kHz rate, as b0010 0000
-#define MOT_DETECT_CTRL     0x69 // add delay to the accelerometer power on time (TODO: activate gyroscope)
-#define INT_ENABLE          0x38 // enables interrupt generation by interrupt sources
-#define WHO_AM_I_MPU6050    0x75 // Should return 0x68, as it verifies the identity of the device
-#define INT_STATUS          0x3A // shows the interrupt status of each interrupt generation source
-#define PWR_MGMT_1          0x6B // configure power mode and clock source, reset the entire device and disable temp sensor
-
-//when nothing connected to AD0 than address is 0x68
-#define AD0 0
-
-#if AD0
-#define MPU6050_ADDRESS 0x69  // Device address when AD0 = 1
-#else
-#define MPU6050_ADDRESS 0x68  // Device address when AD0 = 0
-#endif
+#include "MpuINT.h"
 
 #define FAST_MODE 400000 // set i2c speed (Hz)
 
-int wakePin = 2;                 // pin used for waking up
-int led=13;
-int flag=0;
+int wakePin = 2;    // pin used for waking up
+int led = 13;
+int flag = 0;
+uint16_t readdata;  // 16bit used for storing collected data
 
 void wakeUpNow(){
 
@@ -51,29 +27,8 @@ void wakeUpNow(){
   }
 }
 
-void writeByte(uint8_t address, uint8_t subAddress, uint8_t data){
-  /* Function used to write over I2C to send single command to a register */
-  Wire.begin();
-  Wire.beginTransmission(address);  // Initialize the Tx buffer
-  Wire.write(subAddress);           // Put slave register address in Tx buffer
-  Wire.write(data);                 // Put data in Tx buffer
-  Wire.endTransmission();           // Send the Tx buffer
-}
-
-uint8_t readByte(uint8_t address, uint8_t subAddress){
-  /* Function used to read from MPU6050 a single data, triggered at every interrupt */
-  uint8_t data;                            // `data` will store the register data
-  Wire.beginTransmission(address);         // Initialize the Tx buffer
-  Wire.write(subAddress);                  // Put slave register address in Tx buffer
-  Wire.endTransmission(false);             // Send the Tx buffer, but send a restart to keep connection alive
-  Wire.requestFrom(address, (uint8_t) 1);  // Read one byte from slave register address
-  data = Wire.read();                      // Fill Rx buffer with result
-  return data;                             // Return data read from slave register
-}
-
 void setup() {
-  Serial.begin(9600);
-
+  Serial.begin(115200);
   Wire.setClock(FAST_MODE);
 
   writeByte( MPU6050_ADDRESS, PWR_MGMT_1, 0x00);        /*Putting 0x00 we use the internal 8MHz oscillator. We could 
@@ -118,7 +73,6 @@ void sleepNow(){
   delay(500);
   sleep_mode();     // here the device is actually put to sleep...!!
 
-
   // THE PROGRAM CONTINUES FROM HERE AFTER INTERRUPT IS CLOSED
   delay(500);
   Serial.println("Rajat2");
@@ -130,17 +84,6 @@ void sleepNow(){
   delay(500);
   detachInterrupt(0);   //We detach the interrupt to stop it from continuously firing while the interrupt pin is low.
 }
-
-uint16_t readdata;
-
-uint16_t obtain16bitData(uint8_t address, uint8_t subAddress_h, uint8_t subAddress_l){
-
-  uint16_t byteHigh = readByte(address, subAddress_h);
-  uint16_t byteLow = readByte(address, subAddress_l);
-
-  return byteHigh << 8 | byteLow;    
-}
-
 
 void loop() {
   if (digitalRead(2) == 0) {
@@ -156,16 +99,8 @@ void loop() {
   Serial.print(readdata); Serial.print(",");
   readdata = readByte(MPU6050_ADDRESS, 0x37);
   Serial.println(readdata);
-
-  /*We can obtain the full 16-bit 2’s complement value data with the function below
-  ACCEL_XOUT_H 0x3B   ACCEL_XOUT_L 0x3C
-  ACCEL_YOUT_H 0x3D   ACCEL_YOUT_L 0x3E
-  ACCEL_ZOUT_H 0x3F   ACCEL_ZOUT_L 0x40
-  TEMP_OUT_H   0x41   TEMP_OUT_L   0x42
-  GYRO_XOUT_H  0x43   GYRO_XOUT_L  0x44
-  GYRO_YOUT_H  0x45   GYRO_YOUT_L  0x46
-  GYRO_ZOUT_H  0x47   GYRO_ZOUT_L  0x48
-  */
-  readdata = obtain16bitData(MPU6050_ADDRESS, 0x3B, 0x3C); // acc_X
+  
+  // With the next line we instead obtain an acc_data
+  readdata = obtain16bitData(MPU6050_ADDRESS, 0x3F, 0x40); // acc_Z
   Serial.println(readdata); 
 }
