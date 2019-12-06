@@ -15,10 +15,10 @@ typedef struct data_ {
     long time;  //Tempo dall'ultimo campine
 } data;
 
-class PIDScorbot {
+class PID {
 public:
-    PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir);
-    PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead);
+    PID(float kp, float ki, float kd, int MdeadZone, bool posDir);
+    PID(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead);
     short motVal(int ref, int en);
     short pid(int ref, int feeback, int dt);
 private:
@@ -30,9 +30,9 @@ private:
     bool posDir = false; //per allineare verso dei pwm a incremento degli encoder
 
     /*Variabili del pid comp*/
-    data mystack[8]; //data
-    float x_i = 0.0;
-    float y_d = 0.0;
+    data mystack[8]; 	//data
+    float x_i = 0.0;	//valore dell'integrale
+    float y_d = 0.0;	//valore della derivata
 
     /*pid timing*/
     long temp, oldTemp, result;

@@ -7,6 +7,7 @@
  *      Author: Yohendry Hurtado, ADAPTION FOR PROJECT BY ALFY
  */
 #include "DCdriver.h"
+
 void setMotFreq(pwmFreq freq) {
 	//todo: verificare di aver modificato il registro giusto
 	switch (freq) {

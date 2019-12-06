@@ -4,11 +4,11 @@
 
 #include "PID.h"
 
-PIDScorbot::PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir) {
-    PIDScorbot(kp, ki, kd, MdeadZone, posDir, 1.0, 0.0);
+PID::PID(float kp, float ki, float kd, int MdeadZone, bool posDir) {
+    PID(kp, ki, kd, MdeadZone, posDir, 1.0, 0.0);
 }
 
-PIDScorbot::PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead) {
+PID::PID(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead) {
 
     /*pid general*/
     this->Kp = kp;
@@ -36,14 +36,14 @@ float fmap(float x, float in_min, float in_max, float out_min, float out_max) {
 }
 
 int ts;//tempo da ultima chiamata micro secondi
-short PIDScorbot::motVal(int ref, int en) {
+short PID::motVal(int ref, int en) {
     this->oldTemp = this->temp;
     this->temp = micros();
     this->pid(ref, en, this->temp - this->oldTemp);
 }
 
 
-short PIDScorbot::pid(int ref, int feeback, int dt) {
+short PID::pid(int ref, int feeback, int dt) {
     int er = (ref - feeback) * (1 - (2 * this->posDir)); //per allineare verso dei pwm a incremento degli encoder
 
     float vOut = this->PIDComp(er, dt);
@@ -59,7 +59,7 @@ short PIDScorbot::pid(int ref, int feeback, int dt) {
 }
 
 
-float PIDScorbot::UpdateSat(float x, float dx, float a, float k, float s, float S) {
+float PID::UpdateSat(float x, float dx, float a, float k, float s, float S) {
     /* Evaluate the suitable increment dxsat from dx of a variable x such that
       % the saturation constraint |a+k(x+dxsat)| <= S is as much as possibile satisfied
       % otherwise if |x+dx| is less than s return 0
@@ -83,7 +83,7 @@ float PIDScorbot::UpdateSat(float x, float dx, float a, float k, float s, float 
         return (dx);
 }
 
-float PIDScorbot::PIDComp(int error, long Ts) {
+float PID::PIDComp(int error, long Ts) {
     /*Il pid calcola un valore in uscita tra -1.0 e 1.0 che è -100% to 100% della pot di uscita del motore*/
     //TS tempo campione in micro secondi
 

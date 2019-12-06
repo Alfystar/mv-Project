@@ -70,7 +70,7 @@ long MotFeed::getVel() {
 }
 
 float MotFeed::getVel(int dt) {
-	return 0;
+	return this->vel/float(dt);
 }
 
 long MotFeed::getAcc() {
@@ -78,7 +78,7 @@ long MotFeed::getAcc() {
 }
 
 float MotFeed::getAcc(int dt) {
-	return 0;
+	return this->acc/float(dt);
 }
 
 byte MotFeed::getEnPin() {
@@ -97,8 +97,7 @@ void MotFeed::printSteps() {
 //per accelerare l'elaborazione(riducendo gli accessi in memoria)
 #define im 0 //impossibile
 //         						  0   1  2  3   4  5  6    7   8  9  10 11  12  13  14 15
-int8_t const enc_states[] = { 0, -1, 1, im, 1, 0, im, -1, -1, im, 0, 1, im, 1,
-		-1, 0 }; /*[old]BA-BA[new]*/
+int8_t const enc_states[] = { 0, -1, 1, im, 1, 0, im, -1, -1, im, 0, 1, im, 1, -1, 0 }; /*[old]BA-BA[new]*/
 byte chAold, chBold, chAnew, chBnew, code;
 
 void MotFeed::calcStep(byte oldEn, byte newEn) {
