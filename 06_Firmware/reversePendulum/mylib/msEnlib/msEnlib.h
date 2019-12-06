@@ -12,7 +12,6 @@
 #include "Arduino.h"
 #include "wiring_private.h"    //work on bit
 #include <stdlib.h>
-#include "circular_buffer/circular_buffer.h"
 #include "../globalDef.h"
 
 #define sizeMem 255    //numero di celle (di int [2 byte])nel buffer circolare
@@ -20,36 +19,30 @@
 #define PCINT_EN 1
 //#define TIMER5OVF_EN 1
 
-namespace ScorebotRead {
-    using namespace DataPrimitive;
+class MotFeed {
+	public:
+		MotFeed();                	//Imposta i pin di uscita e registri
+		void isrFunxEN();
+		void periodicRecalc();	  	//Funzione da chiamare esattamente con lo stesso periodo per avere Vel e Acc coerenti
+		void resetState();
 
-    class ScorFeed {
-    public:
-        ScorFeed();                //Imposta i pin di uscita e registri
-        void updateStepEn();
-        static void interruptEn(bool en);
-        void isrFunxEN();
+		void setStep(long st);
+		long getStep();
+		long getVel();				//Ritorna la sola sottrazione senza divisione
+		float getVel(int dt);
+		long getAcc();
+		float getAcc(int dt);		//Ritorna la sola sottrazione senza divisione
 
-        mEncoder &captureEn();//Crea un istantanea FISSA degli encoder(fino a successiva chiamata)
-        byte msRead();            //Ritorna MicroSwitch con logica 1-hot
-        short enRead();    //Ritorna il valore degli encoder con logica 1-hot dove i byte sono:[0]ChA e [1]ChB
+		byte getEnPin();
 
-        void setEn(motCode mot, short st);
-        short getEn(motCode mot);
-
-        void dSubDebug();
-        void storedData();
-        void printSteps();
-    private:
-        cbuf_handle_t circularBuf;
-        mEncoder bufMem[sizeMem];
-        mEncoder step;
-        mEncoder tempStep;
-
-        void calcStep(int oldEn, int newEn);
-    };
-
-}            //END namespace ScorebotRead
+		void printSteps();
+	private:
+		byte en, oldEn;
+		long step, oldStep;
+		long vel, oldVel;
+		long acc;
+		void calcStep(byte oldEn, byte newEn);
+};
 
 #ifndef __IN_ECLIPSE__
 

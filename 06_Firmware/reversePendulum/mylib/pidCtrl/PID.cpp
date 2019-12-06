@@ -2,7 +2,7 @@
 // Created by alfy on 02/05/19.
 //
 
-#include "PIDScorbot.h"
+#include "PID.h"
 
 PIDScorbot::PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir) {
     PIDScorbot(kp, ki, kd, MdeadZone, posDir, 1.0, 0.0);
@@ -20,14 +20,13 @@ PIDScorbot::PIDScorbot(float kp, float ki, float kd, int MdeadZone, bool posDir,
     this->CONTROL_DEADZONE = cDead;    //se per muovermi devo spostarmi di meno freno
 
     /*Variabili del pid comp*/
-    memset(this->mystack, 0, sizeof((this->mystack[0])) * 8);
+    memset(this->mystack, 0, sizeof(this->mystack));
     this->x_i = 0.0;
     this->y_d = 0.0;
 
     /*pid relativi*/
-    gettimeofday(&this->temp, NULL);
-    gettimeofday(&this->oldTemp, NULL);
-    printf("kp=%e, ki=%e, kd=%e\n", kp, ki, kd);
+    this->result=this->oldTemp=this->temp=micros();
+    //printf("kp=%e, ki=%e, kd=%e\n", kp, ki, kd);
 
 
 }
@@ -36,18 +35,21 @@ float fmap(float x, float in_min, float in_max, float out_min, float out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-int ts;//tempo da ultima chiamata
-int PIDScorbot::motVal(int ref, int en) {
+int ts;//tempo da ultima chiamata micro secondi
+short PIDScorbot::motVal(int ref, int en) {
     this->oldTemp = this->temp;
-    gettimeofday(&this->temp, NULL);
-    if (this->temp.tv_usec - this->oldTemp.tv_usec < 0); //se avviene l'overflow ipotizzo uguale a prima
-    else ts = this->temp.tv_usec - this->oldTemp.tv_usec;
-    int er = (ref - en) * (1 - (2 * this->posDir)); //per allineare verso dei pwm a incremento degli encoder
+    this->temp = micros();
+    this->pid(ref, en, this->temp - this->oldTemp);
+}
 
-    float vOut = this->PIDComp(er, ts);
-    printf("vOut=%f\n", vOut);
+
+short PIDScorbot::pid(int ref, int feeback, int dt) {
+    int er = (ref - feeback) * (1 - (2 * this->posDir)); //per allineare verso dei pwm a incremento degli encoder
+
+    float vOut = this->PIDComp(er, dt);
+    //printf("vOut=%f\n", vOut);
     if (fabsf(vOut) < this->CONTROL_DEADZONE) {
-        return ss; //soft stop
+        return softStop; //soft stop
     } else {
         if (vOut > 0) return int(fmap(vOut, 0.0, 1.0, this->MOTOR_DEADZONE, 255) + 0.5);
         else {
@@ -81,8 +83,7 @@ float PIDScorbot::UpdateSat(float x, float dx, float a, float k, float s, float 
         return (dx);
 }
 
-
-float PIDScorbot::PIDComp(int error, __suseconds_t Ts) {
+float PIDScorbot::PIDComp(int error, long Ts) {
     /*Il pid calcola un valore in uscita tra -1.0 e 1.0 che è -100% to 100% della pot di uscita del motore*/
     //TS tempo campione in micro secondi
 
@@ -99,8 +100,8 @@ float PIDScorbot::PIDComp(int error, __suseconds_t Ts) {
     this->y_d = this->Kd * (this->mystack[7].er - this->mystack[0].er) / sum;
     this->x_i += this->UpdateSat(this->x_i, this->Ki * Ts * this->mystack[6].er, this->Kp * error + this->y_d, 1,
                                  this->CONTROL_DEADZONE, this->CONTROL_SATURATION);
-    printf("x_i = %f, y_d = %f, error = %d, u = %f, dt=%ld\n", x_i, y_d, error, (Kp * error + x_i + y_d), Ts);
-    return (std::min(this->CONTROL_SATURATION,
-                     std::max(-this->CONTROL_SATURATION, this->Kp * error + this->x_i + this->y_d)));
+    //printf("x_i = %f, y_d = %f, error = %d, u = %f, dt=%ld\n", x_i, y_d, error, (Kp * error + x_i + y_d), Ts);
+    return (min(this->CONTROL_SATURATION,
+                     max(-this->CONTROL_SATURATION, this->Kp * error + this->x_i + this->y_d)));
 }
 
