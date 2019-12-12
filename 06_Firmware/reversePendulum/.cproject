@@ -3,9 +3,15 @@
     	
     <storageModule moduleId="org.eclipse.cdt.core.settings">
         		
+<<<<<<< HEAD
         <cconfiguration id="io.sloeber.core.toolChain.release.1349559842">
             			
             <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="io.sloeber.core.toolChain.release.1349559842" moduleId="org.eclipse.cdt.core.settings" name="Release">
+=======
+        <cconfiguration id="io.sloeber.core.toolChain.release.1989441993">
+            			
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="io.sloeber.core.toolChain.release.1989441993" moduleId="org.eclipse.cdt.core.settings" name="Release">
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
                 				
                 <externalSettings/>
                 				
@@ -25,6 +31,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
+<<<<<<< HEAD
                 <configuration artifactName="${ProjName}" buildProperties="" description="" id="io.sloeber.core.toolChain.release.1349559842" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
                     					
                     <folderInfo id="io.sloeber.core.toolChain.release.1349559842.1003505780" name="/" resourcePath="">
@@ -38,10 +45,26 @@
                             <tool id="io.sloeber.tool.sketch.compiler.cpp.731732903" name="Compilatore Arduino C++" superClass="io.sloeber.tool.sketch.compiler.cpp">
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.cpp.sketch.option.incpath.754610016" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
+=======
+                <configuration artifactName="${ProjName}" buildProperties="" description="" id="io.sloeber.core.toolChain.release.1989441993" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
+                    					
+                    <folderInfo id="io.sloeber.core.toolChain.release.1989441993.2142149382" name="/" resourcePath="">
+                        						
+                        <toolChain id="io.sloeber.core.toolChain.release.1073323120" name="Arduino Toolchain (edizione Sloeber)" superClass="io.sloeber.core.toolChain.release">
+                            							
+                            <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.1817365438" name="Arduino di riferimento" osList="all" superClass="io.sloeber.targetplatform"/>
+                            							
+                            <builder buildPath="${workspace_loc:/reversePendulum}/Release" id="io.sloeber.sketch.builder.242796674" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Generatore di sketch Arduino" superClass="io.sloeber.sketch.builder"/>
+                            							
+                            <tool id="io.sloeber.tool.sketch.compiler.cpp.1352678392" name="Compilatore Arduino C++" superClass="io.sloeber.tool.sketch.compiler.cpp">
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.cpp.sketch.option.incpath.912836858" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/variant}&quot;"/>
+<<<<<<< HEAD
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/libraries/Wire/src}&quot;"/>
                                     								
@@ -54,10 +77,23 @@
                             <tool id="io.sloeber.tool.compiler.c.899068927" name="Compilatore Arduino C" superClass="io.sloeber.tool.compiler.c">
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.c.sketch.option.incpath.2017964871" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
+=======
+                                    								
+                                </option>
+                                								
+                                <inputType id="io.sloeber.compiler.cpp.sketch.input.58693490" name="Sorgente CPP" superClass="io.sloeber.compiler.cpp.sketch.input"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="io.sloeber.tool.compiler.c.993185684" name="Compilatore Arduino C" superClass="io.sloeber.tool.compiler.c">
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.c.sketch.option.incpath.1756050600" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/variant}&quot;"/>
+<<<<<<< HEAD
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/libraries/Wire/src}&quot;"/>
                                     								
@@ -70,10 +106,23 @@
                             <tool id="io.sloeber.tool.sketch.compiler.s.194951534" name="Compilatore codice macchina Arduino" superClass="io.sloeber.tool.sketch.compiler.s">
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.asm.sketch.option.incpath.816220173" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
+=======
+                                    								
+                                </option>
+                                								
+                                <inputType id="io.sloeber.compiler.c.sketch.input.1325829686" name="Sorgente C" superClass="io.sloeber.compiler.c.sketch.input"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="io.sloeber.tool.sketch.compiler.s.1621531104" name="Compilatore codice macchina Arduino" superClass="io.sloeber.tool.sketch.compiler.s">
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.asm.sketch.option.incpath.313812850" name="Cartelle incluse (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/core/variant}&quot;"/>
+<<<<<<< HEAD
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendulum/libraries/Wire/src}&quot;"/>
                                     								
@@ -90,6 +139,22 @@
                             <tool id="io.sloeber.tool.objcopy.eep.1446686468" name="objcopy Arduino" superClass="io.sloeber.tool.objcopy.eep"/>
                             							
                             <tool id="io.sloeber.tool.size.931510865" name="Generatore report dimensioni Arduino" superClass="io.sloeber.tool.size"/>
+=======
+                                    								
+                                </option>
+                                								
+                                <inputType id="io.sloeber.compiler.S.sketch.input.193859531" name="Sorgente Assembly" superClass="io.sloeber.compiler.S.sketch.input"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="io.sloeber.tool.ar.424560117" name="Archiviatore Arduino" superClass="io.sloeber.tool.ar"/>
+                            							
+                            <tool id="io.sloeber.tool.combine.259474935" name="Combiner Arduino" superClass="io.sloeber.tool.combine"/>
+                            							
+                            <tool id="io.sloeber.tool.objcopy.eep.1746475258" name="objcopy Arduino" superClass="io.sloeber.tool.objcopy.eep"/>
+                            							
+                            <tool id="io.sloeber.tool.size.21804858" name="Generatore report dimensioni Arduino" superClass="io.sloeber.tool.size"/>
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
                             						
                         </toolChain>
                         					
@@ -113,7 +178,11 @@
     	
     <storageModule moduleId="cdtBuildSystem" version="4.0.0">
         		
+<<<<<<< HEAD
         <project id="reversePendulum.null.2076529686" name="reversePendulum"/>
+=======
+        <project id="reversePendulum.null.2027175319" name="reversePendulum"/>
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
         	
     </storageModule>
     	
@@ -125,7 +194,19 @@
     	
     <storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
     	
+<<<<<<< HEAD
     <storageModule moduleId="refreshScope"/>
+=======
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration configurationName="Release">
+            			
+            <resource resourceType="PROJECT" workspacePath="/reversePendulum"/>
+            		
+        </configuration>
+        	
+    </storageModule>
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
     	
     <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
     

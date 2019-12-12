@@ -34,17 +34,25 @@
 		<link>
 			<name>core/core</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.2/cores/arduino</locationURI>
+=======
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino</locationURI>
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
 		</link>
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.2/variants/eightanaloginputs</locationURI>
 		</link>
 		<link>
 			<name>libraries/Wire</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.2/libraries/Wire</locationURI>
+=======
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/eightanaloginputs</locationURI>
+>>>>>>> ca8a2734597323e7bd75f8f24ddfebb5109cc0e7
 		</link>
 	</linkedResources>
 </projectDescription>
