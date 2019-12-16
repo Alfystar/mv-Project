@@ -1,11 +1,18 @@
 #ifndef _MPUINT_H_
 #define _MPUINT_H_
 
+#include <Arduino.h>
 #include <util/atomic.h>
 
 //Analog port 4 (A4) = SDA (serial data)
 //Analog port 5 (A5) = SCL (serial clock)
 
+//###################################################//
+				/* DEFINITIONS */
+//###################################################//
+
+
+#define SMPRT_DIV 			0x19 // we set sample rate = 8MHZ/(1 + inserted number)
 #define SIGNAL_PATH_RESET   0x68 // reset signal paths (NOT clear sensor registers); bits [2:0] available.
 #define INT_PIN_CFG         0x37 // configures the behavior of the interrupt signals at INT pin. See in arduino.ino->setup() 
 #define ACCEL_CONFIG        0x1C // trigger accelerometer self-test and configure its full scale range
@@ -46,27 +53,12 @@
 #define GYRO_ZOUT_H  0x47
 #define GYRO_ZOUT_L  0x48
 
-#define rAX 0
-#define rAY 1
-#define rAZ 2
-#define rGX 3
-#define rGY 4
-#define rGZ 5
 
-#define angleAX 0
-#define angleAY 1
+//###################################################//
+				/* DATA STRUCTURES */
+//###################################################//
 
-/////////////////////////////////////////////////
-
-			// DATA STRUCTURE //
-
-/////////////////////////////////////////////////
-
-union readRawData{
-	
-	uint8_t dataFromI2C[14];
-	
-	struct divRawData {
+typedef struct _divRawData {
 		uint16_t rawAccX;
 		uint16_t rawAccY;
 		uint16_t rawAccZ;
@@ -74,14 +66,17 @@ union readRawData{
 		uint16_t rawGyrX;
 		uint16_t rawGyrY;
 		uint16_t rawGyrZ;		
-	}
-}
+} divRawData_t ;
 
-union processedData{
-	
-	float datas[14];
-	
-	struct divFloatData {
+typedef union _readRawData{
+
+	uint8_t dataFromI2C[14];
+	divRawData_t rawData;
+
+} readRawData_t ;
+
+
+typedef struct _divFloatData {
 		float flAccX;
 		float flAccY;
 		float flAccZ;
@@ -89,19 +84,42 @@ union processedData{
 		float flGyrX;
 		float flGyrY;
 		float flGyrZ;		
-	}
-}
+} divFloatData_t;
+
+typedef union _processedData{
+
+	float datas[14];
+	divFloatData_t floatData;
+
+} processedData_t ;
+
+
+typedef struct _angles {
+	float angleX;
+	float angleY;
+} angles_t;
+
+typedef struct _angSpeeds {
+	float angSpeedX;
+	float angSpeedY;
+	float angSpeedZ;
+} angSpeeds_t;
+
+//###################################################//
+				/* DECLARATIONS */
+//###################################################//
 
 
 
+extern readRawData_t rawData;
+extern divRawData_t structRawData;
 
-extern float normData[6];
+extern processedData_t procData;
+extern divFloatData_t structFloatData;
 
-extern uint16_t volatile readRawData[6];
+extern angles_t armAngles;
+extern angSpeeds_t angSpeeds;
 
-extern float angles[2];
-
-extern float angSpeeds[3];
 
 //###################################################//
               /* I2C COMMUNICATION */
@@ -125,9 +143,9 @@ extern float angSpeeds[3];
 
 void intToFloatDatas(void); //we have a preallocated space, to increase efficiency 
 
-float* getArmSpeeds(void);
+void updateArmSpeeds(void);
 
-float* getArmAngles(void); // it requires all rA*, and calculate through atan2
+void updateArmAngles(void); // it requires all rA*, and calculate through atan2
 
 
 

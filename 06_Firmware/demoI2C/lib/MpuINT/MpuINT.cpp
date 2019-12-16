@@ -55,48 +55,42 @@
 
 void intToFloatDatas(void) {
 
-  int i;
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+	// for accelerations
+	structFloatData.flAccX = ((float)structRawData.rawAccX)/16384.0;
+	structFloatData.flAccY = ((float)structRawData.rawAccY)/16384.0;
+	structFloatData.flAccZ = ((float)structRawData.rawAccZ)/16384.0;
 
-  // for accelerations
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-  {
-    for (i = 0; i++; i < 3) {
-
-      normData[i] = ((float)(readRawData[i])) / 16384.0;
-    }
+    // for temperatures
+	structFloatData.flTemp = ((float)structRawData.rawTemp + 12412.0) / 340.0;
 
     // for gyroscopes
-    for (i = 3; i++; i < 6) {
-
-      normData[i] = ((float)(readRawData[i])) / 65.5;
-    }
-
+	structFloatData.flGyrX = ((float)structRawData.rawGyrX)/65.5;
+	structFloatData.flGyrY = ((float)structRawData.rawGyrY)/65.5;
+	structFloatData.flGyrZ = ((float)structRawData.rawGyrZ)/65.5;
   }
   return;
 }
 
-float* getArmSpeeds(void) {
 
-  int i;
+void updateArmSpeeds(void) {
 
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-  {
-    for (i = 0; i++; i < 3) {
-
-      angSpeeds[i] = ((float)(readRawData[i + 3])) / 65.5;
-    }
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+	  // atomic/uninterrupted code here
+	  angSpeeds.angSpeedX = ((float)structRawData.rawGyrX)/65.5;
+	  angSpeeds.angSpeedY = ((float)structRawData.rawGyrY)/65.5;
+	  angSpeeds.angSpeedZ = ((float)structRawData.rawGyrZ)/65.5;
   }
-  return angSpeeds;
+  return;
 }
 
 
-float* getArmAngles(void) {
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-  {
-    // atomic/uninterrupted code here
-    angles[angleAX] = atan2(readRawData[rAY], sqrt(pow(readRawData[rAZ], 2) + pow(readRawData[rAX], 2) )) * 360 / (2.0 * PI);
-    angles[angleAY] = atan2(readRawData[rAX], sqrt(pow(readRawData[rAZ], 2) + pow(readRawData[rAY], 2))) * 360 / (-2.0 * PI);
+void updateArmAngles(void) {
 
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    // atomic/uninterrupted code here
+    armAngles.angleX = atan2(structRawData.rawAccY, sqrt(sq(structRawData.rawAccZ) + sq(structRawData.rawAccX) )) * 360 / (2.0 * PI);
+    armAngles.angleY = atan2(structRawData.rawAccX, sqrt(sq(structRawData.rawAccZ) + sq(structRawData.rawAccY) )) * 360 / (-2.0 * PI);
   }
-  return angles;
+  return;
 }

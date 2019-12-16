@@ -1,2 +1,2 @@
 spec.o: \
- /home/alfyhack/Documenti/sloeber-workspace/.metadata/.plugins/org.eclipse.cdt.managedbuilder.core/spec.C
+ C:/Users/Filippo\ Badalamenti/Documents/sloeber-workspace/.metadata/.plugins/org.eclipse.cdt.managedbuilder.core/spec.C

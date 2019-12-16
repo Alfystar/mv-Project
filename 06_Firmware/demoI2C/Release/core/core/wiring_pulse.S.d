@@ -1,2 +1,2 @@
-core/core/wiring_pulse.S.o: \
- /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/wiring_pulse.S
+core\core\wiring_pulse.S.o: \
+ C:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.8.2\cores\arduino\wiring_pulse.S

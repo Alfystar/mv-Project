@@ -1,5 +1,5 @@
-core/core/WString.cpp.o: \
- /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/WString.cpp \
- /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/WString.h
+core\core\WString.cpp.o: \
+ C:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.8.2\cores\arduino\WString.cpp \
+ C:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.8.2\cores\arduino\WString.h
 
-/opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/WString.h:
+C:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.8.2\cores\arduino\WString.h:

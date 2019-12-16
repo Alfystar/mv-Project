@@ -1,2 +1,2 @@
-core/core/hooks.c.o: \
- /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/hooks.c
+core\core\hooks.c.o: \
+ C:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.8.2\cores\arduino\hooks.c

@@ -34,14 +34,16 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-core/core \
+MpuINT \
+core\core \
 . \
-lib/nI2C/examples/Nonblocking_Read_RTC \
-lib/nI2C/examples/RTC_reader \
-lib/nI2C/examples/master_advanced \
-lib/nI2C/examples/master_reader \
-lib/nI2C/examples/master_writer \
-lib/nI2C/examples/slave_receiver \
-lib/nI2C/examples/slave_sender \
-lib/nI2C \
+lib\MpuINT \
+lib\nI2C\examples\Nonblocking_Read_RTC \
+lib\nI2C\examples\RTC_reader \
+lib\nI2C\examples\master_advanced \
+lib\nI2C\examples\master_reader \
+lib\nI2C\examples\master_writer \
+lib\nI2C\examples\slave_receiver \
+lib\nI2C\examples\slave_sender \
+lib\nI2C \
 
