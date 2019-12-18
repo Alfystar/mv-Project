@@ -2,24 +2,23 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
--include ..\makefile.init
+-include ../makefile.init
 
-RM := del 
+RM := rm
 
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir.mk
--include lib\nI2C\examples\slave_sender\subdir.mk
--include lib\nI2C\examples\slave_receiver\subdir.mk
--include lib\nI2C\examples\master_writer\subdir.mk
--include lib\nI2C\examples\master_reader\subdir.mk
--include lib\nI2C\examples\master_advanced\subdir.mk
--include lib\nI2C\examples\RTC_reader\subdir.mk
--include lib\nI2C\examples\Nonblocking_Read_RTC\subdir.mk
--include lib\nI2C\subdir.mk
--include lib\MpuINT\subdir.mk
--include core\core\subdir.mk
--include MpuINT\subdir.mk
+-include lib/nI2C/examples/slave_sender/subdir.mk
+-include lib/nI2C/examples/slave_receiver/subdir.mk
+-include lib/nI2C/examples/master_writer/subdir.mk
+-include lib/nI2C/examples/master_reader/subdir.mk
+-include lib/nI2C/examples/master_advanced/subdir.mk
+-include lib/nI2C/examples/RTC_reader/subdir.mk
+-include lib/nI2C/examples/Nonblocking_Read_RTC/subdir.mk
+-include lib/nI2C/subdir.mk
+-include lib/MpuINT/subdir.mk
+-include MpuINT/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -55,11 +54,11 @@ ifneq ($(strip $(C_DEPS)),)
 endif
 endif
 
--include ..\makefile.defs
+-include ../makefile.defs
 
 # Add inputs and outputs from these tool invocations to the build variables 
 AR += \
-C:\Users\Filippo\ Badalamenti\Desktop\Uni\Meccanica\ delle\ Vibrazioni\mv-Project\06_Firmware\demoI2C\Release\arduino.ar \
+/home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/arduino.ar \
 
 ELF += \
 demoI2C.elf \
@@ -75,19 +74,19 @@ all: demoI2C
 demoI2C: $(HEX)
 	@echo 'Building target: $@'
 	@echo 'Report dimensioni:'
-	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-size" -A "C:/Users/Filippo Badalamenti/Desktop/Uni/Meccanica delle Vibrazioni/mv-Project/06_Firmware/demoI2C/Release/demoI2C.elf"
+	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-size" -A "/home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/demoI2C.elf"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-C:\Users\Filippo\ Badalamenti\Desktop\Uni\Meccanica\ delle\ Vibrazioni\mv-Project\06_Firmware\demoI2C\Release\arduino.ar: $(AR_OBJ)
+/home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/arduino.ar: $(AR_OBJ)
 	@echo 'Avvio archiviazione'
-	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-gcc-ar" rcs     C:/Users/Filippo Badalamenti/Desktop/Uni/Meccanica delle Vibrazioni/mv-Project/06_Firmware/demoI2C/Release/arduino.ar $(AR_OBJ)
+	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-gcc-ar" rcs     /home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/arduino.ar $(AR_OBJ)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 demoI2C.elf: $(LINK_OBJ) $(AR)
 	@echo 'Avvio del combviner'
-	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168  -o "C:/Users/Filippo Badalamenti/Desktop/Uni/Meccanica delle Vibrazioni/mv-Project/06_Firmware/demoI2C/Release/demoI2C.elf"   $(LINK_OBJ)   C:/Users/Filippo Badalamenti/Desktop/Uni/Meccanica delle Vibrazioni/mv-Project/06_Firmware/demoI2C/Release/arduino.ar  "-LC:/Users/Filippo Badalamenti/Desktop/Uni/Meccanica delle Vibrazioni/mv-Project/06_Firmware/demoI2C/Release" -lm
+	"C:\sloeber\arduinoPlugin\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168  -o "/home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/demoI2C.elf"   $(LINK_OBJ)   /home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release/arduino.ar  "-L/home/alfyhack/Documenti/mv-Project/06_Firmware/demoI2C/Release" -lm
 	@echo 'Finished building: $@'
 	@echo ' '
 
@@ -105,4 +104,4 @@ clean:
 
 .PHONY: all clean dependents
 
--include ..\makefile.targets
+-include ../makefile.targets

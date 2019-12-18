@@ -466,7 +466,7 @@ environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.EXTRA.LI
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.EXTRA.LINK/value=
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MAKE_LOCATION/delimiter=;
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MAKE_LOCATION/operation=replace
-environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MAKE_LOCATION/value=C\:\\sloeber\\arduinoPlugin\\tools\\make\\
+environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MAKE_LOCATION/value=/usr/bin/
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MENU/delimiter=;
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MENU/operation=replace
 environment/project/io.sloeber.core.toolChain.release.1466848761/JANTJE.MENU/value=cpu\=atmega168
