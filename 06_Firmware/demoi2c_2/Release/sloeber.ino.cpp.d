@@ -13,7 +13,7 @@ sloeber.ino.cpp.o: ../sloeber.ino.cpp \
  /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/eightanaloginputs/../standard/pins_arduino.h \
  ../lib/MpuINT/MpuINT.h ../lib/MpuINT/../nI2C/nI2C.h \
  ../lib/MpuINT/../nI2C/nTWI.h ../lib/MpuINT/../nI2C/queue.h \
- ../demoi2c_2.ino
+ ../lib/MpuINT/MpuINTtype.h ../demoi2c_2.ino
 
 /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino/Arduino.h:
 
@@ -46,5 +46,7 @@ sloeber.ino.cpp.o: ../sloeber.ino.cpp \
 ../lib/MpuINT/../nI2C/nTWI.h:
 
 ../lib/MpuINT/../nI2C/queue.h:
+
+../lib/MpuINT/MpuINTtype.h:
 
 ../demoi2c_2.ino:

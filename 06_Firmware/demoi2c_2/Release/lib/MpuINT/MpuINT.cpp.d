@@ -12,7 +12,7 @@ lib/MpuINT/MpuINT.cpp.o: ../lib/MpuINT/MpuINT.cpp ../lib/MpuINT/MpuINT.h \
  /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/eightanaloginputs/pins_arduino.h \
  /opt/sloeber/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/eightanaloginputs/../standard/pins_arduino.h \
  ../lib/MpuINT/../nI2C/nI2C.h ../lib/MpuINT/../nI2C/nTWI.h \
- ../lib/MpuINT/../nI2C/queue.h
+ ../lib/MpuINT/../nI2C/queue.h ../lib/MpuINT/MpuINTtype.h
 
 ../lib/MpuINT/MpuINT.h:
 
@@ -45,3 +45,5 @@ lib/MpuINT/MpuINT.cpp.o: ../lib/MpuINT/MpuINT.cpp ../lib/MpuINT/MpuINT.h \
 ../lib/MpuINT/../nI2C/nTWI.h:
 
 ../lib/MpuINT/../nI2C/queue.h:
+
+../lib/MpuINT/MpuINTtype.h:

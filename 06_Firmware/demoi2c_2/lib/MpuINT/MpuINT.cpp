@@ -1,17 +1,15 @@
 #include "MpuINT.h"
 
-/*
-extern readRawData_t rawData;
-extern processedData_t procData;
-extern angles_t armAngles;
-extern angSpeeds_t angSpeeds;
-*/
+CI2C::Handle g_i2c_handle;
+readRawData_t rawData;
+processedData_t procData;
+divFloatData_t structFloatData;
+angles_t armAngles;
+angSpeeds_t angSpeeds;
 
-//###################################################//
-/* I2C COMMUNICATION */
-//###################################################//
-/*
-void initi2c() {
+volatile bool mpuFlag = false;
+
+void initi2c(byte intPin) {
 	// You may register up to 63 devices with unique addresses. Each device
 	// must be registered and receive a unique handle. Simply pass a device's
 	// handle to the library to communicate with the device. Devices are allowed
@@ -34,54 +32,70 @@ void initi2c() {
 	writeReg(&g_i2c_handle, ACCEL_CONFIG, 0x08);
 	writeReg(&g_i2c_handle, INT_ENABLE, 0x01);
 
+	mpuFlag = false;
+
+	pinMode(intPin, INPUT_PULLUP);
+
+	attachInterrupt(digitalPinToInterrupt(intPin), readInt, FALLING);
 }
+
+//###################################################//
+// INTERRUPT FUNCTION //
+//###################################################//
+
+void MPUUpdate() {
+	if (mpuFlag) {
+		nI2C->Read(g_i2c_handle, ACCEL_XOUT_H, rawData.dataFromI2C,
+				sizeof(readRawData_t), RxCallback);
+		mpuFlag = false;
+	}
+}
+
+void readInt() {
+	mpuFlag = true;
+}
+
+uint8_t app;
+void RxCallback(const uint8_t status) {
+	// Check that no errors occurred
+	if (status == 0) {
+		//Inversione da Big-Endian(mpu) a littleEndian(atmega)
+		for (uint8_t i = 0; i < sizeof(divRawData_t); i += 2) {
+			//Serial.println(i);
+			app = rawData.dataFromI2C[i];
+			rawData.dataFromI2C[i] = rawData.dataFromI2C[i + 1];
+			rawData.dataFromI2C[i + 1] = app;
+		}
+	} else {
+		/*
+		 Status values are as follows:
+		 0:success
+		 1:busy
+		 2:timeout
+		 3:data too long to fit in transmit buffer
+		 4:memory allocation failure
+		 5:attempted illegal transition of state
+		 6:received NACK on transmit of address
+		 7:received NACK on transmit of data
+		 8:illegal start or stop condition on bus
+		 9:lost bus arbitration to other master
+		 */
+		Serial.print("[RxCallback]Communication Status #: ");
+		Serial.println(status);
+		delay(100);
+	}
+}
+
+//###################################################//
+// I2C COMMUNICATION //
+//###################################################//
 
 void writeReg(CI2C::Handle* handler, byte reg, byte val) {
 	nI2C->Write(*handler, reg, &val, 1);
 }
-*/
-// void writeByte(uint8_t address, uint8_t subAddress, uint8_t data) {
-// /* Function used to write over I2C to send single command to a register */
-// Wire.begin();
-// Wire.beginTransmission(address);  // Initialize the Tx buffer
-// Wire.write(subAddress);           // Put slave register address in Tx buffer
-// Wire.write(data);                 // Put data in Tx buffer
-// Wire.endTransmission();           // Send the Tx buffer
-// }
-
-// uint8_t readByte(uint8_t address, uint8_t subAddress) {
-// /* Function used to read from MPU6050 a single data, triggered at every interrupt */
-// uint8_t data;                            // `data` will store the register data
-// Wire.beginTransmission(address);         // Initialize the Tx buffer
-// Wire.write(subAddress);                  // Put slave register address in Tx buffer
-// Wire.endTransmission(false);             // Send the Tx buffer, but send a restart to keep connection alive
-// Wire.requestFrom(address, (uint8_t) 1);  // Read one byte from slave register address
-// data = Wire.read();                      // Fill Rx buffer with result
-// return data;                             // Return data read from slave register
-// }
-
-// uint16_t obtain16bitData(uint8_t address, uint8_t subAddress_h, uint8_t subAddress_l) {
-
-// uint16_t byteHigh = readByte(address, subAddress_h);
-// uint16_t byteLow = readByte(address, subAddress_l);
-
-// return byteHigh << 8 | byteLow;
-// }
 
 //###################################################//
-/* INTERRUPT FUNCTION */
-//###################################################//
-
-// void intFunction(void) {
-// readRawData[rAX] = obtain16bitData(MPU6050_ADDRESS, ACCEL_XOUT_H, ACCEL_XOUT_L);
-// readRawData[rAY] = obtain16bitData(MPU6050_ADDRESS, ACCEL_YOUT_H, ACCEL_YOUT_L);
-// readRawData[rAZ] = obtain16bitData(MPU6050_ADDRESS, ACCEL_XOUT_H, ACCEL_ZOUT_L);
-// readRawData[rGX] = obtain16bitData(MPU6050_ADDRESS, GYRO_XOUT_H, GYRO_XOUT_L);
-// readRawData[rGY] = obtain16bitData(MPU6050_ADDRESS, GYRO_YOUT_H, GYRO_YOUT_L);
-// readRawData[rGZ] = obtain16bitData(MPU6050_ADDRESS, GYRO_ZOUT_H, GYRO_ZOUT_L);
-// }
-//###################################################//
-/* COMPUTATIONAL FUNCTIONS */
+// COMPUTATIONAL FUNCTIONS //
 //###################################################//
 
 void intToFloatDatas(void) {
@@ -130,5 +144,22 @@ void updateArmAngles(void) {
 				* 360 / (-2.0 * PI);
 	}
 	return;
+}
+
+void mpuDebug() {
+	Serial.print("accX=");
+	Serial.print(rawData.rawData.rawAccX);
+	Serial.print("\taccY=");
+	Serial.print(rawData.rawData.rawAccY);
+	Serial.print("\taccZ=");
+	Serial.print(rawData.rawData.rawAccZ);
+	Serial.print("\tTemp=");
+	Serial.print(rawData.rawData.rawTemp);
+	Serial.print("\tgyroX=");
+	Serial.print(rawData.rawData.rawGyrX);
+	Serial.print("\tgyroY=");
+	Serial.print(rawData.rawData.rawGyrY);
+	Serial.print("\tgyroZ=");
+	Serial.println(rawData.rawData.rawGyrZ);
 }
 
