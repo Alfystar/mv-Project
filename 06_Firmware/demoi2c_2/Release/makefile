@@ -58,7 +58,7 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 AR += \
-/home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/arduino.ar \
+/home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/arduino.ar \
 
 ELF += \
 demoi2c_2.elf \
@@ -74,19 +74,19 @@ all: demoi2c_2
 demoi2c_2: $(HEX)
 	@echo 'Building target: $@'
 	@echo 'Report dimensioni:'
-	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-size" -A "/home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/demoi2c_2.elf"
+	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-size" -A "/home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/demoi2c_2.elf"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-/home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/arduino.ar: $(AR_OBJ)
+/home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/arduino.ar: $(AR_OBJ)
 	@echo 'Avvio archiviazione'
-	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-gcc-ar" rcs     /home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/arduino.ar $(AR_OBJ)
+	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-gcc-ar" rcs     /home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/arduino.ar $(AR_OBJ)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 demoi2c_2.elf: $(LINK_OBJ) $(AR)
 	@echo 'Avvio del combviner'
-	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168  -o "/home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/demoi2c_2.elf"   $(LINK_OBJ)   /home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release/arduino.ar  "-L/home/alfyhack/Documenti/sloeber-workspace/demoi2c_2/Release" -lm
+	"/opt/sloeber//arduinoPlugin/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168  -o "/home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/demoi2c_2.elf"   $(LINK_OBJ)   /home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release/arduino.ar  "-L/home/alfyhack/Documenti/mv-Project/06_Firmware/demoi2c_2/Release" -lm
 	@echo 'Finished building: $@'
 	@echo ' '
 

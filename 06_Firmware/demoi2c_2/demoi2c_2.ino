@@ -8,7 +8,6 @@ void RxCallback(const uint8_t error);
 void setup() {
 	// Initialize Serial communication
 	Serial.begin(115200);
-	
 	initi2c(wakeUpPin);
 }
 
@@ -21,7 +20,8 @@ void loop() {
 	
 	if (millis() - timer > 10) {
 		timer=millis();
-		mpuDebug();
+		//mpuDebug();
+		mpuDebugAngle();
 	}
 }
 

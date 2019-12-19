@@ -1,11 +1,9 @@
 #include "MpuINT.h"
 
 CI2C::Handle g_i2c_handle;
-readRawData_t rawData;
-processedData_t procData;
-divFloatData_t structFloatData;
+rawData_t rD;
+floatData_t fD;
 angles_t armAngles;
-angSpeeds_t angSpeeds;
 
 volatile bool mpuFlag = false;
 
@@ -25,11 +23,11 @@ void initi2c(byte intPin) {
 	nI2C->SetTimeoutMS(100); // Set timeout to 100ms in this example.
 
 	writeReg(&g_i2c_handle, SMPRT_DIV, 0x07);
-	writeReg(&g_i2c_handle, CONFIG, 0x02); //bandwit 94 HZ delay 3 ms (FS=1KHZ)
+	writeReg(&g_i2c_handle, CONFIG, (digitalFilter << DLPF_CFG)); //bandwit 94 HZ delay 3 ms (FS=1KHZ)
 	writeReg(&g_i2c_handle, PWR_MGMT_1, 0x09);
 	writeReg(&g_i2c_handle, INT_PIN_CFG, 0x90);
-	writeReg(&g_i2c_handle, GYRO_CONFIG, 0x08);
-	writeReg(&g_i2c_handle, ACCEL_CONFIG, 0x08);
+	writeReg(&g_i2c_handle, GYRO_CONFIG, (gySens << FS_SEL));
+	writeReg(&g_i2c_handle, ACCEL_CONFIG, (accSens << ASF_SEL)); //set G sensitivy at 4G
 	writeReg(&g_i2c_handle, INT_ENABLE, 0x01);
 
 	mpuFlag = false;
@@ -45,8 +43,8 @@ void initi2c(byte intPin) {
 
 void MPUUpdate() {
 	if (mpuFlag) {
-		nI2C->Read(g_i2c_handle, ACCEL_XOUT_H, rawData.dataFromI2C,
-				sizeof(readRawData_t), RxCallback);
+		nI2C->Read(g_i2c_handle, ACCEL_XOUT_H, rD.I2C_buf, sizeof(rawData_t),
+				RxCallback);
 		mpuFlag = false;
 	}
 }
@@ -60,11 +58,11 @@ void RxCallback(const uint8_t status) {
 	// Check that no errors occurred
 	if (status == 0) {
 		//Inversione da Big-Endian(mpu) a littleEndian(atmega)
-		for (uint8_t i = 0; i < sizeof(divRawData_t); i += 2) {
+		for (uint8_t i = 0; i < sizeof(rD); i += 2) {
 			//Serial.println(i);
-			app = rawData.dataFromI2C[i];
-			rawData.dataFromI2C[i] = rawData.dataFromI2C[i + 1];
-			rawData.dataFromI2C[i + 1] = app;
+			app = rD.I2C_buf[i];
+			rD.I2C_buf[i] = rD.I2C_buf[i + 1];
+			rD.I2C_buf[i + 1] = app;
 		}
 	} else {
 		/*
@@ -98,68 +96,79 @@ void writeReg(CI2C::Handle* handler, byte reg, byte val) {
 // COMPUTATIONAL FUNCTIONS //
 //###################################################//
 
-void intToFloatDatas(void) {
-
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		// for accelerations
-		procData.floatData.flAccX = ((float) rawData.rawData.rawAccX) / 16384.0;
-		procData.floatData.flAccY = ((float) rawData.rawData.rawAccY) / 16384.0;
-		procData.floatData.flAccZ = ((float) rawData.rawData.rawAccZ) / 16384.0;
-
-		// for temperatures
-		procData.floatData.flTemp = ((float) rawData.rawData.rawTemp + 12412.0)
-				/ 340.0;
-
-		// for gyroscopes
-		procData.floatData.flGyrX = ((float) rawData.rawData.rawGyrX) / 65.5;
-		procData.floatData.flGyrY = ((float) rawData.rawData.rawGyrY) / 65.5;
-		procData.floatData.flGyrZ = ((float) rawData.rawData.rawGyrZ) / 65.5;
-	}
-	return;
+void i2FDatas() {
+	// for accelerations
+	iT2F_acc();
+	// for temperatures
+	iT2F_tmp();
+	// for gyroscopes
+	iT2F_gyro();
 }
 
-void updateArmSpeeds(void) {
-
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		// atomic/uninterrupted code here
-		angSpeeds.angSpeedX = ((float) rawData.rawData.rawGyrX) / 65.5;
-		angSpeeds.angSpeedY = ((float) rawData.rawData.rawGyrY) / 65.5;
-		angSpeeds.angSpeedZ = ((float) rawData.rawData.rawGyrZ) / 65.5;
-	}
-	return;
+void iT2F_acc() {
+	fD.flAccX = ((float) rD.rawAccX) / (1 << (14 - accSens)); // trucco per rendere parametrici i G
+	fD.flAccY = ((float) rD.rawAccY) / (1 << (14 - accSens));
+	fD.flAccZ = ((float) rD.rawAccZ) / (1 << (14 - accSens));
+}
+void iT2F_tmp() {
+	fD.flTemp = (rD.rawTemp + 12412.0) / 340.0;
+}
+void iT2F_gyro() {
+	fD.flGyrX = (rD.rawGyrX) / (131.0 / (1 << gySens));
+	fD.flGyrY = (rD.rawGyrY) / (131.0 / (1 << gySens));
+	fD.flGyrZ = (rD.rawGyrZ) / (131.0 / (1 << gySens));
 }
 
 void updateArmAngles(void) {
+	//todo: farlo rispetto alla nostra terna di angoli
+	iT2F_acc();
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		// atomic/uninterrupted code here
-		armAngles.angleX = atan2(rawData.rawData.rawAccY,
-				sqrt(sq(rawData.rawData.rawAccZ) + sq(rawData.rawData.rawAccX)))
-				* 360 / (2.0 * PI);
-		armAngles.angleY = atan2(rawData.rawData.rawAccX,
-				sqrt(sq(rawData.rawData.rawAccZ) + sq(rawData.rawData.rawAccY)))
-				* 360 / (-2.0 * PI);
-	}
-	return;
+	armAngles.angleX = atan2(fD.flAccY, sqrt(
+	sq(fD.flAccZ) + sq(fD.flAccX))) * RAD_TO_DEG;
+
+	armAngles.angleY = atan2(fD.flAccX, sqrt(
+	sq(fD.flAccZ) + sq(fD.flAccY))) * RAD_TO_DEG;
+
 }
 
-void mpuDebug() {
+void mpuDebug(){
+	i2FDatas();
 	Serial.print("accX=");
-	Serial.print(rawData.rawData.rawAccX);
-	Serial.print("\taccY=");
-	Serial.print(rawData.rawData.rawAccY);
-	Serial.print("\taccZ=");
-	Serial.print(rawData.rawData.rawAccZ);
-	Serial.print("\tTemp=");
-	Serial.print(rawData.rawData.rawTemp);
-	Serial.print("\tgyroX=");
-	Serial.print(rawData.rawData.rawGyrX);
-	Serial.print("\tgyroY=");
-	Serial.print(rawData.rawData.rawGyrY);
-	Serial.print("\tgyroZ=");
-	Serial.println(rawData.rawData.rawGyrZ);
+		Serial.print(fD.flAccX);
+		Serial.print("\taccY=");
+		Serial.print(fD.flAccY);
+		Serial.print("\taccZ=");
+		Serial.print(fD.flAccZ);
+		Serial.print("\tTemp=");
+		Serial.print(fD.flTemp);
+		Serial.print("\tgyroX=");
+		Serial.print(fD.flGyrX);
+		Serial.print("\tgyroY=");
+		Serial.print(fD.flGyrY);
+		Serial.print("\tgyroZ=");
+		Serial.println(fD.flGyrZ);
 }
 
+void mpuDebugRaw() {
+	Serial.print("accX=");
+	Serial.print(rD.rawAccX);
+	Serial.print("\taccY=");
+	Serial.print(rD.rawAccY);
+	Serial.print("\taccZ=");
+	Serial.print(rD.rawAccZ);
+	Serial.print("\tTemp=");
+	Serial.print(rD.rawTemp);
+	Serial.print("\tgyroX=");
+	Serial.print(rD.rawGyrX);
+	Serial.print("\tgyroY=");
+	Serial.print(rD.rawGyrY);
+	Serial.print("\tgyroZ=");
+	Serial.println(rD.rawGyrZ);
+}
+void mpuDebugAngle() {
+	updateArmAngles();
+
+	Serial.print(armAngles.angleX);
+	Serial.print("\t");
+	Serial.println(armAngles.angleY);
+}

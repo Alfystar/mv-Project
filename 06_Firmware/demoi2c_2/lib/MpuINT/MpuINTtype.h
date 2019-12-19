@@ -11,11 +11,11 @@
 //Analog port 4 (A4) = SDA (serial data)
 //Analog port 5 (A5) = SCL (serial clock)
 
-//###################################################//
-				/* DEFINITIONS */
-//###################################################//
 
-
+//###################################################//
+/* DEFINITIONS */
+//###################################################//
+//Register position
 #define SMPRT_DIV 			0x19 // we set sample rate = 8MHZ/(1 + inserted number)
 #define SIGNAL_PATH_RESET   0x68 // reset signal paths (NOT clear sensor registers); bits [2:0] available.
 #define INT_PIN_CFG         0x37 // configures the behavior of the interrupt signals at INT pin. See in arduino.ino->setup()
@@ -26,6 +26,13 @@
 #define WHO_AM_I_MPU6050    0x75 // Should return 0x68, as it verifies the identity of the device
 #define INT_STATUS          0x3A // shows the interrupt status of each interrupt generation source
 #define PWR_MGMT_1          0x6B // configure power mode and clock source, reset the entire device and disable temp sensor
+
+//ACCEL_CONFIG bit position
+#define ASF_SEL 3
+//GYRO_CONFIG bit position
+#define FS_SEL 3
+//CONFIG bit position
+#define DLPF_CFG 0
 
 //when nothing connected to AD0 than address is 0x68
 #define AD0 0
@@ -55,56 +62,46 @@
 #define GYRO_ZOUT_H  0x47
 #define GYRO_ZOUT_L  0x48
 
-
 //###################################################//
-				/* DATA STRUCTURES */
+/* DATA STRUCTURES */
 //###################################################//
+/*
+ typedef struct _divRawData {
+ short rawAccX;
+ short rawAccY;
+ short rawAccZ;
+ short rawTemp;
+ short rawGyrX;
+ short rawGyrY;
+ short rawGyrZ;
+ } rawData_t2 ;
+ */
+typedef union {
+		struct {
+				short rawAccX;
+				short rawAccY;
+				short rawAccZ;
+				short rawTemp;
+				short rawGyrX;
+				short rawGyrY;
+				short rawGyrZ;
+		};
+		uint8_t I2C_buf[];//puntatore di tipo uint8_t coincidente con rawData_t e automaticamente della stessa dimensione
+} rawData_t;
 
-typedef struct _divRawData {
-		short rawAccX;
-		short rawAccY;
-		short rawAccZ;
-		short rawTemp;
-		short rawGyrX;
-		short rawGyrY;
-		short rawGyrZ;
-} divRawData_t ;
-
-typedef union _readRawData{
-
-	divRawData_t rawData;
-	uint8_t dataFromI2C[sizeof(divRawData_t)];
-
-} readRawData_t ;
-
-
-typedef struct _divFloatData {
-		float flAccX;
-		float flAccY;
-		float flAccZ;
-		float flTemp;
-		float flGyrX;
-		float flGyrY;
-		float flGyrZ;
-} divFloatData_t;
-
-typedef union _processedData{
-	divFloatData_t floatData;
-	float datas[sizeof(divRawData_t)];
-} processedData_t ;
-
+typedef struct _floatData {
+		double flAccX;
+		double flAccY;
+		double flAccZ;
+		double flTemp;
+		double flGyrX;		//vel angolareX
+		double flGyrY;		//vel angolareY
+		double flGyrZ;		//vel angolareZ
+} floatData_t;
 
 typedef struct _angles {
-	float angleX;
-	float angleY;
+		double angleX;
+		double angleY;
 } angles_t;
-
-typedef struct _angSpeeds {
-	float angSpeedX;
-	float angSpeedY;
-	float angSpeedZ;
-} angSpeeds_t;
-
-
 
 #endif /* LIB_MPUINT_MPUINTTYPE_H_ */
