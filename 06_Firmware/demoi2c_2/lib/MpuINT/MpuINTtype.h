@@ -65,17 +65,7 @@
 //###################################################//
 /* DATA STRUCTURES */
 //###################################################//
-/*
- typedef struct _divRawData {
- short rawAccX;
- short rawAccY;
- short rawAccZ;
- short rawTemp;
- short rawGyrX;
- short rawGyrY;
- short rawGyrZ;
- } rawData_t2 ;
- */
+
 typedef union {
 		struct {
 				short rawAccX;
@@ -100,8 +90,23 @@ typedef struct _floatData {
 } floatData_t;
 
 typedef struct _angles {
-		double angleX;
-		double angleY;
+		double angleX; 	//ROLL
+		double angleY;	//PITCH
+		double angleZ;	//YAW     pitch(y)
 } angles_t;
+
+typedef struct _armState {
+		double angle;	//Z angle
+		int16_t wZ;		// Angular speed over z axis;
+		int16_t wDotZ; 	// Angular acceleration;
+} armState_t;
+
+typedef struct _armFlState {
+		double angle;	//Z angle
+		double wZ;		// Angular speed over z axis;
+		double wDotZ; 	// Angular acceleration;
+} armFlState_t;
+
+
 
 #endif /* LIB_MPUINT_MPUINTTYPE_H_ */

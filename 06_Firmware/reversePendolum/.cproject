@@ -42,8 +42,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/variant}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/libraries/Wire/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -58,8 +56,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/variant}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/libraries/Wire/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -74,8 +70,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/core}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/core/variant}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/reversePendolum/libraries/Wire/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -126,5 +120,7 @@
     <storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
     	
     <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+    	
+    <storageModule moduleId="refreshScope"/>
     
 </cproject>

@@ -37,9 +37,7 @@ void MotFeed::periodicRecalc() {
 	oldStep = step;
 	oldVel = vel;
 
-
 }
-
 
 byte enNow, enOld;
 void MotFeed::isrFunxEN() { //aggiungo solo se diverso e il buffer non vuoto
@@ -70,7 +68,7 @@ long MotFeed::getVel() {
 }
 
 float MotFeed::getVel(int dt) {
-	return this->vel/float(dt);
+	return this->vel / float(dt);
 }
 
 long MotFeed::getAcc() {
@@ -78,7 +76,7 @@ long MotFeed::getAcc() {
 }
 
 float MotFeed::getAcc(int dt) {
-	return this->acc/float(dt);
+	return this->acc / float(dt);
 }
 
 byte MotFeed::getEnPin() {
@@ -91,13 +89,31 @@ void MotFeed::printSteps() {
 	Serial.println(this->getStep());
 }
 
+void MotFeed::debugState(bool plot) {
+	if (plot) {
+		Serial.print(this->getStep());
+		Serial.print("\t");
+		Serial.print(this->getVel());
+		Serial.print("\t");
+		Serial.println(this->getAcc());
+	} else {
+		Serial.print("mStep=");
+		Serial.print(this->getStep());
+		Serial.print("\tmVel=");
+		Serial.print(this->getVel());
+		Serial.print("\tmAcc=");
+		Serial.println(this->getAcc());
+	}
+
+}
 
 //VARIABILI PRIVATE DI calcStep
 //Dichiarate qui fisse e comuni a tutte le istanze
 //per accelerare l'elaborazione(riducendo gli accessi in memoria)
 #define im 0 //impossibile
 //         						  0   1  2  3   4  5  6    7   8  9  10 11  12  13  14 15
-int8_t const enc_states[] = { 0, -1, 1, im, 1, 0, im, -1, -1, im, 0, 1, im, 1, -1, 0 }; /*[old]BA-BA[new]*/
+int8_t const enc_states[] = { 0, -1, 1, im, 1, 0, im, -1, -1, im, 0, 1, im, 1,
+		-1, 0 }; /*[old]BA-BA[new]*/
 byte chAold, chBold, chAnew, chBnew, code;
 
 void MotFeed::calcStep(byte oldEn, byte newEn) {
@@ -109,3 +125,4 @@ void MotFeed::calcStep(byte oldEn, byte newEn) {
 	this->step += (enc_states[code]);
 
 }
+

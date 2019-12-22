@@ -3,7 +3,7 @@
 CI2C::Handle g_i2c_handle;
 rawData_t rD;
 floatData_t fD;
-angles_t armAngles;
+armState_t arm;
 
 volatile bool mpuFlag = false;
 
@@ -98,58 +98,56 @@ void writeReg(CI2C::Handle* handler, byte reg, byte val) {
 
 void i2FDatas() {
 	// for accelerations
-	iT2F_acc();
+	i2F_acc();
 	// for temperatures
-	iT2F_tmp();
+	i2F_tmp();
 	// for gyroscopes
-	iT2F_gyro();
+	i2F_gyro();
 }
 
-void iT2F_acc() {
+void i2F_acc() {
 	fD.flAccX = ((float) rD.rawAccX) / (1 << (14 - accSens)); // trucco per rendere parametrici i G
 	fD.flAccY = ((float) rD.rawAccY) / (1 << (14 - accSens));
 	fD.flAccZ = ((float) rD.rawAccZ) / (1 << (14 - accSens));
 }
-void iT2F_tmp() {
+void i2F_tmp() {
 	fD.flTemp = (rD.rawTemp + 12412.0) / 340.0;
 }
-void iT2F_gyro() {
+void i2F_gyro() {
 	fD.flGyrX = (rD.rawGyrX) / (131.0 / (1 << gySens));
 	fD.flGyrY = (rD.rawGyrY) / (131.0 / (1 << gySens));
 	fD.flGyrZ = (rD.rawGyrZ) / (131.0 / (1 << gySens));
 }
 
+//supposta chiamata a intervalli regolari
+int16_t wzOld = 0;
 void updateArmAngles(void) {
-	//todo: farlo rispetto alla nostra terna di angoli
-	iT2F_acc();
-
-	armAngles.angleX = atan2(fD.flAccY, sqrt(
-	sq(fD.flAccZ) + sq(fD.flAccX))) * RAD_TO_DEG;
-
-	armAngles.angleY = atan2(fD.flAccX, sqrt(
-	sq(fD.flAccZ) + sq(fD.flAccY))) * RAD_TO_DEG;
-
+	arm.angle = atan2(rD.rawAccY, rD.rawAccX) * RAD_TO_DEG;
+	arm.wZ = rD.rawGyrZ;
+	arm.wDotZ = arm.wZ - wzOld;
+	wzOld = arm.wZ;
 }
 
-void mpuDebug(){
+void mpuDebug() {
 	i2FDatas();
 	Serial.print("accX=");
-		Serial.print(fD.flAccX);
-		Serial.print("\taccY=");
-		Serial.print(fD.flAccY);
-		Serial.print("\taccZ=");
-		Serial.print(fD.flAccZ);
-		Serial.print("\tTemp=");
-		Serial.print(fD.flTemp);
-		Serial.print("\tgyroX=");
-		Serial.print(fD.flGyrX);
-		Serial.print("\tgyroY=");
-		Serial.print(fD.flGyrY);
-		Serial.print("\tgyroZ=");
-		Serial.println(fD.flGyrZ);
+	Serial.print(fD.flAccX);
+	Serial.print("\taccY=");
+	Serial.print(fD.flAccY);
+	Serial.print("\taccZ=");
+	Serial.print(fD.flAccZ);
+	Serial.print("\tTemp=");
+	Serial.print(fD.flTemp);
+	Serial.print("\tgyroX=");
+	Serial.print(fD.flGyrX);
+	Serial.print("\tgyroY=");
+	Serial.print(fD.flGyrY);
+	Serial.print("\tgyroZ=");
+	Serial.println(fD.flGyrZ);
 }
 
 void mpuDebugRaw() {
+
 	Serial.print("accX=");
 	Serial.print(rD.rawAccX);
 	Serial.print("\taccY=");
@@ -164,11 +162,28 @@ void mpuDebugRaw() {
 	Serial.print(rD.rawGyrY);
 	Serial.print("\tgyroZ=");
 	Serial.println(rD.rawGyrZ);
+	/*
+	Serial.print(rD.rawAccX);
+	Serial.print("\t");
+	Serial.print(rD.rawAccY);
+	Serial.print("\t");
+	Serial.print(rD.rawAccZ);
+	Serial.print("\t");
+	Serial.print(rD.rawTemp);
+	Serial.print("\t");
+	Serial.print(rD.rawGyrX);
+	Serial.print("\t");
+	Serial.print(rD.rawGyrY);
+	Serial.print("\t");
+	Serial.println(rD.rawGyrZ);
+	*/
 }
 void mpuDebugAngle() {
 	updateArmAngles();
 
-	Serial.print(armAngles.angleX);
+	Serial.print(arm.angle);
 	Serial.print("\t");
-	Serial.println(armAngles.angleY);
+	Serial.print(arm.wZ);
+	Serial.print("\t");
+	Serial.println(arm.wDotZ);
 }

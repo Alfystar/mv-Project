@@ -36,6 +36,7 @@ class MotFeed {
 		byte getEnPin();
 
 		void printSteps();
+		void debugState(bool plot);
 	private:
 		byte en, oldEn;
 		long step, oldStep;

@@ -35,4 +35,8 @@ enum specialPwmCode
 #define inA 7
 #define inB 8
 
+//I2c MPU6050 Define
+#define wakeUpPin 2
+
+
 #endif /* MYLIB_GLOBALDEF_H_ */
