@@ -20,7 +20,7 @@ public:
     PID(float kp, float ki, float kd, int MdeadZone, bool posDir);
     PID(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead);
     short motVal(int ref, int en);
-    short pid(int ref, int feeback, int dt);
+    short pid2PWM(int ref, int feeback, int dt);
 private:
     /*pid general*/
     float Kp, Ki, Kd;

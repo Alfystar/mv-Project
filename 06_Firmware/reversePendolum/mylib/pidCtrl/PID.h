@@ -15,19 +15,24 @@ typedef struct data_ {
     long time;  //Tempo dall'ultimo campine
 } data;
 
+typedef short (*externConvFunx) (float pidOut); // function recive pid compute, and apply not lin funx to calc PWM
+
 class PID {
 public:
     PID(float kp, float ki, float kd, int MdeadZone, bool posDir);
     PID(float kp, float ki, float kd, int MdeadZone, bool posDir, float cSat, float cDead);
     short motVal(int ref, int en);
-    short pid(int ref, int feeback, int dt);
+    short pid2PWM(int ref, int feeback, int dt);
+    float purePid(int ref, int feeback, int dt);
+    short pid2notLin(int ref, int feeback, int dt, externConvFunx funx); //return the PWM computed by externConvFunx
 private:
     /*pid general*/
     float Kp, Ki, Kd;
     float CONTROL_SATURATION;   //100% dell'uscita possibile
-    float CONTROL_DEADZONE;    //se per muovermi devo spostarmi di meno freno
+    float CONTROL_DEADZONE;    	//se per muovermi devo spostarmi di meno freno
     int MOTOR_DEADZONE;
-    bool posDir = false; //per allineare verso dei pwm a incremento degli encoder
+    bool posDir = false; 		//per allineare verso dei pwm a incremento degli encoder
+    							// false= concordi, true= discordi
 
     /*Variabili del pid comp*/
     data mystack[8]; 	//data

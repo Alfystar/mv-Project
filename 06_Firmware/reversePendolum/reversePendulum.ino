@@ -1,13 +1,20 @@
 #include "Arduino.h"
 #include "mylib/myLibInclude.h"
 
+#define ctrlTime 10 //ms
+
 MotFeed *mEn;
 DCdriver *mot;
+PID *mPid, *wPi;
 
 void setup() {
 	Serial.begin(115200);
 	Serial.println("Pendolo inverso attivazione");
 	
+	//Controll Pid class create
+	mPid = new PID(1.0, 1.0, 1.0, 30 , true, 1.0 , 0.1);
+	wPi = new PID(1.0, 1.0, 0, 30 , true, 1.0 , 0.1);
+
 	//Button active
 	pinMode(startStop, INPUT);
 	digitalWrite(startStop, 1); //Pull up
@@ -16,26 +23,16 @@ void setup() {
 			
 	//Motori
 	mot = new DCdriver(enPwm, inA, inB);
-	
 	//Encoder
 	mEn = new MotFeed();
-	periodicTask(10);
-
+	periodicTask(ctrlTime);
 	//MPU6050
 	initi2c(wakeUpPin);
 
+
+
 	//Global interrupt enable
 	sei();
-
-	pinMode(12, OUTPUT);
-	digitalWrite(12, 0);
-
-	///Print in serial order of coulums
-	Serial.print("PWM");
-	Serial.print("\tmStep");
-	Serial.print("\tmVel=");
-	Serial.println("\tmAcc=");
-	delay(500);
 }
 
 // The loop function is called in an endless loop
@@ -106,6 +103,7 @@ void loop() {
 	}
 }
 
+
 void periodicTask(int time) {
 	//time in Milli secondi!!!!
 	//Tempo massimo con prescaler a 1024 16,32, definizione 0.064ms
@@ -118,17 +116,17 @@ void periodicTask(int time) {
 
 }
 
+float angleRef=0.0;
 ISR(TIMER2_COMPA_vect) {
-	digitalWrite(12, 1);
 	mEn->periodicRecalc();
 	updateArmAngles();
-	Serial.print(vel);
-	Serial.print("\t");
-	mEn->debugState(true);
 
-	digitalWrite(12, 0);
+	//First pid Wpi (look matlab symulink)
+	angleRef = wPi->purePid(0, mEn->getVel(), ctrlTime * 1000);
+	//Second pid Mpid (look matlab symulink)
+	mot->drive_motor(mPid->pid2notLin(angleRef, (int)arm.angle, ctrlTime * 1000, moment2torcue));
+
 }
-
 ISR(PCINT1_vect) {
 	mEn->isrFunxEN();
 }

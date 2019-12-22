@@ -39,11 +39,11 @@ int ts;//tempo da ultima chiamata micro secondi
 short PID::motVal(int ref, int en) {
     this->oldTemp = this->temp;
     this->temp = micros();
-    this->pid(ref, en, this->temp - this->oldTemp);
+    this->pid2PWM(ref, en, this->temp - this->oldTemp);
 }
 
 
-short PID::pid(int ref, int feeback, int dt) {
+short PID::pid2PWM(int ref, int feeback, int dt) {
     int er = (ref - feeback) * (1 - (2 * this->posDir)); //per allineare verso dei pwm a incremento degli encoder
 
     float vOut = this->PIDComp(er, dt);
