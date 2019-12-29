@@ -12,6 +12,45 @@ clc
 clear variables
 format shortEng
 
+%% Speed Analysis
+% This portion is written in order to find which is the highest refresh 
+% rate we can push the encoder, before it starts to lose steps.
+
+test_2ms = importdata('speedsDatas/test0-255_dt2.dat','\t'); 
+test_4ms = importdata('speedsDatas/test0-255_dt4.dat','\t'); 
+test_6ms = importdata('speedsDatas/test0-255_dt6.dat','\t'); 
+test_8ms = importdata('speedsDatas/test0-255_dt8.dat','\t'); 
+test_10ms = importdata('speedsDatas/test0-255_dt10.dat','\t'); 
+test_12ms = importdata('speedsDatas/test0-255_dt12.dat','\t'); 
+test_14ms = importdata('speedsDatas/test0-255_dt14.dat','\t'); 
+test_15ms = importdata('speedsDatas/test0-255_dt15.dat','\t'); 
+
+% to slim down the first part of the code, we won't scale speeds other than
+% the required time sampling normalization; moreover, it's useless flooring
+% sample time, since there are the same multiplicative terms for everyone
+
+maxSpeeds_xMs = zeros(1,8);
+times_xMs = [2 4 6 8 10 12 14 15];
+
+
+maxSpeeds_xMs(1) = mean(test_2ms.data(300:1000,3))/ 2;
+maxSpeeds_xMs(2) = mean(test_4ms.data(150:500,3))/ 4;
+maxSpeeds_xMs(3) = mean(test_6ms.data(70:360,3))/ 6;
+maxSpeeds_xMs(4) = mean(test_8ms.data(70:360,3))/ 8;
+maxSpeeds_xMs(5) = mean(test_10ms.data(40:190,3))/ 10;
+maxSpeeds_xMs(6) = mean(test_12ms.data(35:230,3))/ 12;
+maxSpeeds_xMs(7) = mean(test_14ms.data(30:160,3))/ 14;
+maxSpeeds_xMs(8) = mean(test_15ms.data(30:150,3))/ 15;
+
+figure(10)
+plot(times_xMs, maxSpeeds_xMs, 'r-.', 'Marker', '*','MarkerEdgeColor','blue')
+xlabel('Sample time (ms)'); ylabel('Not normalized speed')
+legend('Speed_{max}')
+
+% reading the graph, we can easily notice how we have to estimate our model
+% only with a 8+ ms sampling.
+
+
 %% Dati con campionamento 10ms
 filename = 'test1.dat'; delimiterIn = '\t';
 Samples = importdata(filename,delimiterIn); 
