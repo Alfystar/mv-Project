@@ -18,7 +18,9 @@ x0(4)=deg2rad(50);
 % xDot3:= q1 acc    [rad/s^2]
 % xDot4:= q1 vel    [rad/s]
 
-% System geometry and specification Define (mm,g)
+%###################################################% 
+%--System geometry and specification Define (mm,g)--%
+%###################################################%
 
 %Geometria Link1 (braccio)
 L1 = 200;               % Lunghezza braccio [mm] (risp R0)
@@ -42,9 +44,9 @@ Kmgl = g*(M1*(Lbc+L1)+M2*L1);           % Valore della Forza di Gravità sul Sis
 q1Max = deg2rad(60); % Massimo angolo +/-q1 [°]
 
 % Motor parameterization
-Ka = 100000;                      % Accelerazione Massima Sperimentale
+Ka = 100000;                    % Accelerazione Massima Sperimentale
 rho = 36;                       % Attrito viscoso sperimentale
 
 D1 = 0;                         % Attrito viscoso Perno
-tauMotMax = Ka * Id;               % Coppia massima del motore
-D2 = rho * (1/Ibtot+1/Id)^-1;   % Costante di Attrito viscoso del motore
+tauMotMax = Ka * Id;            % Coppia massima del motore
+D2 = rho * Id;                  % Costante di Attrito viscoso del motore
