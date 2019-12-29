@@ -19,7 +19,8 @@ void setup() {
 	
 	//Encoder
 	mEn = new MotFeed();
-	periodicTask(10);
+	periodicTask(2);
+
 
 	//MPU6050
 	initi2c(wakeUpPin);
@@ -33,8 +34,8 @@ void setup() {
 	///Print in serial order of coulums
 	Serial.print("PWM");
 	Serial.print("\tmStep");
-	Serial.print("\tmVel=");
-	Serial.println("\tmAcc=");
+	Serial.print("\tmVel");
+	Serial.println("\tmAcc");
 	delay(500);
 }
 
@@ -56,23 +57,39 @@ void loop() {
 		tPush = true;
 		switch (bTest) {
 			case 0:
-				vel=255;
+				vel = 255;
 				mot->drive_motor(255);
 			break;
 			case 1:
-				vel=999;
-				mot->soft_stop();
+				vel = 0;
+				mot->drive_motor(0);
 			break;
 			case 2:
-				vel=-255;
+				vel = -255;
 				mot->drive_motor(-255);
 			break;
 			case 3:
-				vel=-9999;
+				vel = 0;
+				mot->drive_motor(0);
+			break;
+			case 4:
+				vel = 255;
+				mot->drive_motor(255);
+			break;
+			case 5:
+				vel = 999;
+				mot->soft_stop();
+			break;
+			case 6:
+				vel = -255;
+				mot->drive_motor(-255);
+			break;
+			case 7:
+				vel = -9999;
 				mot->hard_stop(10);
 			break;
 		}
-		bTest = (bTest+1) % 4;
+		bTest = (bTest + 1) % 8;
 	} else if (digitalRead(taratura)) {
 		tPush = false;
 		delay(1); //anti rimbalzo
@@ -115,7 +132,11 @@ void periodicTask(int time) {
 	//T_cklock * Twant / Prescaler = valore Registro
 	OCR2A = (int) (16000UL * time / 1024);
 	TIMSK2 = (1 << OCIE2A); //attivo solo l'interrupt di OC2A
-
+	Serial.print("(dt=");
+	Serial.print(time);
+	Serial.print(", OCR2A=");
+	Serial.print(OCR2A);
+	Serial.println(", Prescaler=1024");
 }
 
 ISR(TIMER2_COMPA_vect) {
