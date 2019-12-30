@@ -30,30 +30,35 @@ test_15ms = importdata('speedsDatas/test0-255_dt15.dat','\t');
 % sample time, since there are the same multiplicative terms for everyone
 
 maxSpeeds_xMs = zeros(1,8);
-times_xMs = [2 4 6 8 10 12 14 15];
+times_xs = [0.002 0.004 0.006 0.008 0.01 0.012 0.014 0.015];
 
 
-maxSpeeds_xMs(1) = mean(test_2ms.data(300:1000,3))/ 2;
-maxSpeeds_xMs(2) = mean(test_4ms.data(150:500,3))/ 4;
-maxSpeeds_xMs(3) = mean(test_6ms.data(70:360,3))/ 6;
-maxSpeeds_xMs(4) = mean(test_8ms.data(70:360,3))/ 8;
-maxSpeeds_xMs(5) = mean(test_10ms.data(40:190,3))/ 10;
-maxSpeeds_xMs(6) = mean(test_12ms.data(35:230,3))/ 12;
-maxSpeeds_xMs(7) = mean(test_14ms.data(30:160,3))/ 14;
-maxSpeeds_xMs(8) = mean(test_15ms.data(30:150,3))/ 15;
+maxSpeeds_xMs(1) = mean(test_2ms.data(300:1000,3))/ times_xs(1);
+maxSpeeds_xMs(2) = mean(test_4ms.data(150:500,3))/ times_xs(2);
+maxSpeeds_xMs(3) = mean(test_6ms.data(70:360,3))/ times_xs(3);
+maxSpeeds_xMs(4) = mean(test_8ms.data(70:360,3))/ times_xs(4);
+maxSpeeds_xMs(5) = mean(test_10ms.data(40:190,3))/ times_xs(5);
+maxSpeeds_xMs(6) = mean(test_12ms.data(35:230,3))/ times_xs(6);
+maxSpeeds_xMs(7) = mean(test_14ms.data(30:160,3))/ times_xs(7);
+maxSpeeds_xMs(8) = mean(test_15ms.data(30:150,3))/ times_xs(8);
 
 figure(10)
-plot(times_xMs, maxSpeeds_xMs, 'r-.', 'Marker', '*','MarkerEdgeColor','blue')
-xlabel('Sample time (ms)'); ylabel('Not normalized speed')
+plot(times_xs, maxSpeeds_xMs, 'r-.', 'Marker', '*','MarkerEdgeColor','b')
+xlabel('Sample time (s)'); ylabel('Not normalized speed')
 legend('Speed_{max}')
 
 % reading the graph, we can easily notice how we have to estimate our model
 % only with a 8+ ms sampling.
 
 
-%% Dati con campionamento 10ms
-filename = 'test1.dat'; delimiterIn = '\t';
-Samples = importdata(filename,delimiterIn); 
+%% Dati con campionamento >= 10ms
+% we take all the data with a sample rate greater than 10ms
+
+Samples_10ms = test_10ms.data;
+Samples_12ms = test_12ms.data;
+Samples_14ms = test_14ms.data;
+Samples_15ms = test_15ms.data;
+
 % matrice Nx4, con N misure effettuate
 
 %% 10ms sampling & Normalization
@@ -64,22 +69,22 @@ Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 Fs = 1/Ts;
 step2rad = 11/(2*pi); % STEPs/rad
 
-Samples.data(:,3) = Samples.data(:,3)/(Ts*step2rad); % rad/s
-Samples.data(:,1) = Samples.data(:,1)/255; % PWM in percentage
-
-maxSpeed_10 = mean(Samples.data(5676:5926,3));
+Samples_10ms(:,3) = Samples_10ms(:,3)/(Ts*step2rad); % rad/s
+Samples_10ms(:,1) = Samples_10ms(:,1)/255; % PWM in percentage
 
 
 
+%% Fourier analysis of a step
+% facciamo questa prova per verificare la bontà dei dati raccolti; essendo
+% uno step, dovrei avere componente percentuale = 1 a 0Hz. 
+% Dall'analisi risulta un 4% d'errore nella raccolta dati
 
-%% Analizzo un 0-255
+fft_Test = Samples_10ms(10:190,3)/(maxSpeeds_xMs(5)/(step2rad));
 
-Set_1 = Samples.data(5650:5920,3);
+len = length(fft_Test);
 
-len = length(Set_1);
-
-Set1_f = fft(Set_1);
-P2 = abs(Set1_f/len);
+fft_Test_f = fft(fft_Test);
+P2 = abs(fft_Test_f/len);
 P1 = P2(1:len/2+1);
 P1(2:end-1) = 2*P1(2:end-1);
 f = Fs*(0:(len/2))/len;
@@ -90,29 +95,49 @@ legend('P1')
 title('Single-Sided Amplitude Spectrum of Set_1(t)')
 xlabel('f(Hz)')
 ylabel('|P1(f)|')
-%xlim([1 30]) % per centrare la vista su un intervallo delle frequenze
 
-%% Preparazione vettori input e output
+%% Preparing sets
+% We have a Nx2 matrix 
+Set_1 = Samples_10ms(10:190,1:2); 
+Set_2 = Samples_10ms(365:695,1:2);
+Set_3 = Samples_10ms(870:1140,1:2); 
+Set_4 = Samples_10ms(1230:1480,1:2);
+Set_4(1:4,1) = 0; %% prendiamo dei dati da una frenata forzata
 
-Set2_1 = Set_1(1:100);
-input_1 = maxSpeed*ones(length(Set2_1), 1);
-input_1(1:4) = 0;
+%% Merging datas
 
-%%
-datas = iddata(Set2_1, input_1, Ts);
+data_1 = iddata(Set_1(:,2), Set_1(:,1), Ts);
+data_2 = iddata(Set_2(:,2), Set_2(:,1), Ts);
+data_3 = iddata(Set_3(:,2), Set_3(:,1), Ts);
+data_4 = iddata(Set_4(:,2), Set_4(:,1), Ts);
 
-Sys_c = tfest(datas, 1)
+datas_10 = merge(data_1, data_2, data_3, data_4);
 
-Sys_d = tfest(datas, 1, 'Ts', Ts)
+%% Estimation
 
-Sys_c1 = d2c(Sys_d);
-Sys_c2 = d2c(Sys_d,'tustin');
+Sys_c10 = tfest(datas_10, 2, 0)
+%Sys_c10.Denominator(3) = 0;
+Sys_d10 = tfest(datas_10, 2, 0, 'Ts', Ts);
 
-
-%%
+%% RLocus Analysis
+figure(3)
+rlocus(Sys_d10)%%
+tMax = 10; % we stop simulation after 10 seconds
 figure(2)
-step(Sys_c, 'k', Sys_c1,'r', Sys_c2,'b');
-legend('Sys_direct','Sys_{zoh}','Sys_{tustin}')
+step(Sys_d,'b', Sys_c, 'r', tMax);
+legend('Sys_{disc}','Sys_{cont}') 
+ylabel('Steps')
+figure(4)
+rlocus(Sys_c10)
+
+%% Simulation
+tMax = 10; % we stop simulation after 10 seconds
+figure(2)
+step(Sys_d10,'b', Sys_c10, 'r', tMax);
+legend('Sys_{disc}','Sys_{cont}') 
+ylabel('Steps')
+
+% otteniamo una stima con un errore dello 0.11%
 
 
 
@@ -169,10 +194,10 @@ data_3 = iddata(Set_3, input_3, Ts);
 data_4 = iddata(Set_4, input_4, Ts);
 
 
-datas = merge(data_1, data_2, data_3, data_4);
-Sys_c = tfest(datas, 2, 0)
+datas_2ms = merge(data_1, data_2, data_3, data_4);
+Sys_c = tfest(datas_2ms, 2, 0)
 Sys_c.Denominator(3) = 0;
-Sys_d = tfest(datas, 2, 0, 'Ts', Ts);
+Sys_d = tfest(datas_2ms, 2, 0, 'Ts', Ts);
 
 %%
 tMax = 10; % we stop simulation after 10 seconds
@@ -203,9 +228,6 @@ rlocus(Sys_c)
 %% Spazio di stato
 
 [Ad, Bd, Cd, Dd, ts] = ssdata(Sys_d);
-
-
-%%
 
 
 
