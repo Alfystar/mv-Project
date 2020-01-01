@@ -121,12 +121,7 @@ Sys_d10 = tfest(datas_10, 2, 0, 'Ts', Ts);
 
 %% RLocus Analysis
 figure(3)
-rlocus(Sys_d10)%%
-tMax = 10; % we stop simulation after 10 seconds
-figure(2)
-step(Sys_d,'b', Sys_c, 'r', tMax);
-legend('Sys_{disc}','Sys_{cont}') 
-ylabel('Steps')
+rlocus(Sys_d10)
 figure(4)
 rlocus(Sys_c10)
 
@@ -139,9 +134,50 @@ ylabel('Steps')
 
 % otteniamo una stima con un errore dello 0.11%
 
+%% Hard-braking transfer function
+
+Set_h1 = Samples_10ms(1045:1180,1:2);
+Set_h1(106:end,1) = 0;
+Set_h2 = Samples_10ms(1385:1520,1:2);
+Set_h2(106:end,1) = 0;
+
+data_h1 = iddata(Set_h1(:,2), Set_h1(:,1), Ts);
+data_h2 = iddata(Set_h2(:,2), Set_h2(:,1), Ts);
+datas_h = merge(data_h1, data_h2);
+
+Sys_hC = tfest(datas_h, 2, 0) % ?? why is not working??
+Sys_hD = tfest(datas_h, 2, 0, 'Ts', Ts); %% this is ok, maybe?
+
+%%
+figure(5)
+rlocus(Sys_hD)
+figure(6)
+rlocus(Sys_hC)
+
+%% Comparing with soft-braking
+
+Set_s1 = Samples_10ms(175:365,1:2);
+Set_s2 = Samples_10ms(675:865,1:2);
+
+data_s1 = iddata(Set_s1(:,2), Set_s1(:,1), Ts);
+data_s2 = iddata(Set_s2(:,2), Set_s2(:,1), Ts);
+datas_s = merge(data_s1, data_s2);
+
+Sys_sC = tfest(datas_s, 2, 0) % ?? why is not working??
+Sys_sD = tfest(datas_s, 2, 0, 'Ts', Ts); %% this is ok, maybe?
 
 
 
+%%
+figure(7)
+rlocus(Sys_sD)
+figure(8)
+rlocus(Sys_sC)
+
+figure(17)
+rlocus(d2c(Sys_sD))
+figure(18)
+rlocus(d2c(Sys_hD))
 
 %% New Analysis
 clc
