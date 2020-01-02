@@ -40,3 +40,10 @@ I_cb=I_v+I_dc+I_da+NR*I_r;
 M_cb=M_v+M_dc+M_da+NR*M_r;
 %Inerzia totale
 I_tot=2*I_dl+I_fl+NS*(I_s+M_s*(120^2))+N_cb*(I_cb+M_cb*(120^2))+N_cbe*(I_cb+M_cb*(64^2))
+
+
+%%
+%Inerzia del braccio rispetto il suo baricentro kg*mm^3
+I_br=2424.104 
+%Distanza del baricentro del braccio rispetto l'asse del motore (mm)
+B_bx=133.365
