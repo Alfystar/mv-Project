@@ -202,14 +202,13 @@ rlocus(Sys_sC)
 % gain per s=0 non è altro che il ka desiderato (o si pone s = 0, o si
 % vede il valore sempre in getpar).
 
-Sys_sD_d2c = d2c(Sys_sD)
-getpar(Sys_sD_d2c) 
-
 Sys_hD_d2c = d2c(Sys_hD)
 getpar(Sys_hD_d2c) 
 
+Sys_sD_d2c = d2c(Sys_sD)
+getpar(Sys_sD_d2c) 
 
 figure(17)
-rlocus(Sys_sD_d2c)
-figure(18)
 rlocus(Sys_hD_d2c)
+figure(18)
+rlocus(Sys_sD_d2c)
