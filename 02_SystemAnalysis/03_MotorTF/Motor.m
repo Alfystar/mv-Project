@@ -101,8 +101,8 @@ ylabel('|P1(f)|')
 Set_1 = Samples_10ms(10:190,1:2); 
 Set_2 = Samples_10ms(365:695,1:2);
 Set_3 = Samples_10ms(870:1140,1:2); 
-Set_4 = Samples_10ms(1230:1480,1:2);
-Set_4(1:4,1) = 0; %% prendiamo dei dati da una frenata forzata
+Set_4 = Samples_10ms(1200:1480,1:2);
+Set_4(1:34,1) = 0; %% prendiamo dei dati da una frenata forzata
 
 %% Merging datas
 
@@ -119,11 +119,25 @@ Sys_c10 = tfest(datas_10, 2, 0)
 %Sys_c10.Denominator(3) = 0;
 Sys_d10 = tfest(datas_10, 2, 0, 'Ts', Ts);
 
+% c'è nella simulazione del continuo, un polo vicino allo zero ma NON zero,
+% per cui otteniamo un sistema del secondo ordine ma convergente, se lo
+% sottoponiamo ad uno step; se pongo Sys.Denominator = 0 in maniera
+% brutale, allora tolgo il problema e metto il polo ESATTAMENTE in zero,
+% visto che è più un errore numerico ed un fastidio che altro.
+% Da notare come nel discreto (ed è visibile in rlocus) non si verifica
+% tale problematica, e si può continuare normalmente la trattazione
+
+getpar(Sys_c10) 
+%getpar(Sys_c10,'value') % to obtain a vector with gain and pole (ka & rho)
+
 %% RLocus Analysis
+
 figure(3)
 rlocus(Sys_d10)
 figure(4)
 rlocus(Sys_c10)
+
+
 
 %% Simulation
 tMax = 10; % we stop simulation after 10 seconds
@@ -133,6 +147,13 @@ legend('Sys_{disc}','Sys_{cont}')
 ylabel('Steps')
 
 % otteniamo una stima con un errore dello 0.11%
+% analisi fatta con la simulazione dello step; ho preso a 5 e 6 secondi i
+% valori del sys_c e del sys_d, fatta la differenza degli estremi e
+% confrontata con il numero di step che dovrebbe fare in un secondo.
+% Per sys_c a regime se ne hanno tot ca, per sys_d tot ca, con un errore a
+% regime percentuale rispettivamente del 0.11% per entrambi
+% TODO: capire come tirare fuori i parametri dal discreto.
+
 
 %% Hard-braking transfer function
 
@@ -145,8 +166,8 @@ data_h1 = iddata(Set_h1(:,2), Set_h1(:,1), Ts);
 data_h2 = iddata(Set_h2(:,2), Set_h2(:,1), Ts);
 datas_h = merge(data_h1, data_h2);
 
-Sys_hC = tfest(datas_h, 2, 0) % ?? why is not working??
-Sys_hD = tfest(datas_h, 2, 0, 'Ts', Ts); %% this is ok, maybe?
+Sys_hC = tfest(datas_h, 2, 0); % ?? why is not working??
+Sys_hD = tfest(datas_h, 2, 0, 'Ts', Ts) %% this is ok, maybe?
 
 %%
 figure(5)
@@ -163,8 +184,8 @@ data_s1 = iddata(Set_s1(:,2), Set_s1(:,1), Ts);
 data_s2 = iddata(Set_s2(:,2), Set_s2(:,1), Ts);
 datas_s = merge(data_s1, data_s2);
 
-Sys_sC = tfest(datas_s, 2, 0) % ?? why is not working??
-Sys_sD = tfest(datas_s, 2, 0, 'Ts', Ts); %% this is ok, maybe?
+Sys_sC = tfest(datas_s, 2, 0); % ?? why is not working??
+Sys_sD = tfest(datas_s, 2, 0, 'Ts', Ts) %% this is ok, maybe?
 
 
 
@@ -174,97 +195,21 @@ rlocus(Sys_sD)
 figure(8)
 rlocus(Sys_sC)
 
+%% rlocus and parameters with d2c
+% considerazioni: il polo molto piccolo può essere cancellato come nel caso
+% sopra del sistema generale -> lo pongo uguale a zero; il polo rimanente
+% (ottenuto tramite getpar) è il rho del sistema; senza il polo piccolo, il
+% gain per s=0 non è altro che il ka desiderato (o si pone s = 0, o si
+% vede il valore sempre in getpar).
+
+Sys_sD_d2c = d2c(Sys_sD)
+getpar(Sys_sD_d2c) 
+
+Sys_hD_d2c = d2c(Sys_hD)
+getpar(Sys_hD_d2c) 
+
+
 figure(17)
-rlocus(d2c(Sys_sD))
+rlocus(Sys_sD_d2c)
 figure(18)
-rlocus(d2c(Sys_hD))
-
-%% New Analysis
-clc
-clear variables
-
-
-%% Dati con campionamento 2ms
-
-filename = 'test0_255.dat'; delimiterIn = '\t';
-Samples = importdata(filename,delimiterIn);
-% matrice Nx4, con N misure effettuate
-
-%% Normalization
-
-timeWanted = 0.002; % time sampling in seconds (-> 2ms)
-
-Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
-Fs = 1/Ts;
-step2rad = 11/(2*pi); % STEPs/rad
-
-Samples.data(:,1) = Samples.data(:,1)/255; % PWM in percentage
-Samples.data(:,3) = Samples.data(:,3)/(Ts*step2rad); % rad/s
-
-maxSpeed_2 = mean(Samples.data(190:1190,3)); 
-
-
-
-
-
-%% Analizzo diversi 0-255
-
-Set_1 = Samples.data(5:255,2);
-input_1 = Samples.data(5:255,1);
-
-Set_2 = Samples.data(2075:3075,2);
-input_2 = Samples.data(2075:3075,1);
-
-Set_3 = Samples.data(4080:5080,2);
-input_3 = Samples.data(4080:5080,1);
-
-Set_4 = Samples.data(5394:5894,2);
-input_4 = Samples.data(5394:5894,1);
-input_4(1:5) = 0; %% prendiamo dei dati da una frenata forzata
-
-
-%%
-data_1 = iddata(Set_1, input_1, Ts);
-data_2 = iddata(Set_2, input_2, Ts);
-data_3 = iddata(Set_3, input_3, Ts);
-data_4 = iddata(Set_4, input_4, Ts);
-
-
-datas_2ms = merge(data_1, data_2, data_3, data_4);
-Sys_c = tfest(datas_2ms, 2, 0)
-Sys_c.Denominator(3) = 0;
-Sys_d = tfest(datas_2ms, 2, 0, 'Ts', Ts);
-
-%%
-tMax = 10; % we stop simulation after 10 seconds
-figure(2)
-step(Sys_d,'b', Sys_c, 'r', tMax);
-legend('Sys_{disc}','Sys_{cont}') 
-ylabel('Steps')
-% c'è nella simulazione del continuo, un polo vicino allo zero ma NON zero,
-% per cui otteniamo un sistema del secondo ordine ma convergente, se lo
-% sottoponiamo ad uno step; se pongo Sys.Denominator = 0 in maniera
-% brutale, allora tolgo il problema e metto il polo ESATTAMENTE in zero,
-% visto che è più un errore numerico ed un fastidio che altro.
-% Da notare come nel discreto (ed è visibile in rlocus) non si verifica
-% tale problematica, e si può continuare normalmente la trattazione
-%%
-figure(3)
-rlocus(Sys_d)
-figure(4)
-rlocus(Sys_c)
-
-% analisi fatta con la simulazione dello step; ho preso a 5 e 6 secondi i
-% valori del sys_c e del sys_d, fatta la differenza degli estremi e
-% confrontata con il numero di step che dovrebbe fare in un sec (6820 ca).
-% Per sys_c a regime se ne hanno 7300ca, per sys_d 7100ca, con un errore a
-% regime percentuale rispettivamente del 6.58% e 3.94%
-% TODO: capire come tirare fuori i parametri dal discreto.
-
-%% Spazio di stato
-
-[Ad, Bd, Cd, Dd, ts] = ssdata(Sys_d);
-
-
-
-
+rlocus(Sys_hD_d2c)
