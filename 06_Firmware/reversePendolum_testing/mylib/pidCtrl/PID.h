@@ -24,13 +24,13 @@ public:
 private:
     /*pid general*/
     float Kp, Ki, Kd;
-    float CONTROL_SATURATION;   //100% dell'uscita possibile
-    float CONTROL_DEADZONE;    //se per muovermi devo spostarmi di meno freno
+    float cSat;   //100% dell'uscita possibile
+    float cDead;    //se per muovermi devo spostarmi di meno freno
     int MOTOR_DEADZONE;
     bool posDir = false; //per allineare verso dei pwm a incremento degli encoder
 
     /*Variabili del pid comp*/
-    data mystack[8]; 	//data
+    data erStack[8]; 	//data
     float x_i = 0.0;	//valore dell'integrale
     float y_d = 0.0;	//valore della derivata
 
