@@ -44,9 +44,14 @@ Kmgl = g*(M1*(Lbc+L1)+M2*L1);           % Valore della Forza di Gravità sul Sis
 q1Max = deg2rad(60); % Massimo angolo +/-q1 [°]
 
 % Motor parameterization
-Ka = 100000;                    % Accelerazione Massima Sperimentale
-rho = 36;                       % Attrito viscoso sperimentale
+% Se si inserisce da qua, bisogna tenere conto del sistema tutto montato
+Ka = 1.6695*10^5;                    % Accelerazione Massima Sperimentale
+rho = 31.8794;                       % Attrito viscoso sperimentale
+rhoB = 31.8794;                       % Attrito viscoso sperimentale
 
+% Sono costanti fisiche del motore, quindi ci aspettiamo che al variare dei
+% componenti questi numeri rimangano uguali
 D1 = 0;                         % Attrito viscoso Perno
 tauMotMax = Ka * Id;            % Coppia massima del motore
 D2 = rho * Id;                  % Costante di Attrito viscoso del motore
+D2b = rho * Id;                 % Costante di Attrito viscoso del motore Frenato
