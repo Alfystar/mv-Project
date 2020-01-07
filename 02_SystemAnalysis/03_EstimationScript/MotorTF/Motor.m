@@ -141,7 +141,7 @@ rlocus(Sys_c10)
 
 %% Simulation
 tMax = 10; % we stop simulation after 10 seconds
-figure(2)
+figure(20)
 step(Sys_d10,'b', Sys_c10, 'r', tMax);
 legend('Sys_{disc}','Sys_{cont}') 
 ylabel('Steps')
