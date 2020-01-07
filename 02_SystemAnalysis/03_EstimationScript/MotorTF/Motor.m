@@ -71,7 +71,7 @@ step2rad = 11/(2*pi); % STEPs/rad
 
 Samples_10ms(:,3) = Samples_10ms(:,3)/(Ts*step2rad); % rad/s
 Samples_10ms(:,1) = Samples_10ms(:,1)/255; % PWM in percentage
-
+Samples_10ms(:,4) = Samples_10ms(:,4)/(Ts*step2rad);
 
 
 %% Fourier analysis of a step
@@ -244,9 +244,9 @@ datas_fV = merge(data_f1V, data_f2V);
 data_sV = iddata(Set_s(:,3), Set_s(:,1), Ts);
 data_hV = iddata(Set_h(:,3), Set_h(:,1), Ts);
 
-Sys_fVC = tfest(datas_fV, 1, 0)%, 'Ts', Ts) %% this is ok, maybe?
-Sys_sVC = tfest(data_sV, 1, 0)%, 'Ts', Ts) %% this is ok, maybe?
-Sys_hVC = tfest(data_hV, 1, 0)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_fVC = ssest(datas_fV, 1)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_sVC = ssest(data_sV, 1)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_hVC = ssest(data_hV, 1)%, 'Ts', Ts) %% this is ok, maybe?
 
 % comparing with accelerating system
 data_sysV1 = iddata(Set_1(:,3), Set_1(:,1), Ts);
@@ -256,7 +256,7 @@ data_sysV4 = iddata(Set_4(:,3), Set_4(:,1), Ts);
 
 datas_sysV = merge(data_sysV1, data_sysV2, data_sysV3, data_sysV4);
 
-Sys_sysVC = tfest(datas_sysV, 1, 0)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_sysVC = ssest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
 
 % con questo metodo evitiamo di far stimare anche il polo che sappiamo
 % essere in zero (e che tfest potrà trovare solo con un numero enorme di
@@ -270,11 +270,99 @@ showConfidence(h,3)
 %%
 
 sys_sim = ssest(data_sV, 1, 'Ts', Ts)
-tempo = 0:Ts:length(Set_s(106:end,1))*Ts';
+tempo = 0:Ts:(length(Set_s(106:end,1))-1)*Ts';
 figure(51)
-Simul = lsim(sys_sim, zeros(1,length(tempo)), tempo, Set_s(106,3))/sys_sim.C;
-% hold on
-% plot(tempo, Set_s(105:end,3),'r')
+clf
+lsim(sys_sim, zeros(1,length(tempo)), tempo, Set_s(105,3))
+hold on
+stairs(tempo, Set_s(106:end,3)*sys_sim.C,'r')
+
+
+%%
+
+figure(52)
+clf
+tempo_2 = 0:Ts:(length(Set_1(4:end,1))-1)*Ts';
+Sys_sysVC = ssest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_sysVC.B = Sys_sysVC.B*Sys_sysVC.C
+Sys_sysVC.C = Sys_sysVC.C/Sys_sysVC.C
+
+valmax = Sys_sysVC.B*Sys_sysVC.C/Sys_sysVC.A
+
+step(Sys_sysVC)
+hold on
+plot(tempo_2, Set_1(4:end,3),'r')
+
+
+%%
+
+figure(53)
+clf
+tempo_3 = 0:Ts:(length(Set_f1(31:end,1))-1)*Ts';
+Sys_fVC = ssest(datas_fV, 1)
+
+Sys_fVC.B = Sys_fVC.B*Sys_fVC.C
+Sys_fVC.C = Sys_fVC.C/Sys_fVC.C
+
+valmax_2 = Sys_fVC.B*Sys_fVC.C/Sys_fVC.A
+
+lsim(Sys_fVC, zeros(1,length(tempo)), tempo, Set_f1(30,3))
+hold on
+plot(tempo_3, Set_f1(31:end,3),'r')
+
+
+%%
+figure(54)
+tempo_tot = 0:Ts:(length(Samples_10ms(:,1))-1)*Ts';
+plot(tempo_tot, Samples_10ms(:,3),'r')
+
+
+%%
+
+Set_fin = Samples_10ms(1:354,1:3);
+data_set_fin = iddata(Set_fin(:,3), Set_fin(:,1), Ts);
+
+Sys_final = ssest(data_set_fin, 2, 'Ts',Ts)
+tfMot=tfest(data_set_fin, 4) % 'Ts',Ts
+% Sys_final.B = Sys_final.B*Sys_final.C
+% Sys_final.C = Sys_final.C/Sys_final.C
+% 
+% valmax_3 = Sys_final.B*Sys_final.C/Sys_final.A
+tempo_4 = 0:Ts:(length(Set_fin(:,1))-1)*Ts';
+
+figure(55)
+clf
+plot(tempo_4, Set_fin(:,3),'r')
+hold on
+plot(tempo_4, Set_fin(:,1)*4000,'k')
+lsim(tfMot, Set_fin(:,1) , tempo_4)
+grid on
+legend()
+%%
+
+Set_fin_2 = Samples_10ms(850:1220,1:3);
+Set_fin_2(1150-850:end,1) = 0;
+data_set_fin_2 = iddata(Set_fin_2(:,3), Set_fin_2(:,1), Ts);
+
+tfMot_2 = tfest(data_set_fin_2, 1) % 'Ts',Ts
+% Sys_final.B = Sys_final.B*Sys_final.C
+% Sys_final.C = Sys_final.C/Sys_final.C
+% 
+% valmax_3 = Sys_final.B*Sys_final.C/Sys_final.A
+tempo_4 = 0:Ts:(length(Set_fin_2(:,1))-1)*Ts';
+
+figure(55)
+clf
+plot(tempo_4, Set_fin_2(:,3),'r')
+hold on
+plot(tempo_4, Set_fin_2(:,1)*4000,'k')
+lsim(tfMot_2, Set_fin_2(:,1) , tempo_4)
+grid on
+legend()
+
+valmax_4 = tfMot_2.Numerator/tfMot_2.Denominator(2)
+
+%%
 
 
 
