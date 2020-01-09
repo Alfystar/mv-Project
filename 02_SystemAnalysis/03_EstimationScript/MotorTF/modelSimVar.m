@@ -1,18 +1,16 @@
 clear variables
 clc
+% Parametri arduino
+DeadZone = 25;
+timeWanted = 10/1000; % time sampling in seconds (-> 10ms)
+Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test_10ms = importdata('speedsDatas/test0-255_dt10.dat','\t'); 
-Samples_10ms = test_10ms.data;
-    % Normalizzazione dati Motore
-    timeWanted = 0.01; % time sampling in seconds (-> 10ms)
-    Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
-    step2rad = 11/(2*pi); % STEPs/rad
-
-    Samples_10ms(:,1) = Samples_10ms(:,1)/255; % PWM in percentage
-    Samples_10ms(:,3) = Samples_10ms(:,3)/(Ts*step2rad); % rad/s
-    Samples_10ms(:,4) = Samples_10ms(:,4)/(Ts*step2rad);
-
+test0_255 = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt10.dat','\t'); 
+Samples = test0_255.data;
+    
+% Normalizzazione dati Motore
+Samples = dataNorm(Samples,Ts, DeadZone);
 
 % Frame dati
 % freeRelaseSample = 0;
@@ -33,48 +31,48 @@ bfEnd = 0;
 % 7 := Salita del SoftBrake(u=1)
 % Prendo tutto il resto
 state=0;
-for k=1:length(Samples_10ms)
+for k=1:length(Samples)
     switch (state)
        case 0 % 0 := Attendo 1° Salita (u=0)
-          if(Samples_10ms(k,1)~=0)
+          if(Samples(k,1)~=0)
               state = 1;
           end
        case 1 % 1 := Salita (u=1)
-          if(Samples_10ms(k,1)~=1)
+          if(Samples(k,1)~=1)
               frsStart = k;
               state = 2;
           end
        case 2 % 2 := freeRealse (u=0)
-          if(Samples_10ms(k,3) == 0 && Samples_10ms(k-1,3) == 0 && Samples_10ms(k-2,3) == 0)
+          if(Samples(k,3) == 0 && Samples(k-1,3) == 0 && Samples(k-2,3) == 0)
               frsEnd = k - 3;
               state = 3;
           end
        case 3 % 3 := Attendo Salita (u=-1)
-          if(Samples_10ms(k,1)~=0)
+          if(Samples(k,1)~=0)
               state = 4;
           end
        case 4 % 4 := Salita (u=-1)
-          if(Samples_10ms(k,1)~=1)
+          if(Samples(k,1)~=1)
               state = 5;
           end
        case 5 % 5 := freeRealse (u=0)
-          if(Samples_10ms(k,3) == 0 && Samples_10ms(k-1,3) == 0 && Samples_10ms(k-2,3) == 0)
+          if(Samples(k,3) == 0 && Samples(k-1,3) == 0 && Samples(k-2,3) == 0)
               state = 6;
           end
        case 6 % 6 := Attendo Salita del SoftBrake (u=1)
-          if(Samples_10ms(k,1)~=0)
+          if(Samples(k,1)~=0)
               state = 7;
           end
        case 7 % 7 := Salita del SoftBrake(u=1)
           bfStart = k - 5;
-          bfEnd = length(Samples_10ms);
+          bfEnd = length(Samples);
           break % termino la scansione
        otherwise
           error('Non dovresti essere qui!!!');
     end    
 end
-freeRelaseSample = Samples_10ms(frsStart:frsEnd,3);
-brakingFrame = Samples_10ms(bfStart:bfEnd,1:3);
+freeRelaseSample = Samples(frsStart:frsEnd,3);
+brakingFrame = Samples(bfStart:bfEnd,1:3);
 
 % Ottenimento attDyn e rhoMot
 t=0:Ts:(length(freeRelaseSample)-1)*Ts;
@@ -84,7 +82,7 @@ rhoMec = abs(fitresult.rhoMec);
 velmaxFit = abs(fitresult.vMax);
 
 % Ottenimento rhoInd+(attDyn+rhoMot) da accelerazione e frenata soft
-Set_fin_b = Samples_10ms(850:1220,1:3);
+Set_fin_b = Samples(850:1220,1:3);
 Set_fin_b(1150-850:end,1) = 0;
 for k=1:length(brakingFrame)
     if(brakingFrame(k,1) ~= 1 && brakingFrame(k,1) ~= -1)
@@ -115,5 +113,49 @@ fprintf("velmaxFit=%f\tvelmax=%f\tdist=%f\n", velmaxFit, velmax, abs(velmaxFit-v
 v0 = 0;
 
 % vettori di test
-setU_Norm = Samples_10ms(1:bfStart,1);
-setV_Norm = Samples_10ms(1:bfStart,3);
+testStepping = importdata('SpeedData/OldMot/speedDatasStepping/testStepping_dt10.dat','\t'); 
+SamplesStepping = testStepping.data;
+timeWanted = 10/1000; % time sampling in seconds (-> 2ms)
+Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
+SamplesStepping = dataNorm(SamplesStepping,Ts, DeadZone);
+setU_Norm = SamplesStepping(:,1);
+setBrake = SamplesStepping(:,4);
+setV_Norm = SamplesStepping(:,3);
+
+function dataOut = dataNorm (dataIn, Ts, DeadZone)
+    dataOut = zeros(length(dataIn),4);
+    % colonna = 4 brake on/off (1/0) 
+    step2rad = 11/(2*pi); % STEPs/rad
+        for k=1:length(dataOut)
+            [u,b]=pwm2duty(dataIn(k,1),DeadZone);
+            dataOut(k,1) = u;
+            dataOut(k,4) = b; 
+        end
+    dataOut(:,2) = dataIn(:,2)/(Ts*step2rad); % rad/s^2
+    dataOut(:,3) = dataIn(:,3)/(Ts*step2rad); % rad/s
+end
+
+function [u,b] = pwm2duty(pwm, dead)
+    b=0;
+    if(abs(pwm)>255)
+        u=0;
+        b=1;
+        return
+    end
+    if(abs(pwm)<=dead)
+        u = 0;
+        return
+    end
+    if(pwm>0)
+        u = map(pwm,dead,255,0,1);
+        return
+    else
+        u = -map(-pwm,dead,255,0,1);
+        return
+    end
+end
+
+function u = map (var, varMin, varMax,outMin , outMax)
+    u = ((var-varMin)/(varMax-varMin));
+    u = (u * outMax) + ((1-u)*outMin);
+end

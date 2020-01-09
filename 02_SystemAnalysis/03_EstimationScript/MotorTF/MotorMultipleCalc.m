@@ -1,7 +1,7 @@
 % ####################################################################
 % Analisi funzione di trasferimento motore progetto
 % 
-% La stima attuale è fatta con il motore a vuoto, si dovrà aggiungere
+% La stima attuale ï¿½ fatta con il motore a vuoto, si dovrï¿½ aggiungere
 % successivamente la massa e il disco con inerzia
 % 
 % Filippo Badalamenti
@@ -16,14 +16,14 @@ format shortEng
 % This portion is written in order to find which is the highest refresh 
 % rate we can push the encoder, before it starts to lose steps.
 
-test_2ms = importdata('speedsDatas/test0-255_dt2.dat','\t'); 
-test_4ms = importdata('speedsDatas/test0-255_dt4.dat','\t'); 
-test_6ms = importdata('speedsDatas/test0-255_dt6.dat','\t'); 
-test_8ms = importdata('speedsDatas/test0-255_dt8.dat','\t'); 
-test_10ms = importdata('speedsDatas/test0-255_dt10.dat','\t'); 
-test_12ms = importdata('speedsDatas/test0-255_dt12.dat','\t'); 
-test_14ms = importdata('speedsDatas/test0-255_dt14.dat','\t'); 
-test_15ms = importdata('speedsDatas/test0-255_dt15.dat','\t'); 
+test_2ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt2.dat','\t'); 
+test_4ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt4.dat','\t'); 
+test_6ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt6.dat','\t'); 
+test_8ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt8.dat','\t'); 
+test_10ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt10.dat','\t'); 
+test_12ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt12.dat','\t'); 
+test_14ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt14.dat','\t'); 
+test_15ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt15.dat','\t'); 
 
 % to slim down the first part of the code, we won't scale speeds other than
 % the required time sampling normalization; moreover, it's useless flooring
@@ -75,7 +75,7 @@ Samples_10ms(:,4) = Samples_10ms(:,4)/(Ts*step2rad);
 
 
 %% Fourier analysis of a step
-% facciamo questa prova per verificare la bontà dei dati raccolti; essendo
+% facciamo questa prova per verificare la bontï¿½ dei dati raccolti; essendo
 % uno step, dovrei avere componente percentuale = 1 a 0Hz. 
 % Dall'analisi risulta un 4% d'errore nella raccolta dati
 
@@ -119,13 +119,13 @@ Sys_c10 = tfest(datas_10, 2, 0)
 %Sys_c10.Denominator(3) = 0;
 Sys_d10 = tfest(datas_10, 2, 0, 'Ts', Ts);
 
-% c'è nella simulazione del continuo, un polo vicino allo zero ma NON zero,
+% c'ï¿½ nella simulazione del continuo, un polo vicino allo zero ma NON zero,
 % per cui otteniamo un sistema del secondo ordine ma convergente, se lo
 % sottoponiamo ad uno step; se pongo Sys.Denominator = 0 in maniera
 % brutale, allora tolgo il problema e metto il polo ESATTAMENTE in zero,
-% visto che è più un errore numerico ed un fastidio che altro.
-% Da notare come nel discreto (ed è visibile in rlocus) non si verifica
-% tale problematica, e si può continuare normalmente la trattazione
+% visto che ï¿½ piï¿½ un errore numerico ed un fastidio che altro.
+% Da notare come nel discreto (ed ï¿½ visibile in rlocus) non si verifica
+% tale problematica, e si puï¿½ continuare normalmente la trattazione
 
 getpar(Sys_c10) 
 %getpar(Sys_c10,'value') % to obtain a vector with gain and pole (ka & rho)
@@ -206,10 +206,10 @@ figure(10)
 rlocus(Sys_fC)
 
 %% rlocus and parameters with d2c
-% considerazioni: il polo molto piccolo può essere cancellato come nel caso
+% considerazioni: il polo molto piccolo puï¿½ essere cancellato come nel caso
 % sopra del sistema generale -> lo pongo uguale a zero; il polo rimanente
-% (ottenuto tramite getpar) è il rho del sistema; senza il polo piccolo, il
-% gain per s=0 non è altro che il ka desiderato (o si pone s = 0, o si
+% (ottenuto tramite getpar) ï¿½ il rho del sistema; senza il polo piccolo, il
+% gain per s=0 non ï¿½ altro che il ka desiderato (o si pone s = 0, o si
 % vede il valore sempre in getpar).
 
 Sys_sD_d2c = d2c(Sys_sD)
@@ -259,8 +259,8 @@ datas_sysV = merge(data_sysV1, data_sysV2, data_sysV3, data_sysV4);
 Sys_sysVC = ssest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
 
 % con questo metodo evitiamo di far stimare anche il polo che sappiamo
-% essere in zero (e che tfest potrà trovare solo con un numero enorme di
-% campioni), così riusciamo ad estrapolare solo il polo d'interesse (rho)
+% essere in zero (e che tfest potrï¿½ trovare solo con un numero enorme di
+% campioni), cosï¿½ riusciamo ad estrapolare solo il polo d'interesse (rho)
 % e la costante ka del sistema
 
 %%
