@@ -21,7 +21,6 @@ void setup() {
 	mEn = new MotFeed();
 	periodicTask(2);
 
-
 	//MPU6050
 	initi2c(wakeUpPin);
 
@@ -46,7 +45,8 @@ bool sSPush, tPush;
 int testBaseSpeed = 15;
 byte iTest = 0;
 byte bTest = 0;
-int vel = 0;
+int pwm = 0;
+bool brake = false;
 
 void loop() {
 	//if possible, MPU update
@@ -57,36 +57,36 @@ void loop() {
 		tPush = true;
 		switch (bTest) {
 			case 0:
-				vel = 255;
-				mot->drive_motor(255);
+				pwm = 255;
+				brake = false;
 			break;
 			case 1:
-				vel = 0;
-				mot->drive_motor(0);
+				pwm = 0;
+				brake = false;
 			break;
 			case 2:
-				vel = -255;
-				mot->drive_motor(-255);
+				pwm = -255;
+				brake = false;
 			break;
 			case 3:
-				vel = 0;
-				mot->drive_motor(0);
+				pwm = 0;
+				brake = false;
 			break;
 			case 4:
-				vel = 255;
-				mot->drive_motor(255);
+				pwm = 255;
+				brake = false;
 			break;
 			case 5:
-				vel = 999;
-				mot->soft_stop();
+				pwm = 999;
+				brake = true;
 			break;
 			case 6:
-				vel = -255;
-				mot->drive_motor(-255);
+				pwm = -255;
+				brake = false;
 			break;
 			case 7:
-				vel = -9999;
-				mot->hard_stop(10);
+				pwm = 999;
+				brake = true;
 			break;
 		}
 		bTest = (bTest + 1) % 8;
@@ -98,28 +98,20 @@ void loop() {
 	if (!digitalRead(startStop) && !sSPush) {
 		//Serial.println("startStop Push");
 		sSPush = true;
-		if (iTest > 17 && testBaseSpeed > 0) {
-			iTest = 0;
-			testBaseSpeed *= -1;
-			vel = 999;
-			mot->soft_stop();
-		} else if (iTest > 17 && testBaseSpeed < 0) {
-			iTest = 0;
-			testBaseSpeed *= -1;
-			vel = 0;
-			mot->drive_motor(vel);
-		} else {
-			vel = testBaseSpeed * iTest++;
-			mot->drive_motor(vel);
-		}
+		brake = !brake;
 	} else if (digitalRead(startStop)) {
 		sSPush = false;
 		delay(1); //anti rimbalzo
 	}
 	
 	//Timed task
-	if (millis() - timer > 10) {
+	if (millis() - timer > 5) {
 		timer = millis();
+		if (!brake) {
+			pwm = map(analogRead(pot), 0, 1023, -255, 255);
+		} else {
+			pwm = 999;
+		}
 	}
 }
 
@@ -140,14 +132,20 @@ void periodicTask(int time) {
 }
 
 ISR(TIMER2_COMPA_vect) {
+
 	digitalWrite(12, 1);
 	mEn->periodicRecalc();
 	updateArmAngles();
-	Serial.print(vel);
+	Serial.print(pwm);
 	Serial.print("\t");
 	mEn->debugState(true);
 
 	digitalWrite(12, 0);
+	if (!brake) {
+		mot->drive_motor(pwm);
+	} else {
+		mot->soft_stop();
+	}
 }
 
 ISR(PCINT1_vect) {

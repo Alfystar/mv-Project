@@ -37,7 +37,7 @@ bool sSPush, tPush;
 int testBaseSpeed = 15;
 byte iTest = 0;
 byte bTest = 0;
-int vel = 0;
+int pwm = 0;
 
 void loop() {
 	//if possible, MPU update

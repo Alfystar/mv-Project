@@ -30,6 +30,9 @@ enum specialPwmCode
 #define startStop 17 //digitale di A3
 #define taratura 4
 
+// Potenziometro
+#define pot A2
+
 //Motor Pendolum Define
 #define enPwm 9
 #define inA 7

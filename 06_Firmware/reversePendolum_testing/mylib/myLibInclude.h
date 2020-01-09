@@ -11,7 +11,6 @@
 
 #include "Motor/DCdriver.h"
 #include "msEnlib/msEnlib.h" //todo: da modificare eliminando il buffer circolare e adattandola a questo progetto
-#include "pidCtrl/PID.h"
 #include "MpuINT/MpuINT.h"
 
 
