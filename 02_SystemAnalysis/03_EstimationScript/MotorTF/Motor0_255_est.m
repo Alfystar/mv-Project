@@ -6,7 +6,7 @@ timeWanted = 10 / 1000; % time sampling in seconds (-> 10ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test = importdata('speedsDatas/test0-255_dt10.dat','\t'); 
+test = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt10.dat','\t'); 
 Samples = test.data;
 
 % Normalizzazione dati Motore
@@ -82,8 +82,6 @@ rhoMec = abs(fitresult.rhoMec);
 velmaxFit = abs(fitresult.vMax);
 
 % Ottenimento rhoInd+(attDyn+rhoMot) da accelerazione e frenata soft
-Set_fin_b = Samples(850:1220,1:3);
-Set_fin_b(1150-850:end,1) = 0;
 for k=1:length(brakingFrame)
     if(brakingFrame(k,1) ~= 1 && brakingFrame(k,1) ~= -1)
         brakingFrame(k,1) = 0;

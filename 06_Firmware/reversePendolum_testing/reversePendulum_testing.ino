@@ -19,7 +19,7 @@ void setup() {
 	
 	//Encoder
 	mEn = new MotFeed();
-	periodicTask(2);
+	periodicTask(10);
 
 	//MPU6050
 	initi2c(wakeUpPin);
@@ -46,7 +46,9 @@ int testBaseSpeed = 15;
 byte iTest = 0;
 byte bTest = 0;
 int pwm = 0;
-bool brake = false;
+bool brake = true;
+bool freeBrake = true;
+byte testMode = 0;	// 0=col potenziometro, 1= pulsante taratura
 
 void loop() {
 	//if possible, MPU update
@@ -59,58 +61,71 @@ void loop() {
 			case 0:
 				pwm = 255;
 				brake = false;
+				freeBrake = false;
+				testMode = 1;
 			break;
 			case 1:
 				pwm = 0;
 				brake = false;
+				freeBrake = true;
 			break;
 			case 2:
 				pwm = -255;
 				brake = false;
+				freeBrake = false;
 			break;
 			case 3:
 				pwm = 0;
 				brake = false;
+				freeBrake = true;
 			break;
 			case 4:
 				pwm = 255;
 				brake = false;
+				freeBrake = false;
 			break;
 			case 5:
-				pwm = 999;
+				pwm = 0;
 				brake = true;
+				freeBrake = false;
 			break;
 			case 6:
 				pwm = -255;
 				brake = false;
+				freeBrake = false;
 			break;
 			case 7:
-				pwm = 999;
+				pwm = 0;
 				brake = true;
+				freeBrake = false;
+			break;
+			case 8:
+				testMode = 0;
 			break;
 		}
-		bTest = (bTest + 1) % 8;
+		bTest = (bTest + 1) % 9;
 	} else if (digitalRead(taratura)) {
 		tPush = false;
 		delay(1); //anti rimbalzo
 	}
-
-	if (!digitalRead(startStop) && !sSPush) {
-		//Serial.println("startStop Push");
-		sSPush = true;
-		brake = !brake;
-	} else if (digitalRead(startStop)) {
-		sSPush = false;
-		delay(1); //anti rimbalzo
-	}
 	
-	//Timed task
-	if (millis() - timer > 5) {
-		timer = millis();
-		if (!brake) {
-			pwm = map(analogRead(pot), 0, 1023, -255, 255);
-		} else {
-			pwm = 999;
+	if (testMode == 0) {
+		brake = false;
+		if (!digitalRead(startStop) && !sSPush) {
+			//Serial.println("startStop Push");
+			sSPush = true;
+			freeBrake = !freeBrake;
+		} else if (digitalRead(startStop)) {
+			sSPush = false;
+			delay(1); //anti rimbalzo
+		}
+
+		//Timed task
+		if (millis() - timer > 5) {
+			timer = millis();
+			pwm = map(analogRead(pot) >> 2, 1023 >> 2, 0, -255, 255);
+			if (abs(pwm) < 6)
+				pwm = 0;
 		}
 	}
 }
@@ -128,7 +143,7 @@ void periodicTask(int time) {
 	Serial.print(time);
 	Serial.print(", OCR2A=");
 	Serial.print(OCR2A);
-	Serial.println(", Prescaler=1024");
+	Serial.println(", Prescaler=1024)");
 }
 
 ISR(TIMER2_COMPA_vect) {
@@ -136,15 +151,17 @@ ISR(TIMER2_COMPA_vect) {
 	digitalWrite(12, 1);
 	mEn->periodicRecalc();
 	updateArmAngles();
-	Serial.print(pwm);
+	Serial.print(pwm * !freeBrake * !brake + 1000 * brake);
 	Serial.print("\t");
 	mEn->debugState(true);
 
 	digitalWrite(12, 0);
-	if (!brake) {
-		mot->drive_motor(pwm);
-	} else {
+	if (brake) {
 		mot->soft_stop();
+	} else if (freeBrake) {
+		mot->drive_motor(0);
+	} else {
+		mot->drive_motor(pwm);
 	}
 }
 

@@ -1,12 +1,12 @@
 clear variables
 clc
 % Parametri arduino
-DeadZone = 25;
+DeadZone = 19;
 timeWanted = 10/1000; % time sampling in seconds (-> 10ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test0_255 = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt10.dat','\t'); 
+test0_255 = importdata('SpeedData/OldMot/20_01_11/speedsDatas0-255/test0-255_dt10.dat','\t'); 
 Samples = test0_255.data;
     
 % Normalizzazione dati Motore
@@ -82,8 +82,6 @@ rhoMec = abs(fitresult.rhoMec);
 velmaxFit = abs(fitresult.vMax);
 
 % Ottenimento rhoInd+(attDyn+rhoMot) da accelerazione e frenata soft
-Set_fin_b = Samples(850:1220,1:3);
-Set_fin_b(1150-850:end,1) = 0;
 for k=1:length(brakingFrame)
     if(brakingFrame(k,1) ~= 1 && brakingFrame(k,1) ~= -1)
         brakingFrame(k,1) = 0;
@@ -113,7 +111,7 @@ fprintf("velmaxFit=%f\tvelmax=%f\tdist=%f\n", velmaxFit, velmax, abs(velmaxFit-v
 v0 = 0;
 
 % vettori di test
-testStepping = importdata('SpeedData/OldMot/speedDatasStepping/testStepping_dt10.dat','\t'); 
+testStepping = importdata('SpeedData/OldMot/20_01_11/speedDatasStepping/testPot_dt10.dat','\t'); 
 SamplesStepping = testStepping.data;
 timeWanted = 10/1000; % time sampling in seconds (-> 2ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
@@ -121,6 +119,7 @@ SamplesStepping = dataNorm(SamplesStepping,Ts, DeadZone);
 setU_Norm = SamplesStepping(:,1);
 setBrake = SamplesStepping(:,4);
 setV_Norm = SamplesStepping(:,3);
+SampleTime = Ts * length(SamplesStepping)
 
 function dataOut = dataNorm (dataIn, Ts, DeadZone)
     dataOut = zeros(length(dataIn),4);

@@ -6,7 +6,7 @@ timeWanted = 2 / 1000; % time sampling in seconds (-> 10ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test = importdata('SpeedData/OldMot/speedDatasStepping/testStepping_dt10.dat','\t'); 
+test = importdata('SpeedData/OldMot/19_12_29/speedDatasStepping/testStepping_dt10.dat','\t'); 
 Samples = test.data;
 t=0:Ts:(length(Samples)-1)*Ts;
 
