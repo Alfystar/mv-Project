@@ -6004,8 +6004,8 @@ part number 2062-2P from STA</description>
 <part name="START/STOP" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="SWITCH_PUSHBUTTON" device="EVQ-PE" package3d_urn="urn:adsk.eagle:package:6240957/1"/>
 <part name="PWR" library="con-jack" library_urn="urn:adsk.eagle:library:154" deviceset="JACK-PLUG" device="1" package3d_urn="urn:adsk.eagle:package:7494/1"/>
 <part name="IC1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="78*" device="T" package3d_urn="urn:adsk.eagle:package:6240670/1" technology="05"/>
-<part name="X1" library="con-kycon" library_urn="urn:adsk.eagle:library:157" deviceset="GLX-S-88M" device="" package3d_urn="urn:adsk.eagle:package:7680/1"/>
-<part name="X2" library="con-kycon" library_urn="urn:adsk.eagle:library:157" deviceset="GLX-S-88M" device="" package3d_urn="urn:adsk.eagle:package:7680/1"/>
+<part name="MOT-CON" library="con-kycon" library_urn="urn:adsk.eagle:library:157" deviceset="GLX-S-88M" device="" package3d_urn="urn:adsk.eagle:package:7680/1"/>
+<part name="MPU-CON" library="con-kycon" library_urn="urn:adsk.eagle:library:157" deviceset="GLX-S-88M" device="" package3d_urn="urn:adsk.eagle:package:7680/1"/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+18V" device=""/>
 <part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -6040,92 +6040,90 @@ part number 2062-2P from STA</description>
 <plain>
 </plain>
 <instances>
-<instance part="PCB1" gate="G$1" x="38.1" y="20.32" smashed="yes" grouprefs="LOGIC"/>
-<instance part="R1" gate="G$1" x="13.97" y="-5.08" smashed="yes" grouprefs="LOGIC">
-<attribute name="NAME" x="8.001" y="-8.89" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="10.16" y="-8.89" size="1.778" layer="96" rot="R90"/>
+<instance part="PCB1" gate="G$1" x="39.37" y="20.32" smashed="yes" grouprefs="LOGIC"/>
+<instance part="R1" gate="G$1" x="15.24" y="-5.08" smashed="yes" grouprefs="LOGIC">
+<attribute name="NAME" x="9.271" y="-8.89" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="11.43" y="-8.89" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="TARATURA" gate="G$1" x="33.02" y="-7.62" smashed="yes" rot="MR270" grouprefs="LOGIC">
-<attribute name="NAME" x="34.544" y="-3.81" size="1.27" layer="95" rot="MR270"/>
-<attribute name="VALUE" x="35.306" y="-5.08" size="1.27" layer="96" rot="MR270"/>
+<instance part="TARATURA" gate="G$1" x="34.29" y="-8.89" smashed="yes" rot="MR270" grouprefs="LOGIC">
+<attribute name="NAME" x="35.814" y="-5.08" size="1.27" layer="95" rot="MR270"/>
+<attribute name="VALUE" x="36.576" y="-6.35" size="1.27" layer="96" rot="MR270"/>
 </instance>
-<instance part="START/STOP" gate="G$1" x="40.64" y="44.45" smashed="yes" rot="R90" grouprefs="LOGIC">
-<attribute name="NAME" x="42.164" y="39.37" size="1.27" layer="95" rot="R90"/>
-<attribute name="VALUE" x="42.926" y="41.91" size="1.27" layer="96" rot="R90"/>
+<instance part="START/STOP" gate="G$1" x="41.91" y="44.45" smashed="yes" rot="R90" grouprefs="LOGIC">
+<attribute name="NAME" x="43.434" y="39.37" size="1.27" layer="95" rot="R90"/>
+<attribute name="VALUE" x="44.196" y="41.91" size="1.27" layer="96" rot="R90"/>
 </instance>
-<instance part="PWR" gate="G$1" x="-33.02" y="38.1" smashed="yes">
-<attribute name="NAME" x="-40.64" y="43.18" size="1.778" layer="95"/>
-<attribute name="VALUE" x="-40.64" y="33.02" size="1.778" layer="96"/>
+<instance part="PWR" gate="G$1" x="57.15" y="45.72" smashed="yes" grouprefs="LOGIC">
+<attribute name="NAME" x="49.53" y="50.8" size="1.778" layer="95"/>
+<attribute name="VALUE" x="49.53" y="40.64" size="1.778" layer="96"/>
 </instance>
-<instance part="IC1" gate="A1" x="-10.16" y="40.64" smashed="yes">
-<attribute name="VALUE" x="-17.78" y="43.815" size="1.778" layer="96"/>
+<instance part="IC1" gate="A1" x="80.01" y="48.26" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="72.39" y="51.435" size="1.778" layer="96"/>
 </instance>
-<instance part="X1" gate="G$1" x="167.64" y="33.02" smashed="yes" grouprefs="CONNECTOR">
-<attribute name="NAME" x="171.45" y="43.688" size="1.778" layer="95"/>
-<attribute name="VALUE" x="171.45" y="22.098" size="1.778" layer="96"/>
+<instance part="MOT-CON" gate="G$1" x="167.64" y="19.05" smashed="yes" grouprefs="CONNECTOR">
+<attribute name="NAME" x="171.45" y="29.718" size="1.778" layer="95"/>
 </instance>
-<instance part="X2" gate="G$1" x="167.64" y="-8.89" smashed="yes" rot="MR180" grouprefs="CONNECTOR">
+<instance part="MPU-CON" gate="G$1" x="167.64" y="-8.89" smashed="yes" rot="MR180" grouprefs="CONNECTOR">
 <attribute name="NAME" x="171.45" y="-19.558" size="1.778" layer="95" rot="MR180"/>
-<attribute name="VALUE" x="171.45" y="2.032" size="1.778" layer="96" rot="MR180"/>
 </instance>
-<instance part="P+1" gate="1" x="-24.13" y="45.72" smashed="yes" rot="MR0">
-<attribute name="VALUE" x="-21.59" y="43.18" size="1.778" layer="96" rot="MR90"/>
+<instance part="P+1" gate="1" x="66.04" y="53.34" smashed="yes" rot="MR0" grouprefs="LOGIC">
+<attribute name="VALUE" x="68.58" y="50.8" size="1.778" layer="96" rot="MR90"/>
 </instance>
-<instance part="P+2" gate="1" x="2.54" y="44.45" smashed="yes" rot="MR0">
-<attribute name="VALUE" x="5.08" y="39.37" size="1.778" layer="96" rot="MR90"/>
+<instance part="P+2" gate="1" x="92.71" y="52.07" smashed="yes" rot="MR0" grouprefs="LOGIC">
+<attribute name="VALUE" x="95.25" y="46.99" size="1.778" layer="96" rot="MR90"/>
 </instance>
-<instance part="GND2" gate="1" x="-25.4" y="31.75" smashed="yes">
-<attribute name="VALUE" x="-27.94" y="29.21" size="1.778" layer="96"/>
+<instance part="GND2" gate="1" x="64.77" y="39.37" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="62.23" y="36.83" size="1.778" layer="96"/>
 </instance>
-<instance part="P+3" gate="1" x="105.41" y="105.41" smashed="yes" rot="MR0" grouprefs="DRIVER">
-<attribute name="VALUE" x="107.95" y="100.33" size="1.778" layer="96" rot="MR90"/>
+<instance part="P+3" gate="1" x="109.22" y="101.6" smashed="yes" rot="MR0" grouprefs="DRIVER">
+<attribute name="VALUE" x="111.76" y="96.52" size="1.778" layer="96" rot="MR90"/>
 </instance>
-<instance part="IC2" gate="L298" x="88.9" y="86.36" smashed="yes" grouprefs="DRIVER">
-<attribute name="NAME" x="76.2" y="105.41" size="1.778" layer="95"/>
-<attribute name="VALUE" x="76.2" y="71.12" size="1.778" layer="96"/>
+<instance part="IC2" gate="L298" x="92.71" y="82.55" smashed="yes" grouprefs="DRIVER">
+<attribute name="NAME" x="80.01" y="101.6" size="1.778" layer="95"/>
+<attribute name="VALUE" x="80.01" y="67.31" size="1.778" layer="96"/>
 </instance>
-<instance part="GND3" gate="1" x="40.64" y="53.34" smashed="yes" rot="R180" grouprefs="LOGIC">
-<attribute name="VALUE" x="43.18" y="55.88" size="1.778" layer="96" rot="R180"/>
+<instance part="GND3" gate="1" x="41.91" y="53.34" smashed="yes" rot="R180" grouprefs="LOGIC">
+<attribute name="VALUE" x="44.45" y="55.88" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="GND4" gate="1" x="33.02" y="-16.51" smashed="yes" grouprefs="LOGIC">
-<attribute name="VALUE" x="30.48" y="-19.05" size="1.778" layer="96"/>
+<instance part="GND4" gate="1" x="34.29" y="-19.05" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="31.75" y="-21.59" size="1.778" layer="96"/>
 </instance>
-<instance part="GND5" gate="1" x="13.97" y="-13.97" smashed="yes" grouprefs="LOGIC">
-<attribute name="VALUE" x="11.43" y="-16.51" size="1.778" layer="96"/>
+<instance part="GND5" gate="1" x="15.24" y="-13.97" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="12.7" y="-16.51" size="1.778" layer="96"/>
 </instance>
-<instance part="P+4" gate="1" x="13.97" y="3.81" smashed="yes" grouprefs="LOGIC">
-<attribute name="VALUE" x="11.43" y="-1.27" size="1.778" layer="96" rot="R90"/>
+<instance part="P+4" gate="1" x="15.24" y="3.81" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="12.7" y="-1.27" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND6" gate="1" x="82.55" y="10.16" smashed="yes" rot="R270" grouprefs="LOGIC">
-<attribute name="VALUE" x="80.01" y="12.7" size="1.778" layer="96" rot="R270"/>
+<instance part="GND6" gate="1" x="83.82" y="10.16" smashed="yes" rot="R270" grouprefs="LOGIC">
+<attribute name="VALUE" x="81.28" y="12.7" size="1.778" layer="96" rot="R270"/>
 </instance>
-<instance part="GND7" gate="1" x="-10.16" y="30.48" smashed="yes">
-<attribute name="VALUE" x="-12.7" y="27.94" size="1.778" layer="96"/>
+<instance part="GND7" gate="1" x="80.01" y="38.1" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="77.47" y="35.56" size="1.778" layer="96"/>
 </instance>
-<instance part="GND8" gate="1" x="53.34" y="-5.08" smashed="yes" grouprefs="LOGIC">
-<attribute name="VALUE" x="50.8" y="-7.62" size="1.778" layer="96"/>
+<instance part="GND8" gate="1" x="54.61" y="-5.08" smashed="yes" grouprefs="LOGIC">
+<attribute name="VALUE" x="52.07" y="-7.62" size="1.778" layer="96"/>
 </instance>
-<instance part="P+5" gate="1" x="45.72" y="-5.08" smashed="yes" rot="R90" grouprefs="LOGIC">
-<attribute name="VALUE" x="48.26" y="-6.35" size="1.778" layer="96" rot="R180"/>
+<instance part="P+5" gate="1" x="46.99" y="-5.08" smashed="yes" rot="R90" grouprefs="LOGIC">
+<attribute name="VALUE" x="49.53" y="-6.35" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="GND9" gate="1" x="72.39" y="72.39" smashed="yes" grouprefs="DRIVER">
-<attribute name="VALUE" x="69.85" y="69.85" size="1.778" layer="96"/>
+<instance part="GND9" gate="1" x="76.2" y="68.58" smashed="yes" grouprefs="DRIVER">
+<attribute name="VALUE" x="73.66" y="66.04" size="1.778" layer="96"/>
 </instance>
-<instance part="P+6" gate="1" x="72.39" y="105.41" smashed="yes" grouprefs="DRIVER">
-<attribute name="VALUE" x="69.85" y="100.33" size="1.778" layer="96" rot="R90"/>
+<instance part="P+6" gate="1" x="76.2" y="101.6" smashed="yes" grouprefs="DRIVER">
+<attribute name="VALUE" x="73.66" y="96.52" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="CON_A-B" gate="G$1" x="95.25" y="10.16" smashed="yes" rot="MR0" grouprefs="LOGIC">
-<attribute name="VALUE" x="96.52" y="-2.54" size="1.778" layer="96" rot="MR0"/>
-<attribute name="NAME" x="96.52" y="21.082" size="1.778" layer="95" rot="MR0"/>
+<instance part="CON_A-B" gate="G$1" x="96.52" y="10.16" smashed="yes" rot="MR0" grouprefs="LOGIC">
+<attribute name="VALUE" x="97.79" y="-2.54" size="1.778" layer="96" rot="MR0"/>
+<attribute name="NAME" x="97.79" y="21.082" size="1.778" layer="95" rot="MR0"/>
 </instance>
-<instance part="P+7" gate="1" x="77.47" y="7.62" smashed="yes" rot="MR270" grouprefs="LOGIC">
-<attribute name="VALUE" x="77.47" y="10.16" size="1.778" layer="96" rot="MR270"/>
+<instance part="P+7" gate="1" x="78.74" y="7.62" smashed="yes" rot="MR270" grouprefs="LOGIC">
+<attribute name="VALUE" x="78.74" y="10.16" size="1.778" layer="96" rot="MR270"/>
 </instance>
-<instance part="P+8" gate="1" x="157.48" y="38.1" smashed="yes" rot="MR270" grouprefs="CONNECTOR">
-<attribute name="VALUE" x="157.48" y="40.64" size="1.778" layer="96" rot="MR270"/>
+<instance part="P+8" gate="1" x="157.48" y="24.13" smashed="yes" rot="MR270" grouprefs="CONNECTOR">
+<attribute name="VALUE" x="157.48" y="26.67" size="1.778" layer="96" rot="MR270"/>
 </instance>
-<instance part="GND1" gate="1" x="157.48" y="30.48" smashed="yes" rot="R270" grouprefs="CONNECTOR">
-<attribute name="VALUE" x="154.94" y="33.02" size="1.778" layer="96" rot="R270"/>
+<instance part="GND1" gate="1" x="157.48" y="16.51" smashed="yes" rot="R270" grouprefs="CONNECTOR">
+<attribute name="VALUE" x="154.94" y="19.05" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="GND10" gate="1" x="116.84" y="10.16" smashed="yes" rot="MR270" grouprefs="CONNECTOR">
 <attribute name="VALUE" x="119.38" y="12.7" size="1.778" layer="96" rot="MR270"/>
@@ -6143,30 +6141,30 @@ part number 2062-2P from STA</description>
 <instance part="GND11" gate="1" x="160.02" y="-16.51" smashed="yes" rot="MR90" grouprefs="CONNECTOR">
 <attribute name="VALUE" x="157.48" y="-19.05" size="1.778" layer="96" rot="MR90"/>
 </instance>
-<instance part="CON_D-C" gate="G$1" x="30.48" y="71.12" smashed="yes" rot="R90" grouprefs="DRIVER">
-<attribute name="VALUE" x="38.1" y="69.85" size="1.778" layer="96" rot="R90"/>
-<attribute name="NAME" x="24.638" y="69.85" size="1.778" layer="95" rot="R90"/>
+<instance part="CON_D-C" gate="G$1" x="31.75" y="67.31" smashed="yes" rot="R90" grouprefs="DRIVER">
+<attribute name="VALUE" x="39.37" y="66.04" size="1.778" layer="96" rot="R90"/>
+<attribute name="NAME" x="25.908" y="66.04" size="1.778" layer="95" rot="R90"/>
 </instance>
-<instance part="CON_C-D" gate="G$1" x="30.48" y="57.15" smashed="yes" rot="MR270" grouprefs="LOGIC">
-<attribute name="VALUE" x="38.1" y="58.42" size="1.778" layer="96" rot="MR270"/>
-<attribute name="NAME" x="24.638" y="58.42" size="1.778" layer="95" rot="MR270"/>
+<instance part="CON_C-D" gate="G$1" x="31.75" y="57.15" smashed="yes" rot="MR270" grouprefs="LOGIC">
+<attribute name="VALUE" x="39.37" y="58.42" size="1.778" layer="96" rot="MR270"/>
+<attribute name="NAME" x="25.908" y="58.42" size="1.778" layer="95" rot="MR270"/>
 </instance>
-<instance part="CON_E-F" gate="G$1" x="137.16" y="71.12" smashed="yes" rot="R90" grouprefs="DRIVER">
-<attribute name="VALUE" x="141.986" y="68.58" size="1.778" layer="96" font="vector" rot="R90"/>
-<attribute name="NAME" x="131.572" y="68.58" size="1.778" layer="95" font="vector" rot="R90"/>
+<instance part="CON_E-F" gate="G$1" x="140.97" y="67.31" smashed="yes" rot="R90" grouprefs="DRIVER">
+<attribute name="VALUE" x="145.796" y="64.77" size="1.778" layer="96" font="vector" rot="R90"/>
+<attribute name="NAME" x="135.382" y="64.77" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
-<instance part="CON_F-E" gate="G$1" x="140.97" y="50.8" smashed="yes" rot="MR270" grouprefs="CONNECTOR">
-<attribute name="VALUE" x="145.796" y="53.34" size="1.778" layer="96" font="vector" rot="MR270"/>
-<attribute name="NAME" x="135.382" y="53.34" size="1.778" layer="95" font="vector" rot="MR270"/>
+<instance part="CON_F-E" gate="G$1" x="140.97" y="41.91" smashed="yes" rot="MR270" grouprefs="CONNECTOR">
+<attribute name="VALUE" x="145.796" y="44.45" size="1.778" layer="96" font="vector" rot="MR270"/>
+<attribute name="NAME" x="135.382" y="44.45" size="1.778" layer="95" font="vector" rot="MR270"/>
 </instance>
 </instances>
 <busses>
 <bus name="I2C:SCL,SDA">
 <segment>
-<wire x1="35.56" y1="11.43" x2="67.31" y2="11.43" width="0.762" layer="92" grouprefs="LOGIC"/>
-<wire x1="67.31" y1="11.43" x2="69.85" y2="13.97" width="0.762" layer="92" grouprefs="LOGIC"/>
-<wire x1="69.85" y1="13.97" x2="86.36" y2="13.97" width="0.762" layer="92" grouprefs="LOGIC"/>
-<label x="69.85" y="15.24" size="1.778" layer="95" grouprefs="LOGIC"/>
+<wire x1="36.83" y1="11.43" x2="68.58" y2="11.43" width="0.762" layer="92" grouprefs="LOGIC"/>
+<wire x1="68.58" y1="11.43" x2="71.12" y2="13.97" width="0.762" layer="92" grouprefs="LOGIC"/>
+<wire x1="71.12" y1="13.97" x2="87.63" y2="13.97" width="0.762" layer="92" grouprefs="LOGIC"/>
+<label x="71.12" y="15.24" size="1.778" layer="95" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="129.54" y1="1.27" x2="129.54" y2="-12.7" width="0.762" layer="92" grouprefs="CONNECTOR"/>
@@ -6177,20 +6175,22 @@ part number 2062-2P from STA</description>
 <wire x1="129.54" y1="13.97" x2="129.54" y2="6.35" width="0.762" layer="92" grouprefs="CONNECTOR"/>
 <label x="123.19" y="15.24" size="1.778" layer="95" grouprefs="CONNECTOR"/>
 <wire x1="130.81" y1="5.08" x2="129.54" y2="6.35" width="0.762" layer="92" curve="90" grouprefs="CONNECTOR"/>
+<label x="153.67" y="2.54" size="1.778" layer="95"/>
 </segment>
 </bus>
 <bus name="EN:ENA,ENB">
 <segment>
-<wire x1="86.36" y1="3.81" x2="69.85" y2="3.81" width="0.762" layer="92" grouprefs="LOGIC"/>
-<wire x1="69.85" y1="3.81" x2="67.31" y2="6.35" width="0.762" layer="92" grouprefs="LOGIC"/>
-<wire x1="67.31" y1="6.35" x2="27.94" y2="6.35" width="0.762" layer="92" grouprefs="LOGIC"/>
-<label x="69.85" y="1.27" size="1.27" layer="95" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="3.81" x2="71.12" y2="3.81" width="0.762" layer="92" grouprefs="LOGIC"/>
+<wire x1="71.12" y1="3.81" x2="68.58" y2="6.35" width="0.762" layer="92" grouprefs="LOGIC"/>
+<wire x1="68.58" y1="6.35" x2="29.21" y2="6.35" width="0.762" layer="92" grouprefs="LOGIC"/>
+<label x="71.12" y="1.27" size="1.27" layer="95" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="113.03" y1="3.81" x2="135.89" y2="3.81" width="0.762" layer="92" grouprefs="CONNECTOR"/>
-<wire x1="135.89" y1="3.81" x2="135.89" y2="34.29" width="0.762" layer="92" grouprefs="CONNECTOR"/>
-<wire x1="135.89" y1="34.29" x2="163.83" y2="34.29" width="0.762" layer="92" grouprefs="CONNECTOR"/>
+<wire x1="135.89" y1="3.81" x2="135.89" y2="20.32" width="0.762" layer="92" grouprefs="CONNECTOR"/>
+<wire x1="135.89" y1="20.32" x2="163.83" y2="20.32" width="0.762" layer="92" grouprefs="CONNECTOR"/>
 <label x="123.19" y="5.08" size="1.778" layer="95" grouprefs="CONNECTOR"/>
+<label x="149.86" y="35.56" size="1.778" layer="95"/>
 </segment>
 </bus>
 </busses>
@@ -6199,18 +6199,18 @@ part number 2062-2P from STA</description>
 <segment>
 <pinref part="PWR" gate="G$1" pin="1"/>
 <pinref part="GND2" gate="1" pin="GND"/>
-<wire x1="-27.94" y1="35.56" x2="-25.4" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="-25.4" y1="35.56" x2="-25.4" y2="34.29" width="0.1524" layer="91"/>
+<wire x1="62.23" y1="43.18" x2="64.77" y2="43.18" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="64.77" y1="43.18" x2="64.77" y2="41.91" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="R1" gate="G$1" pin="A"/>
 <pinref part="GND5" gate="1" pin="GND"/>
-<wire x1="13.97" y1="-10.16" x2="13.97" y2="-11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="15.24" y1="-10.16" x2="15.24" y2="-11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="TARATURA" gate="G$1" pin="P$2"/>
 <pinref part="GND4" gate="1" pin="GND"/>
-<wire x1="33.02" y1="-12.7" x2="33.02" y2="-13.97" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="34.29" y1="-13.97" x2="34.29" y2="-16.51" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="A1" pin="GND"/>
@@ -6219,27 +6219,27 @@ part number 2062-2P from STA</description>
 <segment>
 <pinref part="PCB1" gate="G$1" pin="GND."/>
 <pinref part="GND8" gate="1" pin="GND"/>
-<wire x1="53.34" y1="2.54" x2="53.34" y2="-2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="54.61" y1="2.54" x2="54.61" y2="-2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="START/STOP" gate="G$1" pin="P$2"/>
 <pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="40.64" y1="49.53" x2="40.64" y2="50.8" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="41.91" y1="49.53" x2="41.91" y2="50.8" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="GND9" gate="1" pin="GND"/>
 <pinref part="IC2" gate="L298" pin="GND"/>
-<wire x1="72.39" y1="74.93" x2="72.39" y2="76.2" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<wire x1="72.39" y1="76.2" x2="73.66" y2="76.2" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="76.2" y1="71.12" x2="76.2" y2="72.39" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="76.2" y1="72.39" x2="77.47" y2="72.39" width="0.1524" layer="91" grouprefs="DRIVER"/>
 </segment>
 <segment>
 <pinref part="CON_A-B" gate="G$1" pin="4"/>
 <pinref part="GND6" gate="1" pin="GND"/>
-<wire x1="85.09" y1="10.16" x2="87.63" y2="10.16" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="86.36" y1="10.16" x2="88.9" y2="10.16" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<pinref part="X1" gate="G$1" pin="6"/>
-<wire x1="165.1" y1="30.48" x2="160.02" y2="30.48" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="6"/>
+<wire x1="165.1" y1="16.51" x2="160.02" y2="16.51" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <pinref part="GND1" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -6248,7 +6248,7 @@ part number 2062-2P from STA</description>
 <wire x1="114.3" y1="10.16" x2="111.76" y2="10.16" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 </segment>
 <segment>
-<pinref part="X2" gate="G$1" pin="2"/>
+<pinref part="MPU-CON" gate="G$1" pin="2"/>
 <pinref part="GND11" gate="1" pin="GND"/>
 <wire x1="165.1" y1="-16.51" x2="162.56" y2="-16.51" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 </segment>
@@ -6257,59 +6257,59 @@ part number 2062-2P from STA</description>
 <segment>
 <pinref part="PWR" gate="G$1" pin="3"/>
 <pinref part="P+1" gate="1" pin="+18V"/>
-<wire x1="-27.94" y1="40.64" x2="-24.13" y2="40.64" width="0.1524" layer="91"/>
-<wire x1="-24.13" y1="40.64" x2="-24.13" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="62.23" y1="48.26" x2="66.04" y2="48.26" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="66.04" y1="48.26" x2="66.04" y2="50.8" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="IC1" gate="A1" pin="VI"/>
-<wire x1="-24.13" y1="40.64" x2="-20.32" y2="40.64" width="0.1524" layer="91"/>
-<junction x="-24.13" y="40.64"/>
+<wire x1="66.04" y1="48.26" x2="69.85" y2="48.26" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<junction x="66.04" y="48.26" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="IC2" gate="L298" pin="VS"/>
 <pinref part="P+3" gate="1" pin="+18V"/>
-<wire x1="104.14" y1="101.6" x2="105.41" y2="101.6" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<wire x1="105.41" y1="101.6" x2="105.41" y2="102.87" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="107.95" y1="97.79" x2="109.22" y2="97.79" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="109.22" y1="97.79" x2="109.22" y2="99.06" width="0.1524" layer="91" grouprefs="DRIVER"/>
 </segment>
 </net>
 <net name="POT_CTRL" class="0">
 <segment>
 <pinref part="R1" gate="G$1" pin="S"/>
 <pinref part="PCB1" gate="G$1" pin="A2"/>
-<wire x1="19.05" y1="-5.08" x2="30.48" y2="-5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<wire x1="30.48" y1="-5.08" x2="30.48" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="19.05" y="-5.08" size="1.27" layer="95" grouprefs="LOGIC"/>
+<wire x1="20.32" y1="-5.08" x2="31.75" y2="-5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="31.75" y1="-5.08" x2="31.75" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="20.32" y="-5.08" size="1.27" layer="95" grouprefs="LOGIC"/>
 </segment>
 </net>
 <net name="+5V" class="0">
 <segment>
 <pinref part="P+4" gate="1" pin="+5V"/>
 <pinref part="R1" gate="G$1" pin="E"/>
-<wire x1="13.97" y1="1.27" x2="13.97" y2="0" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="15.24" y1="1.27" x2="15.24" y2="0" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="A1" pin="VO"/>
 <pinref part="P+2" gate="1" pin="+5V"/>
-<wire x1="0" y1="40.64" x2="2.54" y2="40.64" width="0.1524" layer="91"/>
-<wire x1="2.54" y1="40.64" x2="2.54" y2="41.91" width="0.1524" layer="91"/>
+<wire x1="90.17" y1="48.26" x2="92.71" y2="48.26" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="92.71" y1="48.26" x2="92.71" y2="49.53" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="P+5" gate="1" pin="+5V"/>
 <pinref part="PCB1" gate="G$1" pin="5V"/>
-<wire x1="48.26" y1="-5.08" x2="48.26" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="49.53" y1="-5.08" x2="49.53" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="P+6" gate="1" pin="+5V"/>
 <pinref part="IC2" gate="L298" pin="VCC"/>
-<wire x1="72.39" y1="102.87" x2="72.39" y2="101.6" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<wire x1="72.39" y1="101.6" x2="73.66" y2="101.6" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="76.2" y1="99.06" x2="76.2" y2="97.79" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="76.2" y1="97.79" x2="77.47" y2="97.79" width="0.1524" layer="91" grouprefs="DRIVER"/>
 </segment>
 <segment>
 <pinref part="CON_A-B" gate="G$1" pin="3"/>
 <pinref part="P+7" gate="1" pin="+5V"/>
-<wire x1="80.01" y1="7.62" x2="87.63" y2="7.62" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="81.28" y1="7.62" x2="88.9" y2="7.62" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<wire x1="165.1" y1="38.1" x2="160.02" y2="38.1" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<pinref part="X1" gate="G$1" pin="3"/>
+<wire x1="165.1" y1="24.13" x2="160.02" y2="24.13" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="3"/>
 <pinref part="P+8" gate="1" pin="+5V"/>
 </segment>
 <segment>
@@ -6318,7 +6318,7 @@ part number 2062-2P from STA</description>
 <wire x1="119.38" y1="7.62" x2="111.76" y2="7.62" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 </segment>
 <segment>
-<pinref part="X2" gate="G$1" pin="1"/>
+<pinref part="MPU-CON" gate="G$1" pin="1"/>
 <pinref part="P+10" gate="1" pin="+5V"/>
 <wire x1="165.1" y1="-19.05" x2="157.48" y2="-19.05" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 </segment>
@@ -6326,7 +6326,7 @@ part number 2062-2P from STA</description>
 <net name="N$2" class="0">
 <segment>
 <pinref part="PCB1" gate="G$1" pin="A3"/>
-<wire x1="33.02" y1="2.54" x2="33.02" y2="-2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="34.29" y1="2.54" x2="34.29" y2="-3.81" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="TARATURA" gate="G$1" pin="P$1"/>
 </segment>
 </net>
@@ -6334,105 +6334,112 @@ part number 2062-2P from STA</description>
 <segment>
 <pinref part="START/STOP" gate="G$1" pin="P$1"/>
 <pinref part="PCB1" gate="G$1" pin="D4"/>
-<wire x1="40.64" y1="39.37" x2="40.64" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="41.91" y1="39.37" x2="41.91" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 </net>
 <net name="PWM" class="0">
 <segment>
 <pinref part="IC2" gate="L298" pin="ENABLE_B"/>
-<wire x1="73.66" y1="93.98" x2="27.94" y2="93.98" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<label x="64.77" y="93.98" size="1.778" layer="95" grouprefs="DRIVER"/>
+<wire x1="77.47" y1="90.17" x2="29.21" y2="90.17" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="68.58" y="90.17" size="1.778" layer="95" grouprefs="DRIVER"/>
 <pinref part="CON_D-C" gate="G$1" pin="3"/>
-<wire x1="27.94" y1="78.74" x2="27.94" y2="93.98" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="29.21" y1="74.93" x2="29.21" y2="90.17" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="29.21" y="74.93" size="1.27" layer="95" rot="R90"/>
 </segment>
 <segment>
 <pinref part="PCB1" gate="G$1" pin="D9"/>
 <pinref part="CON_C-D" gate="G$1" pin="3"/>
-<wire x1="27.94" y1="49.53" x2="27.94" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="27.94" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
+<wire x1="29.21" y1="49.53" x2="29.21" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="29.21" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
 </segment>
 </net>
 <net name="INA" class="0">
 <segment>
 <pinref part="IC2" gate="L298" pin="INPUT3"/>
-<wire x1="30.48" y1="83.82" x2="73.66" y2="83.82" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<label x="66.04" y="83.82" size="1.778" layer="95" grouprefs="DRIVER"/>
+<wire x1="31.75" y1="80.01" x2="77.47" y2="80.01" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="69.85" y="80.01" size="1.778" layer="95" grouprefs="DRIVER"/>
 <pinref part="CON_D-C" gate="G$1" pin="2"/>
-<wire x1="30.48" y1="78.74" x2="30.48" y2="83.82" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="31.75" y1="74.93" x2="31.75" y2="80.01" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="31.75" y="74.93" size="1.27" layer="95" rot="R90"/>
 </segment>
 <segment>
 <pinref part="PCB1" gate="G$1" pin="D8"/>
 <pinref part="CON_C-D" gate="G$1" pin="2"/>
-<wire x1="30.48" y1="49.53" x2="30.48" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="30.48" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
+<wire x1="31.75" y1="49.53" x2="31.75" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="31.75" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
 </segment>
 </net>
 <net name="INB" class="0">
 <segment>
 <pinref part="IC2" gate="L298" pin="INPUT4"/>
-<wire x1="33.02" y1="81.28" x2="73.66" y2="81.28" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<label x="66.04" y="81.28" size="1.778" layer="95" grouprefs="DRIVER"/>
+<wire x1="34.29" y1="77.47" x2="77.47" y2="77.47" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="69.85" y="77.47" size="1.778" layer="95" grouprefs="DRIVER"/>
 <pinref part="CON_D-C" gate="G$1" pin="1"/>
-<wire x1="33.02" y1="78.74" x2="33.02" y2="81.28" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="34.29" y1="74.93" x2="34.29" y2="77.47" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="34.29" y="74.93" size="1.27" layer="95" rot="R90"/>
 </segment>
 <segment>
 <pinref part="PCB1" gate="G$1" pin="D7"/>
 <pinref part="CON_C-D" gate="G$1" pin="1"/>
-<wire x1="33.02" y1="49.53" x2="33.02" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="33.02" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
+<wire x1="34.29" y1="49.53" x2="34.29" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="34.29" y="48.26" size="1.27" layer="95" rot="MR270" grouprefs="LOGIC"/>
 </segment>
 </net>
 <net name="MOT+" class="0">
 <segment>
 <pinref part="IC2" gate="L298" pin="OUT3"/>
-<wire x1="104.14" y1="83.82" x2="137.16" y2="83.82" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<label x="105.41" y="83.82" size="1.778" layer="95" grouprefs="DRIVER"/>
+<wire x1="107.95" y1="80.01" x2="140.97" y2="80.01" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="109.22" y="80.01" size="1.778" layer="95" grouprefs="DRIVER"/>
 <pinref part="CON_E-F" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="78.74" x2="137.16" y2="83.82" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="140.97" y1="74.93" x2="140.97" y2="80.01" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="142.24" y="74.93" size="1.27" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="X1" gate="G$1" pin="1"/>
-<pinref part="X1" gate="G$1" pin="2"/>
-<wire x1="165.1" y1="40.64" x2="165.1" y2="41.91" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<wire x1="165.1" y1="41.91" x2="165.1" y2="43.18" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<junction x="165.1" y="41.91" grouprefs="CONNECTOR"/>
-<wire x1="165.1" y1="41.91" x2="140.97" y2="41.91" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<label x="163.83" y="41.91" size="1.778" layer="95" rot="MR0" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="1"/>
+<pinref part="MOT-CON" gate="G$1" pin="2"/>
+<wire x1="165.1" y1="26.67" x2="165.1" y2="27.94" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="165.1" y1="27.94" x2="165.1" y2="29.21" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<junction x="165.1" y="27.94" grouprefs="CONNECTOR"/>
+<wire x1="165.1" y1="27.94" x2="140.97" y2="27.94" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="163.83" y="27.94" size="1.778" layer="95" rot="MR0" grouprefs="CONNECTOR"/>
 <pinref part="CON_F-E" gate="G$1" pin="1"/>
-<wire x1="140.97" y1="43.18" x2="140.97" y2="41.91" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="140.97" y1="34.29" x2="140.97" y2="27.94" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="140.97" y="34.29" size="1.27" layer="95" rot="R270"/>
 </segment>
 </net>
 <net name="MOT-" class="0">
 <segment>
 <pinref part="IC2" gate="L298" pin="OUT4"/>
-<wire x1="134.62" y1="81.28" x2="104.14" y2="81.28" width="0.1524" layer="91" grouprefs="DRIVER"/>
-<label x="105.41" y="81.28" size="1.778" layer="95" grouprefs="DRIVER"/>
+<wire x1="138.43" y1="77.47" x2="107.95" y2="77.47" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="109.22" y="77.47" size="1.778" layer="95" grouprefs="DRIVER"/>
 <pinref part="CON_E-F" gate="G$1" pin="2"/>
-<wire x1="134.62" y1="78.74" x2="134.62" y2="81.28" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<wire x1="138.43" y1="74.93" x2="138.43" y2="77.47" width="0.1524" layer="91" grouprefs="DRIVER"/>
+<label x="139.7" y="74.93" size="1.27" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="X1" gate="G$1" pin="7"/>
-<pinref part="X1" gate="G$1" pin="8"/>
-<wire x1="165.1" y1="25.4" x2="165.1" y2="26.67" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<wire x1="165.1" y1="26.67" x2="165.1" y2="27.94" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<junction x="165.1" y="26.67" grouprefs="CONNECTOR"/>
-<wire x1="165.1" y1="26.67" x2="138.43" y2="26.67" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<label x="163.83" y="26.67" size="1.778" layer="95" rot="MR0" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="7"/>
+<pinref part="MOT-CON" gate="G$1" pin="8"/>
+<wire x1="165.1" y1="11.43" x2="165.1" y2="12.7" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="165.1" y1="12.7" x2="165.1" y2="13.97" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<junction x="165.1" y="12.7" grouprefs="CONNECTOR"/>
+<wire x1="165.1" y1="12.7" x2="138.43" y2="12.7" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="163.83" y="12.7" size="1.778" layer="95" rot="MR0" grouprefs="CONNECTOR"/>
 <pinref part="CON_F-E" gate="G$1" pin="2"/>
-<wire x1="138.43" y1="43.18" x2="138.43" y2="26.67" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="138.43" y1="34.29" x2="138.43" y2="12.7" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="138.43" y="34.29" size="1.27" layer="95" rot="R270"/>
 </segment>
 </net>
 <net name="MPU_INT" class="0">
 <segment>
-<wire x1="45.72" y1="24.13" x2="69.85" y2="24.13" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<wire x1="69.85" y1="24.13" x2="69.85" y2="17.78" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="46.99" y1="24.13" x2="69.85" y2="24.13" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="69.85" y1="24.13" x2="76.2" y2="17.78" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="CON_A-B" gate="G$1" pin="7"/>
-<wire x1="69.85" y1="17.78" x2="87.63" y2="17.78" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="86.36" y="17.78" size="1.27" layer="95" rot="MR0" grouprefs="LOGIC"/>
-<wire x1="45.72" y1="24.13" x2="45.72" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="76.2" y1="17.78" x2="88.9" y2="17.78" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="87.63" y="17.78" size="1.27" layer="95" rot="MR0" grouprefs="LOGIC"/>
+<wire x1="46.99" y1="24.13" x2="46.99" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="PCB1" gate="G$1" pin="D2"/>
-<wire x1="45.72" y1="39.37" x2="45.72" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="45.72" y="39.37" size="1.27" layer="95" rot="R90" xref="yes" grouprefs="LOGIC"/>
+<wire x1="46.99" y1="39.37" x2="46.99" y2="35.56" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="46.99" y="39.37" size="1.27" layer="95" rot="R90" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <pinref part="CON_B-A" gate="G$1" pin="7"/>
@@ -6443,7 +6450,7 @@ part number 2062-2P from STA</description>
 <wire x1="134.62" y1="5.08" x2="134.62" y2="2.54" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <wire x1="134.62" y1="2.54" x2="133.35" y2="1.27" width="0.1524" layer="91" curve="-90" grouprefs="CONNECTOR"/>
 <wire x1="133.35" y1="1.27" x2="133.35" y2="-1.27" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<pinref part="X2" gate="G$1" pin="8"/>
+<pinref part="MPU-CON" gate="G$1" pin="8"/>
 <wire x1="165.1" y1="-1.27" x2="133.35" y2="-1.27" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <label x="163.83" y="-1.27" size="1.778" layer="95" rot="MR0" grouprefs="CONNECTOR"/>
 </segment>
@@ -6451,15 +6458,15 @@ part number 2062-2P from STA</description>
 <net name="SDA" class="0">
 <segment>
 <pinref part="PCB1" gate="G$1" pin="A4"/>
-<label x="35.56" y="1.27" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
-<wire x1="35.56" y1="2.54" x2="35.56" y2="1.27" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<wire x1="35.56" y1="2.54" x2="35.56" y2="11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="36.83" y="1.27" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
+<wire x1="36.83" y1="2.54" x2="36.83" y2="1.27" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="36.83" y1="2.54" x2="36.83" y2="11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<wire x1="86.36" y1="13.97" x2="86.36" y2="15.24" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="13.97" x2="87.63" y2="15.24" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="CON_A-B" gate="G$1" pin="6"/>
-<wire x1="86.36" y1="15.24" x2="87.63" y2="15.24" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="86.36" y="15.24" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="15.24" x2="88.9" y2="15.24" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="87.63" y="15.24" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="113.03" y1="13.97" x2="113.03" y2="15.24" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
@@ -6468,7 +6475,7 @@ part number 2062-2P from STA</description>
 <label x="113.03" y="15.24" size="0.6096" layer="95" rot="MR180" xref="yes" grouprefs="CONNECTOR"/>
 </segment>
 <segment>
-<pinref part="X2" gate="G$1" pin="4"/>
+<pinref part="MPU-CON" gate="G$1" pin="4"/>
 <wire x1="163.83" y1="-12.7" x2="163.83" y2="-11.43" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <wire x1="163.83" y1="-11.43" x2="165.1" y2="-11.43" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <label x="163.83" y="-11.43" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
@@ -6477,15 +6484,15 @@ part number 2062-2P from STA</description>
 <net name="SCL" class="0">
 <segment>
 <pinref part="PCB1" gate="G$1" pin="A5"/>
-<label x="38.1" y="1.27" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
-<wire x1="38.1" y1="2.54" x2="38.1" y2="1.27" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<wire x1="38.1" y1="2.54" x2="38.1" y2="11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="39.37" y="1.27" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
+<wire x1="39.37" y1="2.54" x2="39.37" y2="1.27" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="39.37" y1="2.54" x2="39.37" y2="11.43" width="0.1524" layer="91" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<wire x1="86.36" y1="13.97" x2="86.36" y2="12.7" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="13.97" x2="87.63" y2="12.7" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="CON_A-B" gate="G$1" pin="5"/>
-<wire x1="86.36" y1="12.7" x2="87.63" y2="12.7" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="86.36" y="12.7" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="12.7" x2="88.9" y2="12.7" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="87.63" y="12.7" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="113.03" y1="13.97" x2="113.03" y2="12.7" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
@@ -6495,23 +6502,23 @@ part number 2062-2P from STA</description>
 </segment>
 <segment>
 <wire x1="163.83" y1="-12.7" x2="163.83" y2="-13.97" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<pinref part="X2" gate="G$1" pin="3"/>
+<pinref part="MPU-CON" gate="G$1" pin="3"/>
 <wire x1="163.83" y1="-13.97" x2="165.1" y2="-13.97" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
 <label x="163.83" y="-13.97" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
 </segment>
 </net>
 <net name="ENA" class="0">
 <segment>
-<wire x1="86.36" y1="3.81" x2="86.36" y2="5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="3.81" x2="87.63" y2="5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="CON_A-B" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="5.08" x2="87.63" y2="5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="86.36" y="5.08" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="5.08" x2="88.9" y2="5.08" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="87.63" y="5.08" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<wire x1="27.94" y1="6.35" x2="27.94" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="29.21" y1="6.35" x2="29.21" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="PCB1" gate="G$1" pin="A1"/>
-<wire x1="27.94" y1="0" x2="27.94" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="27.94" y="0" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
+<wire x1="29.21" y1="0" x2="29.21" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="29.21" y="0" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="113.03" y1="3.81" x2="113.03" y2="5.08" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
@@ -6520,24 +6527,24 @@ part number 2062-2P from STA</description>
 <label x="113.03" y="5.08" size="0.6096" layer="95" rot="MR180" xref="yes" grouprefs="CONNECTOR"/>
 </segment>
 <segment>
-<pinref part="X1" gate="G$1" pin="4"/>
-<wire x1="163.83" y1="34.29" x2="163.83" y2="35.56" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<wire x1="163.83" y1="35.56" x2="165.1" y2="35.56" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<label x="163.83" y="35.56" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="4"/>
+<wire x1="163.83" y1="20.32" x2="163.83" y2="21.59" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="163.83" y1="21.59" x2="165.1" y2="21.59" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="163.83" y="21.59" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
 </segment>
 </net>
 <net name="ENB" class="0">
 <segment>
-<wire x1="86.36" y1="3.81" x2="86.36" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="3.81" x2="87.63" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="CON_A-B" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="2.54" x2="87.63" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="86.36" y="2.54" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
+<wire x1="87.63" y1="2.54" x2="88.9" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="87.63" y="2.54" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
-<wire x1="45.72" y1="6.35" x2="45.72" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<wire x1="46.99" y1="6.35" x2="46.99" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
 <pinref part="PCB1" gate="G$1" pin="A0"/>
-<wire x1="45.72" y1="0" x2="45.72" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
-<label x="45.72" y="0" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
+<wire x1="46.99" y1="0" x2="46.99" y2="2.54" width="0.1524" layer="91" grouprefs="LOGIC"/>
+<label x="46.99" y="0" size="0.6096" layer="95" rot="R270" xref="yes" grouprefs="LOGIC"/>
 </segment>
 <segment>
 <wire x1="113.03" y1="3.81" x2="113.03" y2="2.54" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
@@ -6546,10 +6553,35 @@ part number 2062-2P from STA</description>
 <label x="113.03" y="2.54" size="0.6096" layer="95" rot="MR180" xref="yes" grouprefs="CONNECTOR"/>
 </segment>
 <segment>
-<pinref part="X1" gate="G$1" pin="5"/>
-<wire x1="163.83" y1="34.29" x2="163.83" y2="33.02" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<wire x1="163.83" y1="33.02" x2="165.1" y2="33.02" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
-<label x="163.83" y="33.02" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
+<pinref part="MOT-CON" gate="G$1" pin="5"/>
+<wire x1="163.83" y1="20.32" x2="163.83" y2="19.05" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<wire x1="163.83" y1="19.05" x2="165.1" y2="19.05" width="0.1524" layer="91" grouprefs="CONNECTOR"/>
+<label x="163.83" y="19.05" size="0.6096" layer="95" rot="R180" xref="yes" grouprefs="CONNECTOR"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<wire x1="138.43" y1="67.31" x2="138.43" y2="41.91" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$4" class="0">
+<segment>
+<wire x1="140.97" y1="41.91" x2="140.97" y2="67.31" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$5" class="0">
+<segment>
+<wire x1="29.21" y1="67.31" x2="29.21" y2="57.15" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$6" class="0">
+<segment>
+<wire x1="31.75" y1="57.15" x2="31.75" y2="67.31" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$7" class="0">
+<segment>
+<wire x1="34.29" y1="57.15" x2="34.29" y2="67.31" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
