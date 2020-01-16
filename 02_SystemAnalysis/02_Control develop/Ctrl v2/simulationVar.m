@@ -35,13 +35,13 @@ Id = M2*28^2;           % Inerzia Anello risp D [g*mm^2]
 
 %Costanti Notevoli
 Ibtot = Ibcm+Id+M1*(Lbc+L1)^2+M2*L1^2;  % Inerzia Braccio + Carico risp 0 [g*mm^2]
-g = 9.81*1000;                          % GravitÃ  [mm/s^2]
-Kmgl = g*(M1*(Lbc+L1)+M2*L1);           % Valore della Forza di GravitÃ  sul Sistema
+g = 9.81*1000;                          % Gravità [mm/s^2]
+Kmgl = g*(M1*(Lbc+L1)+M2*L1);           % Valore della Forza di Gravità sul Sistema
 
 
 % Saturation
 % global thetaMax;
-q1Max = deg2rad(60); % Massimo angolo +/-q1 [Â°]
+q1Max = deg2rad(60); % Massimo angolo +/-q1 [°]
 
 % System parameter
 % Se si inserisce da qua, bisogna tenere conto del sistema tutto montato
