@@ -7,10 +7,10 @@ clear variables;
 % x3:= q1 dot    [rad/s]
 % x4:= q1        [rad]
 % global x0;
-% angolo_max := escursione verticale massima del pendolo
+% angolo_max := escursione verticale massima del pendolo [gr]
 % angolo := angolo di partenza del pendolo [gr]
 angolo_max = 60;
-angolo =50;
+angolo = 50;
 x0 = zeros(4,1);
 x0(1)=0;
 x0(2)=0;
