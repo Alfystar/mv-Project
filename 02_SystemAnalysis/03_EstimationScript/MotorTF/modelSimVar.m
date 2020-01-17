@@ -1,16 +1,17 @@
 clear variables
 clc
 % Parametri arduino
-DeadZone = 19;
+DeadZone = 35;
+step2rad = 615/(2*pi); % STEPs/rad
 timeWanted = 10/1000; % time sampling in seconds (-> 10ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test0_255 = importdata('SpeedData/OldMot/20_01_11/speedsDatas0-255/test0-255_dt10.dat','\t'); 
+test0_255 = importdata('SpeedData/NewMot/20_01_17/test0-255.dat','\t'); 
 Samples = test0_255.data;
     
 % Normalizzazione dati Motore
-Samples = dataNorm(Samples,Ts, DeadZone);
+Samples = dataNorm(Samples,Ts, step2rad, DeadZone);
 
 % Frame dati
 % freeRelaseSample = 0;
@@ -111,20 +112,19 @@ fprintf("velmaxFit=%f\tvelmax=%f\tdist=%f\n", velmaxFit, velmax, abs(velmaxFit-v
 v0 = 0;
 
 % vettori di test
-testStepping = importdata('SpeedData/OldMot/20_01_11/speedDatasStepping/testPot_dt10.dat','\t'); 
+testStepping = importdata('SpeedData/NewMot/20_01_17/testAll.dat','\t'); 
 SamplesStepping = testStepping.data;
 timeWanted = 10/1000; % time sampling in seconds (-> 2ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
-SamplesStepping = dataNorm(SamplesStepping,Ts, DeadZone);
+SamplesStepping = dataNorm(SamplesStepping,Ts, step2rad, DeadZone);
 setU_Norm = SamplesStepping(:,1);
 setBrake = SamplesStepping(:,4);
 setV_Norm = SamplesStepping(:,3);
 SampleTime = Ts * length(SamplesStepping)
 
-function dataOut = dataNorm (dataIn, Ts, DeadZone)
+function dataOut = dataNorm (dataIn, Ts, step2rad, DeadZone)
     dataOut = zeros(length(dataIn),4);
     % colonna = 4 brake on/off (1/0) 
-    step2rad = 11/(2*pi); % STEPs/rad
         for k=1:length(dataOut)
             [u,b]=pwm2duty(dataIn(k,1),DeadZone);
             dataOut(k,1) = u;
