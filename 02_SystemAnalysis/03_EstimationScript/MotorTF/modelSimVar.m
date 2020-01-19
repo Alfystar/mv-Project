@@ -90,7 +90,7 @@ for k=1:length(brakingFrame)
 end
 brakingFrameData = iddata(brakingFrame(:,3), brakingFrame(:,1), Ts);
 
-tfMot_b = tfest(brakingFrameData, 1); % 'Ts',Ts
+tfMot_b = tfest(brakingFrameData, 1) % 'Ts',Ts
 
 ka = tfMot_b.Numerator;
 rho = tfMot_b.Denominator(2);    % Rho tot (rhoInd + rho_att)
