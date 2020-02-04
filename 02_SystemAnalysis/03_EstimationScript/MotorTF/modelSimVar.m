@@ -1,13 +1,13 @@
 clear variables
 clc
 % Parametri arduino
-DeadZone = 35;
+DeadZone = 70;
 step2rad = 615/(2*pi); % STEPs/rad
 timeWanted = 10/1000; % time sampling in seconds (-> 10ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;
 
 % Calcolo parametri motore
-test0_255 = importdata('SpeedData/NewMot/20_01_17/test0-255.dat','\t'); 
+test0_255 = importdata('SpeedData/NewMot/20_02_04/test0-255.dat','\t'); 
 Samples = test0_255.data;
     
 % Normalizzazione dati Motore
@@ -101,6 +101,7 @@ rhoInd = rho - rhoMec;
 
 % Printo valori notevoli
 ka
+rho
 rhoInd 
 rhoMec
 uDym
@@ -112,7 +113,7 @@ fprintf("velmaxFit=%f\tvelmax=%f\tdist=%f\n", velmaxFit, velmax, abs(velmaxFit-v
 v0 = 0;
 
 % vettori di test
-testStepping = importdata('SpeedData/NewMot/20_01_17/testAll.dat','\t'); 
+testStepping = importdata('SpeedData/NewMot/20_02_04/testAll.dat','\t'); 
 SamplesStepping = testStepping.data;
 timeWanted = 10/1000; % time sampling in seconds (-> 2ms)
 Ts = floor(16000*1000*timeWanted/1024)*0.064*0.001;

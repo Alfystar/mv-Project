@@ -4,7 +4,7 @@
 MotFeed *mEn;
 DCdriver *mot;
 PID *mPid, *wPi;
-
+PIDMot *mPidMot;
 void setup() {
 	Serial.begin(115200);
 	Serial.println("Pendolo inverso attivazione");
@@ -33,6 +33,7 @@ void setup() {
 // The loop function is called in an endless loop
 unsigned long timer = 0;
 bool sSPush, tPush;
+bool ctrlON = false;
 
 int testBaseSpeed = 15;
 byte iTest = 0;
@@ -45,6 +46,7 @@ void loop() {
 	//Button read
 	if (!digitalRead(taratura) && !tPush) {
 		//Serial.println("Taratura Push");
+		ctrlON=!ctrlON;
 		tPush = true;
 	} else if (digitalRead(taratura)) {
 		tPush = false;
@@ -53,6 +55,7 @@ void loop() {
 
 	if (!digitalRead(startStop) && !sSPush) {
 		//Serial.println("startStop Push");
+		ctrlON=!ctrlON;
 		sSPush = true;
 	} else if (digitalRead(startStop)) {
 		sSPush = false;
@@ -80,8 +83,10 @@ void periodicTask(int time) {
 ISR(TIMER2_COMPA_vect) {
 	mEn->periodicRecalc();
 	updateArmAngles();
-
-	ctrlFunx();
+	if(ctrlON)
+		ctrlFunx();
+	else
+		mot->freeRun();
 }
 
 ISR(PCINT1_vect) {

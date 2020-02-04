@@ -155,6 +155,8 @@ ISR(TIMER2_COMPA_vect) {
 	Serial.print("\t");
 	mEn->debugState(true);
 
+	mpuDebugAngle(true);
+
 	digitalWrite(12, 0);
 	if (brake) {
 		mot->soft_stop();

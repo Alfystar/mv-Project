@@ -24,8 +24,8 @@ function [fitresult, gof] = freeRelaseEst(t, freeRelaseSample)
 ft = fittype( 'vMax*exp(-rhoMec*x)+uDym*x', 'independent', 'x', 'dependent', 'y' );
 opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts.Display = 'Off';
-opts.Lower = [0 -Inf 10];
-opts.StartPoint = [0.0357116785741896 0.6557 5000];
+opts.Lower = [-Inf -Inf -Inf];
+opts.StartPoint = [0.1626 0.7094 0.7547];
 
 % Fit model to data.
 [fitresult, gof] = fit( xData, yData, ft, opts );

@@ -35,8 +35,8 @@ enum specialPwmCode
 
 //Motor Pendolum Define
 #define enPwm 9
-#define inA 7
-#define inB 8
+#define inA 8 //7
+#define inB 7 //8
 
 //I2c MPU6050 Define
 #define wakeUpPin 2

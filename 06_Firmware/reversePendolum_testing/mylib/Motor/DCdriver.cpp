@@ -106,11 +106,15 @@ void DCdriver::reversDir() {
 }
 
 void DCdriver::hard_stop(unsigned int delay_time) {
+	this->soft_stop(delay_time);
+	/*
+	 * Commentato per sicurezza visto il driver provvisorio
 	this->delay_time = delay_time;
 	this->time = millis();
 	this->state = H_brake;
 	this->setup_motor(HIGH, HIGH);
 	digitalWrite(this->pwm, 1);
+	*/
 }
 
 void DCdriver::soft_stop() {
