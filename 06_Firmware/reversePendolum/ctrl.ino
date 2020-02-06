@@ -1,6 +1,7 @@
 // Matlab per capire meglio
 #define ctrlTime 10 //ms
 
+#define v0 30
 
 #define mCm	220		// Massa centro di massa (braccio + disco) [g]
 #define g	9.81	// Forza di gravità [mm/s^2]
@@ -25,23 +26,29 @@ short pwmSend;
 
 void initCtrl() {
 	//Controll Pid class create
-	mPid = new PID(2418132733, 2565122053, 559751835);
-	mPidMot = new PIDMot(-0.1, 0, 0, 100, true);
-	wPi = new PID(1, 0, 0);
+	//mPid = new PID(2418132733, 2565122053, 559751835);
+	mPidMot = new PIDMot(-0.01, 0, 0, 0.05, 1, 100, true);
+	wPi = new PID(2.0, 0, 0);
 	periodicTask(ctrlTime);
 }
-
+short pwmSendOld = 0;
+short deltaV;
 void ctrlFunx() {
 	//First pid Wpi (look matlab symulink)
-	angleRef = wPi->purePid(0, mEn->getVel(), ctrlTime * 1000);
+	angleRef = wPi->purePid((float)100, (float)mEn->getVel(), ctrlTime * 1000);
+	Serial.print(mEn->getVel());
+	Serial.print('\t');
 	Serial.print(angleRef);
 	//Second pid Mpid (look matlab symulink)
 	//mWant = mPid->purePid(angleRef, arm.angle, ctrlTime * 1000);
 	pwmSend = mPidMot->pid2PWM(angleRef, arm.angle, ctrlTime * 1000);
 	Serial.print('\t');
 	Serial.println(pwmSend);
-
-
+	//deltaV = pwmSend-pwmSendOld;
+	//if(abs(deltaV)>=40){
+	//	pwmSend = pwmSend + 40*(1-2*!!deltaV);
+	//}
+	//pwmSendOld = pwmSend;
 	mot->drive_motor(pwmSend);
 	//moment2torcue(mWant);
 }

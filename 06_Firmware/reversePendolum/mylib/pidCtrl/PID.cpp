@@ -4,8 +4,8 @@
 
 #include "PID.h"
 
-PID::PID(float kp, float ki, float kd) { // @suppress("Class members should be properly initialized")
-	PID(kp, ki, kd, 0, noSat);
+PID::PID(float kp, float ki, float kd) :
+		PID(kp, ki, kd, 0, noSat) { // @suppress("Class members should be properly initialized")
 }
 
 PID::PID(float kp, float ki, float kd, float cDead, float cSat) {
@@ -30,7 +30,7 @@ float PID::fmap(float x, float in_min, float in_max, float out_min,
 }
 
 float PID::purePid(float ref, float feeback, int dt) {
-	int er = (ref - feeback);
+	int er = (int) (ref - feeback);
 	return this->PIDComp(er, dt);
 }
 
@@ -38,23 +38,35 @@ float PID::PIDComp(int er, long Ts) {
 	//Il pid calcola un valore in uscita tra -1.0 e 1.0 che è -100% to 100% della pot di uscita del motore
 	//TS tempo campione in micro secondi
 	//stack update, the higher the newer
-	long dt = 0;
-	for (short int i = 0; i < 7; i++) {
-		dt += this->erStack[i].time;
-		this->erStack[i] = this->erStack[i + 1];
-	}
-	this->erStack[7].er = er;
-	this->erStack[7].time = Ts;
 
-	//7 è la distanza tra i 2 campioni
-	this->y_d = this->Kd * (this->erStack[7].er - this->erStack[0].er) / dt;
+	// Derivative calc
+	if (this->Kd != 0) {
+		long dt = 0;
+		for (short int i = 0; i < 7; i++) {
+			dt += this->erStack[i].time;
+			this->erStack[i] = this->erStack[i + 1];
+		}
+		this->erStack[7].er = er;
+		this->erStack[7].time = Ts;
+
+		//7 è la distanza tra i 2 campioni
+		this->y_d = this->Kd * (this->erStack[7].er - this->erStack[0].er) / dt;
+	} else
+		x_i = 0;
+	// Integral calc
+	if (this->Ki != 0) {
+		if (cSat != noSat)
+			x_i += this->UpdateSat(x_i, Ki * Ts * erStack[7].er, Kp * er + y_d,
+					1, cDead, cSat);
+		else
+			this->x_i += Ki * Ts * erStack[7].er;
+	} else
+		y_d = 0;
+
 	if (cSat != noSat)
-		x_i += this->UpdateSat(x_i, Ki * Ts * erStack[7].er, Kp * er + y_d, 1,
-				cDead, cSat);
+		return (min(cSat, max(-cSat, Kp * er + x_i + y_d)));
 	else
-		this->x_i += Ki * Ts * erStack[7].er;
-
-	return (min(cSat, max(-cSat, Kp * er + x_i + y_d)));
+		return Kp * er + x_i + y_d;
 }
 
 float PID::UpdateSat(float x, float dx, float a, float k, float s, float S) {

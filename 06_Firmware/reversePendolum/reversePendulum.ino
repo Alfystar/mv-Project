@@ -33,7 +33,7 @@ void setup() {
 // The loop function is called in an endless loop
 unsigned long timer = 0;
 bool sSPush, tPush;
-bool ctrlON = false;
+bool ctrlON = true;
 
 int testBaseSpeed = 15;
 byte iTest = 0;

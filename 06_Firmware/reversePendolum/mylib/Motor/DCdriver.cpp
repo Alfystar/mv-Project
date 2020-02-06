@@ -18,7 +18,7 @@ void setMotFreq(pwmFreq freq) {
 		case hz120:
 			TCCR1B = (TCCR1B & B11111000) |
 			B00000100; // set timer 3 divisor to   256 for PWM frequency of   122.55 Hz
-			break;
+		break;
 		case hz490:
 			TCCR1B = (TCCR1B & B11111000) |
 			B00000011; // set timer 3 divisor to    64 for PWM frequency of   490.20 Hz
@@ -33,7 +33,7 @@ void setMotFreq(pwmFreq freq) {
 			B00000001; // set timer 3 divisor to     1 for PWM frequency of 31372.55 Hz
 		break;
 		default:
-			setMotFreq (hz4k);
+			setMotFreq(hz4k);
 		break;
 	}
 }
@@ -85,7 +85,13 @@ void DCdriver::updateMot() {
 void DCdriver::drive_motor(int speed) {
 	this->speed = speed;
 	this->state = moving;
-	if (speed < 0) {
+	if (speed == 0 || speed == specialPwmCode::freeRun) {
+		this->freeRun();
+	} else if (speed == softStop) {
+		this->soft_stop();
+	} else if (speed == hardStop) {
+		this->hard_stop(1000);
+	} else if (speed < 0) {
 		this->anticlockwise();
 		analogWrite(this->pwm, -this->speed);
 	} else {
@@ -107,14 +113,14 @@ void DCdriver::reversDir() {
 
 void DCdriver::hard_stop(unsigned int delay_time) {
 	this->soft_stop(delay_time);
-		/*
-		 * Commentato per sicurezza visto il driver provvisorio
-		this->delay_time = delay_time;
-		this->time = millis();
-		this->state = H_brake;
-		this->setup_motor(HIGH, HIGH);
-		digitalWrite(this->pwm, 1);
-		*/
+	/*
+	 * Commentato per sicurezza visto il driver provvisorio
+	 this->delay_time = delay_time;
+	 this->time = millis();
+	 this->state = H_brake;
+	 this->setup_motor(HIGH, HIGH);
+	 digitalWrite(this->pwm, 1);
+	 */
 }
 
 void DCdriver::soft_stop() {
