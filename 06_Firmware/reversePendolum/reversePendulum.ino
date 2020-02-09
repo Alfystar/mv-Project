@@ -33,7 +33,7 @@ void setup() {
 // The loop function is called in an endless loop
 unsigned long timer = 0;
 bool sSPush, tPush;
-bool ctrlON = true;
+bool ctrlON = false;
 
 int testBaseSpeed = 15;
 byte iTest = 0;
@@ -46,7 +46,7 @@ void loop() {
 	//Button read
 	if (!digitalRead(taratura) && !tPush) {
 		//Serial.println("Taratura Push");
-		ctrlON=!ctrlON;
+		ctrlON = !ctrlON;
 		tPush = true;
 	} else if (digitalRead(taratura)) {
 		tPush = false;
@@ -55,7 +55,7 @@ void loop() {
 
 	if (!digitalRead(startStop) && !sSPush) {
 		//Serial.println("startStop Push");
-		ctrlON=!ctrlON;
+		ctrlON = !ctrlON;
 		sSPush = true;
 	} else if (digitalRead(startStop)) {
 		sSPush = false;
@@ -63,8 +63,11 @@ void loop() {
 	}
 	
 	//Timed task
-	if (millis() - timer > 10) {
+	if (millis() - timer > 1000) {
 		timer = millis();
+		//float kpSet = analogRead(pot)/4096.0;
+		//mPidMot->setKp(-kpSet);
+		//Serial.println(-kpSet);
 	}
 }
 
@@ -80,13 +83,22 @@ void periodicTask(int time) {
 
 }
 
+bool ctrlDisable = false;
+
 ISR(TIMER2_COMPA_vect) {
 	mEn->periodicRecalc();
 	updateArmAngles();
-	if(ctrlON)
+	if (ctrlON) {
+		if (!ctrlDisable) {
+			mPidMot->resetState();
+			wPi->resetState();
+			ctrlDisable = true;
+		}
 		ctrlFunx();
-	else
+	} else {
+		ctrlDisable = false;
 		mot->freeRun();
+	}
 }
 
 ISR(PCINT1_vect) {

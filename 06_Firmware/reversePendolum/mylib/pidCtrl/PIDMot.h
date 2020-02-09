@@ -15,6 +15,9 @@ class PIDMot: public PID {
 		PIDMot(float kp, float ki, float kd, int MdeadZone, bool posDir);
 		PIDMot(float kp, float ki, float kd, float cDead, float cSat, int MdeadZone, bool posDir);
 		short pid2PWM(int ref, int feeback, int dt);
+		void setKp(float kp);
+		void setKi(float ki);
+		void setKd(float kd);
 	private:
 		int MOTOR_DEADZONE;
 		bool posDir = false; //per allineare verso dei pwm a incremento degli encoder

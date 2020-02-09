@@ -23,7 +23,8 @@ short PIDMot::pid2PWM(int ref, int feeback, int dt) {
 	float vOut = purePid(ref, feeback, dt) * (1 - (2 * this->posDir)); //per allineare verso dei pwm a incremento degli encoder
 
 	if (fabsf(vOut) < this->cDead) {
-		return softStop; //soft stop
+		//return softStop; //soft stop
+		return specialPwmCode::freeRun;
 	} else {
 		if (vOut > 0)
 			return short(fmap(vOut, 0.0, 1.0, this->MOTOR_DEADZONE, 255) + 0.5);
@@ -32,4 +33,16 @@ short PIDMot::pid2PWM(int ref, int feeback, int dt) {
 					-fmap(-vOut, 0.0, 1.0, this->MOTOR_DEADZONE, 255) - 0.5);
 		}
 	}
+}
+
+void PIDMot::setKp(float kp) {
+	this->Kp=kp;
+}
+
+void PIDMot::setKi(float ki) {
+	this->Ki=ki;
+}
+
+void PIDMot::setKd(float kd) {
+	this->Kd=kd;
 }

@@ -121,43 +121,53 @@ void i2F_gyro() {
 
 //supposta chiamata a intervalli regolari
 int16_t wzOld = 0;
+#define degVarMax 2.0
+#define OffsetZeroAngle 1.3
+#define OffsetZeroW 10
+float angleOld, delataAngle;
 void updateArmAngles(void) {
-	arm.angle = atan2(rD.rawAccY, rD.rawAccX) * RAD_TO_DEG;
-	arm.wZ = rD.rawGyrZ;
+	arm.angle = atan2(rD.rawAccY, rD.rawAccX) * RAD_TO_DEG - OffsetZeroAngle;
+	delataAngle = arm.angle - angleOld;
+	if (delataAngle > degVarMax)
+		arm.angle = angleOld + degVarMax;
+	else if (delataAngle < -degVarMax)
+		arm.angle = angleOld - degVarMax;
+	angleOld = arm.angle;
+	arm.wZ = rD.rawGyrZ + OffsetZeroW;
 	arm.wDotZ = arm.wZ - wzOld;
 	wzOld = arm.wZ;
 }
 
 void mpuDebug(bool plot) {
-	if (plot){
-			Serial.print(fD.flAccX);
-			Serial.print("\t");
-			Serial.print(fD.flAccY);
-			Serial.print("\t");
-			Serial.print(fD.flAccZ);
-			Serial.print("\t");
-			Serial.print(fD.flTemp);
-			Serial.print("\t");
-			Serial.print(fD.flGyrX);
-			Serial.print("\t");
-			Serial.print(fD.flGyrY);
-			Serial.print("\t");
-			Serial.println(fD.flGyrZ);
-	}else{
-	Serial.print("accX=");
-	Serial.print(fD.flAccX);
-	Serial.print("\taccY=");
-	Serial.print(fD.flAccY);
-	Serial.print("\taccZ=");
-	Serial.print(fD.flAccZ);
-	Serial.print("\tTemp=");
-	Serial.print(fD.flTemp);
-	Serial.print("\tgyroX=");
-	Serial.print(fD.flGyrX);
-	Serial.print("\tgyroY=");
-	Serial.print(fD.flGyrY);
-	Serial.print("\tgyroZ=");
-	Serial.println(fD.flGyrZ);
+	if (plot) {
+		Serial.print(fD.flAccX);
+		Serial.print("\t");
+		Serial.print(fD.flAccY);
+		Serial.print("\t");
+		Serial.print(fD.flAccZ);
+		Serial.print("\t");
+		Serial.print(fD.flTemp);
+		Serial.print("\t");
+		Serial.print(fD.flGyrX);
+		Serial.print("\t");
+		Serial.print(fD.flGyrY);
+		Serial.print("\t");
+		Serial.println(fD.flGyrZ);
+	} else {
+		Serial.print("accX=");
+		Serial.print(fD.flAccX);
+		Serial.print("\taccY=");
+		Serial.print(fD.flAccY);
+		Serial.print("\taccZ=");
+		Serial.print(fD.flAccZ);
+		Serial.print("\tTemp=");
+		Serial.print(fD.flTemp);
+		Serial.print("\tgyroX=");
+		Serial.print(fD.flGyrX);
+		Serial.print("\tgyroY=");
+		Serial.print(fD.flGyrY);
+		Serial.print("\tgyroZ=");
+		Serial.println(fD.flGyrZ);
 	}
 }
 
@@ -194,14 +204,14 @@ void mpuDebugRaw(bool plot) {
 	}
 }
 void mpuDebugAngle(bool plot) {
-	if (plot){
+	if (plot) {
 		Serial.print("angle=");
 		Serial.print(arm.angle);
 		Serial.print("\twZ=");
 		Serial.print(arm.wZ);
 		Serial.print("\twDotZ=");
 		Serial.println(arm.wDotZ);
-	}else{
+	} else {
 		Serial.print(arm.angle);
 		Serial.print("\t");
 		Serial.print(arm.wZ);

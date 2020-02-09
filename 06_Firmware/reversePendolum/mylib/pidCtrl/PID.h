@@ -22,6 +22,7 @@ class PID {
 		PID(float kp, float ki, float kd); 		//Ideal pid without saturation or limit
 		PID(float kp, float ki, float kd, float cDead, float cSat);
 		float purePid(float ref, float feeback, int dt);
+		void resetState();
 
 	protected:
 		/*pid general*/
@@ -37,7 +38,7 @@ class PID {
 		/*pid timing*/
 		long temp, oldTemp, result;
 
-		float PIDComp(int er, long Ts);  //Ts micro secondi
+		float PIDComp(float er, long Ts);  //Ts micro secondi
 		float UpdateSat(float x, float dx, float a, float k, float s, float S);
 		float fmap(float x, float in_min, float in_max, float out_min,
 				float out_max);

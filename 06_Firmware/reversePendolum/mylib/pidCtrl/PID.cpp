@@ -30,11 +30,15 @@ float PID::fmap(float x, float in_min, float in_max, float out_min,
 }
 
 float PID::purePid(float ref, float feeback, int dt) {
-	int er = (int) (ref - feeback);
+	float er = (ref - feeback);
 	return this->PIDComp(er, dt);
 }
 
-float PID::PIDComp(int er, long Ts) {
+void PID::resetState(){
+	x_i = y_d = 0.0;	//valore dell'integrale e derivata a 0
+}
+
+float PID::PIDComp(float er, long Ts) {
 	//Il pid calcola un valore in uscita tra -1.0 e 1.0 che è -100% to 100% della pot di uscita del motore
 	//TS tempo campione in micro secondi
 	//stack update, the higher the newer
