@@ -96,22 +96,22 @@ t = [0:times_xs(2):(length(test_4ms.data(:,3))-1)*times_xs(2)];
 plot(t, test_4ms.data(:,3)/4, 'g')
 
 t = [0:times_xs(3):(length(test_6ms.data(:,3))-1)*times_xs(3)];
-plot(t, test_6ms.data(:,3)/6, 'b')
+plot(t, test_6ms.data(:,3), 'b')
 
 t = [0:times_xs(4):(length(test_8ms.data(:,3))-1)*times_xs(4)];
-plot(t, test_8ms.data(:,3)/8, 'k')
+plot(t, test_8ms.data(:,3), 'k')
 
 t = [0:times_xs(5):(length(test_10ms.data(:,3))-1)*times_xs(5)];
-plot(t, test_10ms.data(:,3)/10, 'c')
+plot(t, test_10ms.data(:,3), 'c')
 
 t = [0:times_xs(6):(length(test_12ms.data(:,3))-1)*times_xs(6)];
-plot(t, test_12ms.data(:,3)/12, 'm')
+plot(t, test_12ms.data(:,3), 'm')
 
 t = [0:times_xs(7):(length(test_14ms.data(:,3))-1)*times_xs(7)];
-plot(t, test_14ms.data(:,3)/14, 'y')
+plot(t, test_14ms.data(:,3), 'y')
 
 t = [0:times_xs(8):(length(test_15ms.data(:,3))-1)*times_xs(8)];
-plot(t, test_15ms.data(:,3)/15, 'r')
+plot(t, test_15ms.data(:,3), 'r')
 
 
 xlabel('Sample time (s)'); ylabel('Not normalized speed')
