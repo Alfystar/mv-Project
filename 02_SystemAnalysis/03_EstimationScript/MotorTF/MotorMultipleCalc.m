@@ -159,10 +159,10 @@ f = Fs*(0:(len/2))/len;
 
 figure(200)
 plot(f,P1,'b')
-legend('P1')
-title('Single-Sided Amplitude Spectrum of Set_1(t)')
+legend('V(f)')
+title('Single-Sided Amplitude Spectrum of v(t)')
 xlabel('f(Hz)')
-ylabel('|P1(f)|')
+ylabel('|V(f)|')
 
 %% Preparing sets
 % We have a Nx2 matrix 
@@ -324,7 +324,7 @@ data_sysV4 = iddata(Set_4(:,3), Set_4(:,1), Ts);
 
 datas_sysV = merge(data_sysV1, data_sysV2, data_sysV3, data_sysV4);
 
-Sys_sysVC = ssest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
+Sys_sysVC = tfest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
 
 % con questo metodo evitiamo di far stimare anche il polo che sappiamo
 % essere in zero (e che tfest potr� trovare solo con un numero enorme di
@@ -335,6 +335,11 @@ Sys_sysVC = ssest(datas_sysV, 1)%, 'Ts', Ts) %% this is ok, maybe?
 figure(50)
 h = bodeplot(Sys_sysVC);
 showConfidence(h,3)
+
+%%
+figure(1007)
+rlocus(Sys_sysVC)
+
 %%
 
 sys_sim = ssest(data_sV, 1, 'Ts', Ts)
@@ -360,6 +365,9 @@ valmax = Sys_sysVC.B*Sys_sysVC.C/Sys_sysVC.A
 step(Sys_sysVC)
 hold on
 plot(tempo_2, Set_1(4:end,3),'r')
+legend('Sys_{sim}','Sys_{real}') 
+
+
 
 
 %%
