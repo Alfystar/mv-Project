@@ -1,7 +1,0 @@
-1) progettazione meccanica
-2) modello e identificazione di un motore
-3) modello fisico e sperimentale del motore (mancante)
-4) modello fisico pendolo (io proporrei di rinominarlo come descrizione della dinamica del pendolo)
-5) simulazione sistema e modello di controllo
-6) progettazione elettro-software
-7) dimostrazione sperimentale	
