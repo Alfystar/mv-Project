@@ -16,14 +16,14 @@ format shortEng
 % This portion is written in order to find which is the highest refresh 
 % rate we can push the encoder, before it starts to lose steps.
 
-test_2ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt2.dat','\t'); 
-test_4ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt4.dat','\t'); 
-test_6ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt6.dat','\t'); 
-test_8ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt8.dat','\t'); 
-test_10ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt10.dat','\t'); 
-test_12ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt12.dat','\t'); 
-test_14ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt14.dat','\t'); 
-test_15ms = importdata('SpeedData/OldMot/speedsDatas0-255/test0-255_dt15.dat','\t'); 
+test_2ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt2.dat','\t'); 
+test_4ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt4.dat','\t'); 
+test_6ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt6.dat','\t'); 
+test_8ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt8.dat','\t'); 
+test_10ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt10.dat','\t'); 
+test_12ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt12.dat','\t'); 
+test_14ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt14.dat','\t'); 
+test_15ms = importdata('SpeedData/OldMot/19_12_29/speedsDatas0-255/test0-255_dt15.dat','\t'); 
 
 % to slim down the first part of the code, we won't scale speeds other than
 % the required time sampling normalization; moreover, it's useless flooring
@@ -43,12 +43,80 @@ maxSpeeds_xMs(7) = mean(test_14ms.data(30:160,3))/ times_xs(7);
 maxSpeeds_xMs(8) = mean(test_15ms.data(30:150,3))/ times_xs(8);
 
 figure(1)
-plot(times_xs, maxSpeeds_xMs, 'r-.', 'Marker', '*','MarkerEdgeColor','b')
+plot(times_xs, maxSpeeds_xMs, 'r', 'Marker', '*','MarkerEdgeColor','b')
+grid on
 xlabel('Sample time (s)'); ylabel('Not normalized speed')
 legend('Speed_{max}')
+%%
+figure(2)
+t = [0:times_xs(1):(length(test_2ms.data(:,3))-1)*times_xs(1)];
+
+plot(t, test_2ms.data(:,3), 'r')
+hold on
+grid on
+
+t = [0:times_xs(2):(length(test_4ms.data(:,3))-1)*times_xs(2)];
+plot(t, test_4ms.data(:,3), 'g')
+
+t = [0:times_xs(3):(length(test_6ms.data(:,3))-1)*times_xs(3)];
+plot(t, test_6ms.data(:,3), 'b')
+
+t = [0:times_xs(4):(length(test_8ms.data(:,3))-1)*times_xs(4)];
+plot(t, test_8ms.data(:,3), 'k')
+
+t = [0:times_xs(5):(length(test_10ms.data(:,3))-1)*times_xs(5)];
+plot(t, test_10ms.data(:,3), 'c')
+
+t = [0:times_xs(6):(length(test_12ms.data(:,3))-1)*times_xs(6)];
+plot(t, test_12ms.data(:,3), 'm')
+
+t = [0:times_xs(7):(length(test_14ms.data(:,3))-1)*times_xs(7)];
+plot(t, test_14ms.data(:,3), 'y')
+
+t = [0:times_xs(8):(length(test_15ms.data(:,3))-1)*times_xs(8)];
+plot(t, test_15ms.data(:,3), 'r')
+
+
+xlabel('Sample time (s)'); ylabel('Not normalized speed')
+legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
+    'Test_{10ms}','Test_{12ms}','Test_{14ms}','Test_{15ms}')
 
 % reading the graph, we can easily notice how we have to estimate our model
 % only with a 8+ ms sampling.
+%%
+
+figure(193)
+t = [0:times_xs(1):(length(test_2ms.data(:,3))-1)*times_xs(1)];
+
+plot(t, test_2ms.data(:,3)/2, 'r')
+hold on
+grid on
+
+t = [0:times_xs(2):(length(test_4ms.data(:,3))-1)*times_xs(2)];
+plot(t, test_4ms.data(:,3)/4, 'g')
+
+t = [0:times_xs(3):(length(test_6ms.data(:,3))-1)*times_xs(3)];
+plot(t, test_6ms.data(:,3)/6, 'b')
+
+t = [0:times_xs(4):(length(test_8ms.data(:,3))-1)*times_xs(4)];
+plot(t, test_8ms.data(:,3)/8, 'k')
+
+t = [0:times_xs(5):(length(test_10ms.data(:,3))-1)*times_xs(5)];
+plot(t, test_10ms.data(:,3)/10, 'c')
+
+t = [0:times_xs(6):(length(test_12ms.data(:,3))-1)*times_xs(6)];
+plot(t, test_12ms.data(:,3)/12, 'm')
+
+t = [0:times_xs(7):(length(test_14ms.data(:,3))-1)*times_xs(7)];
+plot(t, test_14ms.data(:,3)/14, 'y')
+
+t = [0:times_xs(8):(length(test_15ms.data(:,3))-1)*times_xs(8)];
+plot(t, test_15ms.data(:,3)/15, 'r')
+
+
+xlabel('Sample time (s)'); ylabel('Not normalized speed')
+legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
+    'Test_{10ms}','Test_{12ms}','Test_{14ms}','Test_{15ms}')
 
 
 %% Dati con campionamento >= 10ms
@@ -89,7 +157,7 @@ P1 = P2(1:len/2+1);
 P1(2:end-1) = 2*P1(2:end-1);
 f = Fs*(0:(len/2))/len;
 
-figure(2)
+figure(200)
 plot(f,P1,'b')
 legend('P1')
 title('Single-Sided Amplitude Spectrum of Set_1(t)')
