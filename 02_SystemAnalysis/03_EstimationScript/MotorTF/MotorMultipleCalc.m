@@ -160,7 +160,7 @@ f = Fs*(0:(len/2))/len;
 figure(200)
 plot(f,P1,'b')
 legend('V(f)')
-title('Single-Sided Amplitude Spectrum of v(t)')
+title('Single-Sided Amplitude Spectrum of limited-step(t)')
 xlabel('f(Hz)')
 ylabel('|V(f)|')
 
