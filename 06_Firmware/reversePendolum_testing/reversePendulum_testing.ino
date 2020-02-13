@@ -21,7 +21,7 @@ void setup() {
 	
 	//Encoder
 	mEn = new MotFeed();
-	periodicTask(14);
+	periodicTask(10);
 
 	//MPU6050
 	//initi2c(wakeUpPin);
