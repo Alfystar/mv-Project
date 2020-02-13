@@ -1,5 +1,7 @@
 #include "Arduino.h"
 #include "mylib/myLibInclude.h"
+#define debouncing() delay(1) //anti rimbalzo
+
 
 MotFeed *mEn;
 DCdriver *mot;
@@ -19,10 +21,10 @@ void setup() {
 	
 	//Encoder
 	mEn = new MotFeed();
-	periodicTask(10);
+	periodicTask(14);
 
 	//MPU6050
-	initi2c(wakeUpPin);
+	//initi2c(wakeUpPin);
 
 	//Global interrupt enable
 	sei();
@@ -50,13 +52,16 @@ bool brake = true;
 bool freeBrake = true;
 byte testMode = 0;	// 0=col potenziometro, 1= pulsante taratura
 
+#define delayInput 500
+long timeInput = 0;
 void loop() {
 	//if possible, MPU update
 	MPUUpdate();
 	//Button read
-	if (!digitalRead(taratura) && !tPush) {
+	if (!digitalRead(taratura) && !tPush && millis() > timeInput + delayInput) {
 		//Serial.println("Taratura Push");
 		tPush = true;
+		timeInput = millis();
 		switch (bTest) {
 			case 0:
 				pwm = 255;
@@ -106,18 +111,19 @@ void loop() {
 		bTest = (bTest + 1) % 9;
 	} else if (digitalRead(taratura)) {
 		tPush = false;
-		delay(1); //anti rimbalzo
+		debouncing(); //anti rimbalzo
 	}
 	
 	if (testMode == 0) {
 		brake = false;
-		if (!digitalRead(startStop) && !sSPush) {
+		if (!digitalRead(startStop) && !sSPush && millis()>timeInput+delayInput) {
 			//Serial.println("startStop Push");
 			sSPush = true;
+			timeInput = millis();
 			freeBrake = !freeBrake;
 		} else if (digitalRead(startStop)) {
 			sSPush = false;
-			delay(1); //anti rimbalzo
+			debouncing(); //anti rimbalzo
 		}
 
 		//Timed task
@@ -150,7 +156,7 @@ ISR(TIMER2_COMPA_vect) {
 
 	digitalWrite(12, 1);
 	mEn->periodicRecalc();
-	updateArmAngles();
+	//updateArmAngles();
 	Serial.print(pwm * !freeBrake * !brake + 1000 * brake);
 	Serial.print("\t");
 	mEn->debugState(true);
