@@ -79,16 +79,8 @@ torque = 0.2941995; % N/m, 3 kg/cm on datasheet, at stall
 N = 621/64; % gear reduction ratio
 
 J_noB = torque/tf_s.tf_noB.Numerator;
-D_noB = torque/tf_s.tf_noB.Denominator(2);
+D_noB = torque/tf_s.tf_noB.Numerator
 
-% di questo,vedere gli stessi valori sopra, e usare 
-% la formula Jtot = J_noB + J_*B/(N^2)
-% for i = 2:len_field
-%     in = data_b_tot.(field{i})(:,1);
-%     out = data_b_tot.(field{i})(:,3);
-%     data = iddata(out, in, Ts);
-%     tf_s.(field_tf{i}) = tfest(data, 1, 0);
-% end
 
 
 
