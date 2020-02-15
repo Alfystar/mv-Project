@@ -137,7 +137,7 @@ for k=1:7
     P1(2:end-1) = 2*P1(2:end-1);
     f = Fs*(0:(len/2))/len; 
     
-    [M,I] = max(P1)
+    [M,I] = max(P1);
    
     stem(f(I),M,'d')
     grid on

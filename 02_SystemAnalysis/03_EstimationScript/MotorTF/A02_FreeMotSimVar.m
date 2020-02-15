@@ -93,7 +93,7 @@ for k=1:length(brakingFrame)
 end
 
 brakingFrameData = iddata(brakingFrame(:,2), brakingFrame(:,1), Ts);
-tfMot_b = tfest(brakingFrameData, 1) % 'Ts',Ts
+tfMot_b = tfest(brakingFrameData, 1); % 'Ts',Ts
 
 ka = tfMot_b.Numerator;
 rho = tfMot_b.Denominator(2);    % Rho tot (rhoInd + rho_att)
@@ -101,13 +101,6 @@ velmax = tfMot_b.Numerator/tfMot_b.Denominator(2);
 
 % Ottenimento rhoMag
 rhoInd = rho - rhoMec;
-
-% Printo valori notevoli
-ka
-rho
-rhoInd 
-rhoMec
-uDym
 
 fprintf("Tra il fitting e la stima ecco le vel max stimate:\n")
 fprintf("velmaxFit=%f\tvelmax=%f\tdist=%f\n", velmaxFit, velmax, abs(velmaxFit-velmax));
@@ -120,7 +113,17 @@ SamplesStepping = test;
 setU_Norm = SamplesStepping.PWM;
 setBrake = SamplesStepping.Breaking;
 setV_Norm = SamplesStepping.mVel;
-SampleTime = Ts * height(SamplesStepping)
+SampleTime = Ts * height(SamplesStepping);
+
+
+% Printo valori notevoli
+ka
+rho
+rhoInd 
+rhoMec
+uDym
+SampleTime
+
 
 function dataOut = dataNorm (dataIn, Ts, step2rad, DeadZone)
     Breaking = zeros(height(dataIn),1);
