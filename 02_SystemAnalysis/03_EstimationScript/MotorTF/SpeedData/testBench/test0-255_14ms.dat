@@ -1,5 +1,6 @@
 Pendolo inverso attivazione
-(dt=14, OCR2A=218, Prescaler=1024)
+dt	OCR2A	Prescaler
+14	218	1024
 PWM	mStep	mVel	mAcc
 0	0	0	0
 0	0	0	0

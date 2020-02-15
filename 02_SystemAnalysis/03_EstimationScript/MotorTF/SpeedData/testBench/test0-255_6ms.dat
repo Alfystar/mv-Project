@@ -1,5 +1,6 @@
-Éð£‘ÀÉ£Éð£‘ÀÉ£Éð£‘ÀÉ£Éð£‘ÀÉ£Pendolo inverso attivazione
-(dt=6, OCR2A=93, Prescaler=1024)
+Pendolo inverso attivazione
+dt	OCR2A	Prescaler
+6	93	1024
 PWM	mStep	mVel	1Acc
 0	0	0	0
 0	0	0	0
