@@ -87,22 +87,67 @@ clf
 fftMaxSpeed = maxSpeeds_xMs;
 
 for k=1:7
-    fft_Test_f = fft(fftMaxSpeed{k}-maxSpeedsMean_xMs(k),200);
+%     fft_Test_f = fft(fftMaxSpeed{k}-maxSpeedsMean_xMs(k));
+    fft_Test_f(k,:) = {fft(fftMaxSpeed{k})};
     
     Fs = 1/times_xs(k);
-    len = length(fft_Test_f);
+    len = length(fft_Test_f{k});
     
-    P2 = abs(fft_Test_f/len);
+    P2 = abs(fft_Test_f{k}/len);
     P1 = P2(1:len/2+1);
     P1(2:end-1) = 2*P1(2:end-1);
     f = Fs*(0:(len/2))/len;
-    
+
+    subplot(3,1,1)
+    plot(f,P1)
+    grid on
+    hold on
+    subplot(3,1,2)
+    P1(1) = 0;
     plot(f,P1)
     grid on
     hold on
 end
+subplot(3,1,1)
 legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
     'Test_{10ms}','Test_{12ms}','Test_{14ms}')
 title('Encoder rumor at step input')
 xlabel('f(Hz)')
 ylabel('|V(f)|')
+ax1 = gca;
+
+
+subplot(3,1,2)
+legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
+    'Test_{10ms}','Test_{12ms}','Test_{14ms}')
+title('Encoder rumor at step input, No mean')
+xlabel('f(Hz)')
+ylabel('|V(f)|')
+ax2 = gca;
+
+% Compare of max rumor
+subplot(3,1,3)
+for k=1:7
+    Fs = 1/times_xs(k);
+    len = length(fft_Test_f{k});
+    
+    P2 = abs(fft_Test_f{k}/len);
+    P1 = P2(1:len/2+1);
+    P1(1) = 0;
+    P1(2:end-1) = 2*P1(2:end-1);
+    f = Fs*(0:(len/2))/len; 
+    
+    [M,I] = max(P1)
+   
+    stem(f(I),M,'d')
+    grid on
+    hold on
+end
+legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
+    'Test_{10ms}','Test_{12ms}','Test_{14ms}')
+title('Max Encoder rumor at step input')
+xlabel('f(Hz)')
+ylabel('|V(f)|')
+ax3 = gca;
+
+linkaxes([ax1,ax2,ax3],'x');
