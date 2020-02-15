@@ -10,7 +10,7 @@ clc
 clear variables
 format shortEng
 
-
+% Data loading from experiment
 en_2ms = importTest('SpeedData/testBench/test0-255_2ms.dat'); 
 en_4ms = importTest('SpeedData/testBench/test0-255_4ms.dat'); 
 en_6ms = importTest('SpeedData/testBench/test0-255_6ms.dat'); 
@@ -20,13 +20,7 @@ en_12ms = importTest('SpeedData/testBench/test0-255_12ms.dat');
 en_14ms = importTest('SpeedData/testBench/test0-255_14ms.dat'); 
 
 
-enData = struct('en_2ms',en_2ms,'en_4ms',en_4ms,...
-                    'en_6ms',en_6ms,'en_8ms',en_8ms,...
-                    'en_10ms',en_10ms,'en_12ms',en_12ms,...
-                    'en_14ms',en_14ms);
-                
-colors = {'r','g','b','k','c','m','r-'};
-
+% Plotting data
 figure(1)
 clf
 plot(en_2ms.Time, en_2ms.mVel, 'r');
@@ -44,6 +38,7 @@ xlabel('Sample time (s)'); ylabel('Rad/sec Read')
 legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
     'Test_{10ms}','Test_{12ms}','Test_{14ms}');
 
+% Compare signal from different sampling time
 figure(2)
 step2rad = 621/(2*pi); % STEPs/rad
 clf
@@ -62,11 +57,9 @@ xlabel('Sample time (s)'); ylabel('Encoder Speed Normalize')
 legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
     'Test_{10ms}','Test_{12ms}','Test_{14ms}')
 
+% Compare the mean signal of max velocity from different sampling time
 figure(3)
-
-% maxSpeeds_xMs = cell(7,1);
-maxSpeedsMean_xMs = zeros(1,7);
-times_xs = [en_2ms.Time(2) en_4ms.Time(2) en_6ms.Time(2) en_8ms.Time(2) en_10ms.Time(2) en_12ms.Time(2) en_14ms.Time(2)];
+clf
 
 maxSpeeds_xMs(1,:) = {en_2ms.mVel(159:553)/ en_2ms.Time(2)*step2rad};
 maxSpeeds_xMs(2,:) = {(en_4ms.mVel(49:288)/ en_4ms.Time(2)*step2rad)};
@@ -76,17 +69,19 @@ maxSpeeds_xMs(5,:) = {en_10ms.mVel(31:114)/ en_10ms.Time(2)*step2rad};
 maxSpeeds_xMs(6,:) = {en_12ms.mVel(27:115)/ en_12ms.Time(2)*step2rad};
 maxSpeeds_xMs(7,:) = {en_14ms.mVel(22:107)/ en_14ms.Time(2)*step2rad};
 
+maxSpeedsMean_xMs = zeros(1,7);
+times_xs = [en_2ms.Time(2) en_4ms.Time(2) en_6ms.Time(2) en_8ms.Time(2) en_10ms.Time(2) en_12ms.Time(2) en_14ms.Time(2)];
+
 for k=1:7
     maxSpeedsMean_xMs(k) = mean(maxSpeeds_xMs{k});
 end
 
-figure(3)
-clf
 plot(times_xs, maxSpeedsMean_xMs, 'r', 'Marker', '*','MarkerEdgeColor','b')
 grid on
 xlabel('Sample time (s)'); ylabel('Rad/sec mean')
 legend('Speed_{max}')
 
+% Compare the fft of the max velocity signal from different sampling time
 figure(4)
 clf
 fftMaxSpeed = maxSpeeds_xMs;
@@ -106,12 +101,6 @@ for k=1:7
     grid on
     hold on
 end
-% fft_Test_f = fft(maxSpeedsMean_xMs(1));
-
-% 
-% plot(f,P1,'b')
-% grid on
-% legend('V(f)')
 legend('Test_{2ms}','Test_{4ms}','Test_{6ms}','Test_{8ms}',...
     'Test_{10ms}','Test_{12ms}','Test_{14ms}')
 title('Encoder rumor at step input')
