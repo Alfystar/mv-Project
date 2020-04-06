@@ -4,6 +4,7 @@ A cura di:
 - Alfano Emanuele
 - Badalamenti Filippo
 - Soccio Leonardo
+- Vitti Gabriele
 [foto del team =D]
 ## Abstract
 Il progetto è un pendolo inverso che si mantiene in equilibrio controllando un anello posto all'estremita del braccio e che lavorando sulla velocità angolare applica un momento al braccio e permette di mantenere l'equilibrio.
